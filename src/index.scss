@@ -1,6 +1,9 @@
+@import "./src/styles/constants";
+
 body {
   margin: 0;
   font-family: 'Open Sans', sans-serif;
+  font-size: $bigMediumSize;
 }
 
 a {

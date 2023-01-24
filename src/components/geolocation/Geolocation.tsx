@@ -22,8 +22,10 @@ const Geolocation = () => {
             </div>
             <div className="geolocation__select">
                 <h3 className="geolocation__title">Выберите город доставки</h3>
-                {cities.map((city, index) => (
-                    <div onClick={() => onSelectCity(index)}>{city}</div>
+                {cities.map((item, index) => (
+                    <div className={`geolocation__select-item ${item === city && 'active'}`}
+                         onClick={() => onSelectCity(index)}>{item}
+                    </div>
                 ))}
             </div>
         </div>

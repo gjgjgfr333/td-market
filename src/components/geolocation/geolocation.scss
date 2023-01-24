@@ -8,13 +8,33 @@
 
   &__select {
     position: fixed;
-    top: 50%;
-    left: 50%;
+    top: calc(50% - 146.5px);
+    left: calc(50% - 200px);
     padding: 33px 72px;
+    border-radius: 15px;
+    border: $borderModal;
   }
 
   &__title {
+    margin-bottom: 20px;
     color: $titleColor;
     font-family: $fontTitle;
+    font-size: $subTitleSize;
+  }
+
+  &__select-item {
+    padding: 6px 0 9px 11px;
+    color: $text2Color;
+    border-bottom: 1px solid #898989;
+    transition: $fastTransition;
+
+    &:hover {
+      background: $plugColor;
+    }
+
+    &.active {
+      color: $additionalColor;
+      border-color: $additionalColor;
+    }
   }
 }

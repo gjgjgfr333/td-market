@@ -1,9 +1,21 @@
 // colors
 $headerColor: rgba(255, 255, 255, 0.6);
 $titleColor: #000000;
+$text2Color: #3A373D;
+$plugColor: #D9D9D9;
+$additionalColor: #643ABE;
+
 
 // size
 $littleMediumSize: 15px;
+$bigMediumSize: 18px;
+$subTitleSize: 19px;
 
 // font-style
 $fontTitle: 'Nunito Sans', sans-serif;
+
+//border
+$borderModal: 4px solid $additionalColor;
+
+//transition
+$fastTransition: all .2s linear;
