@@ -21,7 +21,7 @@ const Geolocation = () => {
                 {city}
             </div>
             <div className="geolocation__select">
-                <h3>Выберите город доставки</h3>
+                <h3 className="geolocation__title">Выберите город доставки</h3>
                 {cities.map((city, index) => (
                     <div onClick={() => onSelectCity(index)}>{city}</div>
                 ))}

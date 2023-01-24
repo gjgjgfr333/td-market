@@ -1,7 +1,7 @@
 @import "./src/styles/constants";
 
 .header {
-  padding: 10px 0;
+  padding: 18px 0 8px;
   color: $headerColor;
   background: linear-gradient(180deg, #643ABE 0%, #AE52DA 100%);
 
@@ -9,5 +9,6 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 25px;
+    font-size: $littleMediumSize;
   }
 }
