@@ -1,15 +1,17 @@
 import React, {useMemo, useState} from 'react';
 import GeolocationSvg from "../svg/GeolocationSvg";
 import './geolocation.scss'
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {locationSlice} from "../../store/reducers/LocationSlice";
 
 const Geolocation = () => {
-    const cities = useMemo(
-        () =>['Тирасполь', 'Бендеры', 'Рыбница', 'Дубоссары', 'Слободзея', 'Григориополь', 'Каменка'],
-        [])
-    const [city, setCity] = useState('Тирасполь')
+    const {cities, city} = useAppSelector(state => state.locationReducer)
+    const {changeCity} = locationSlice.actions
+    const dispatch = useAppDispatch()
+
 
     const onSelectCity = (index: number): void => {
-      setCity(cities[index])
+        dispatch(changeCity(cities[index]))
     }
 
     return (

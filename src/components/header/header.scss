@@ -1,12 +1,13 @@
 @import "./src/styles/constants";
 
 .header {
-  padding: 20px 0 10px;
+  padding: 10px 0;
   color: $headerColor;
   background: linear-gradient(180deg, #643ABE 0%, #AE52DA 100%);
 
   &__row-1 {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 25px;
   }
 }

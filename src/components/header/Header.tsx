@@ -9,6 +9,7 @@ const Header = () => {
             <Container>
                 <div className={'header__row-1'}>
                     <Geolocation/>
+                    <a href="/">Часто задаваемые вопросы</a>
                 </div>
             </Container>
         </header>
