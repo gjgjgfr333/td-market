@@ -1,0 +1,12 @@
+.geolocation {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+
+  &__select {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+  }
+}
