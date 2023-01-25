@@ -13,6 +13,8 @@
     padding: 33px 72px;
     border-radius: 15px;
     border: $borderModal;
+    background: $backgroundColor;
+    z-index: 20;
   }
 
   &__title {

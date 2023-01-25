@@ -1,0 +1,47 @@
+@import "./src/styles/constants";
+@import "./src/styles/mixins";
+
+.hamburger {
+  @include square(48px);
+  @include flex(center, center, 8px);
+  flex-direction: column;
+  border: 2px solid $plugColor;
+  border-radius: 15px;
+  cursor: pointer;
+
+  &__item {
+    width: 30px;
+    height: 2.5px;
+    background: $plugColor;
+    border-radius: 2px;
+
+    &.line-1 {
+      transform-origin: 0 0;
+      transition: transform 0.4s ease-in-out;
+    }
+
+    &.line-2 {
+      transition: transform 0.2s ease-in-out;
+    }
+
+    &.line-3 {
+      transform-origin: 0 100%;
+      transition: transform 0.4s ease-in-out;
+    }
+  }
+
+  &.active {
+    //transform: translateX(10px);u
+    & .line-1 {
+      transform: rotate(45deg);
+    }
+
+    & .line-2 {
+      transform: scaleY(0);
+    }
+
+    & .line-3 {
+      transform: rotate(-45deg);
+    }
+  }
+}
