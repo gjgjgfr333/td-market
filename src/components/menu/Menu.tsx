@@ -6,10 +6,12 @@ const Menu = () => {
 
     return (
         <div>
-            <div className={`hamburger ${isPressed && 'active'}`} onClick={() => setIsPressed(!isPressed)}>
-                <div className={`hamburger__item line-1 ${isPressed && 'active'}`}/>
-                <div className={'hamburger__item line-2'}/>
-                <div className={'hamburger__item line-3'}/>
+            <div className={'hamburger-container'}>
+                <div className={`hamburger ${isPressed && 'active'}`} onClick={() => setIsPressed(!isPressed)}>
+                    <div className={`hamburger__item line-1 ${isPressed && 'active'}`}/>
+                    <div className={'hamburger__item line-2'}/>
+                    <div className={'hamburger__item line-3'}/>
+                </div>
             </div>
         </div>
     );

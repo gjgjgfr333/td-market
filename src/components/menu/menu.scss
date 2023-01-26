@@ -1,9 +1,13 @@
 @import "./src/styles/constants";
 @import "./src/styles/mixins";
 
-.hamburger {
+.hamburger-container {
   @include square(48px);
   @include flex(center, center, 8px);
+
+}
+
+.hamburger {
   flex-direction: column;
   border: 2px solid $plugColor;
   border-radius: 15px;
