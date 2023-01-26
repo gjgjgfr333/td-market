@@ -14,6 +14,7 @@ const Header = () => {
                 </div>
                 <div className={'header__row-2'}>
                     <Menu/>
+                    <div className={'logo'}/>
                 </div>
             </Container>
         </header>

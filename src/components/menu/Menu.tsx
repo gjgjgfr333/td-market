@@ -13,6 +13,7 @@ const Menu = () => {
                     <div className={'hamburger__item line-3'}/>
                 </div>
             </div>
+            <div className={`menu ${isPressed && 'active'}`}></div>
         </div>
     );
 };

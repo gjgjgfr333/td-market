@@ -2,16 +2,19 @@
 @import "./src/styles/mixins";
 
 .hamburger-container {
+  margin-right: 22px;
   @include square(48px);
-  @include flex(center, center, 8px);
-
-}
-
-.hamburger {
-  flex-direction: column;
+  @include flex(center, center);
   border: 2px solid $plugColor;
   border-radius: 15px;
   cursor: pointer;
+}
+
+.hamburger {
+  @include flex(center, center, 8px);
+  flex-direction: column;
+  transition: $fastTransition;
+
 
   &__item {
     width: 30px;
@@ -35,7 +38,7 @@
   }
 
   &.active {
-    //transform: translateX(10px);u
+    transform: translateX(5px);
     & .line-1 {
       transform: rotate(45deg);
     }
@@ -47,5 +50,18 @@
     & .line-3 {
       transform: rotate(-45deg);
     }
+  }
+}
+
+.menu {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 162px;
+  left: -100vw;
+  transition: $slowTransition;
+
+  &.active {
+    left: 0;
   }
 }

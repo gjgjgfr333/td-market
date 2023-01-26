@@ -11,4 +11,15 @@
     margin-bottom: 25px;
     font-size: $littleMediumSize;
   }
+
+  &__row-2 {
+    display: flex;
+  }
+}
+
+.logo {
+  width: 235px;
+  height: 48px;
+  background: #FFFFFF;
+  border-radius: 15px;
 }
