@@ -1,5 +1,9 @@
 @import "./src/styles/constants";
 
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: 'Open Sans', sans-serif;
