@@ -3,7 +3,7 @@ import GeolocationSvg from "../svg/GeolocationSvg";
 import './geolocation.scss'
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {locationSlice} from "../../store/reducers/LocationSlice";
-import Cover from "../Cover/Cover";
+import Cover from "../cover/Cover";
 
 const Geolocation = () => {
     const {cities, city} = useAppSelector(state => state.locationReducer)

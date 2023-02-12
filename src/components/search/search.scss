@@ -1,0 +1,28 @@
+@import "src/styles/constants";
+
+.search {
+  height: 44px;
+  padding-left: 10px;
+  flex-grow: 1;
+}
+
+.search-input {
+  position: relative;
+  top: -2px;
+  height: 100%;
+  max-width: 628px;
+  width: 67%;
+  padding: 0;
+  border-radius: 15px;
+  border: none;
+  font-size: 20px;
+}
+
+.search-button {
+  width: 105px;
+  height: 100%;
+  border-radius: 15px;
+  border: none;
+  background: $buttonColor;
+  cursor: pointer;
+}

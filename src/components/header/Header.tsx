@@ -3,6 +3,7 @@ import './header.scss'
 import Container from "../container/Container";
 import Geolocation from "../geolocation/Geolocation";
 import Menu from "../menu/Menu";
+import Search from "../search/Search";
 
 const Header = () => {
     return (
@@ -15,6 +16,12 @@ const Header = () => {
                 <div className={'header__row-2'}>
                     <Menu/>
                     <div className={'logo'}/>
+                    <Search/>
+                </div>
+                <div className={'link-icon'}>
+                    <a href="">
+
+                    </a>
                 </div>
             </Container>
         </header>
