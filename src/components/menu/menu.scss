@@ -80,6 +80,7 @@
     height: 44px;
     @include flex(flex-start, center);
     cursor: pointer;
+    transition: $fastTransition;
 
     & .icon {
       margin-right: 10px;
@@ -89,7 +90,8 @@
       margin-left: auto;
     }
 
-    &.active {
+
+    &.active, &:hover {
       background: $background2Color;
     }
   }

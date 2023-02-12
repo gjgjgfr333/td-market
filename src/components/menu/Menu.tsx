@@ -21,11 +21,12 @@ const Menu = () => {
             console.log('selectCategory', selectCategory)
             setSelectCategory(categories[activeCategory].subcategories)
         }
-    }, [categories])
+    }, [categories, activeCategory])
 
-    // @ts-ignore
-    // @ts-ignore
-    // @ts-ignore
+    const onSelectCategory = (index: number) => {
+        setActiveCategory(index)
+    }
+
     return (
         <div>
             <div className={'hamburger-container'}>
@@ -39,7 +40,8 @@ const Menu = () => {
                 <div className={'main-categories'}>
                     {
                         categories.map((categ, index) => (
-                            <div className={`main-categories__item ${index === activeCategory && 'active'}`} key={index}>
+                            <div onClick={() => onSelectCategory(index)} className={`main-categories__item ${index === activeCategory && 'active'}`}
+                                 key={index}>
                                 <img className={'icon'} src={categ.icon} alt=""/>
                                 <div>
                                     {categ.name}
