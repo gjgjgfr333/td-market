@@ -4,6 +4,7 @@ import Container from "../container/Container";
 import Geolocation from "../geolocation/Geolocation";
 import Menu from "../menu/Menu";
 import Search from "../search/Search";
+import UserSvg from "../svg/UserSvg";
 
 const Header = () => {
     return (
@@ -17,12 +18,11 @@ const Header = () => {
                     <Menu/>
                     <div className={'logo'}/>
                     <Search/>
+                    <div className={'link-icon'}>
+                        <UserSvg/>
+                    </div>
                 </div>
-                <div className={'link-icon'}>
-                    <a href="">
 
-                    </a>
-                </div>
             </Container>
         </header>
     );

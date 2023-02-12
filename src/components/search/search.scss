@@ -2,16 +2,15 @@
 
 .search {
   height: 44px;
-  padding-left: 10px;
-  flex-grow: 1;
+  display: flex;
+  flex-grow: .67;
 }
 
 .search-input {
   position: relative;
-  top: -2px;
   height: 100%;
   max-width: 628px;
-  width: 67%;
+  width: 100%;
   padding: 0;
   border-radius: 15px;
   border: none;
