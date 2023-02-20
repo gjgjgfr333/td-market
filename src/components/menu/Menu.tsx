@@ -18,7 +18,6 @@ const Menu = () => {
 
     useEffect(() => {
         if (categories.length > 0) {
-            console.log('selectCategory', selectCategory)
             setSelectCategory(categories[activeCategory].subcategories)
         }
     }, [categories, activeCategory])

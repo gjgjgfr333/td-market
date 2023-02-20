@@ -9,3 +9,9 @@
   width: $length;
   height: $length;
 }
+
+@mixin modal($top, $left) {
+  position: fixed;
+  top: calc(50% - $top);
+  left: calc(50% - $left);
+}
