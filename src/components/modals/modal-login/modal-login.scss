@@ -1,8 +1,9 @@
 @import "src/styles/constants";
+@import "src/styles/mixins";
 
 .modalLogin {
   position: fixed;
-  top: 50%;
+  top: calc(50%  - 100px);
   left: 50%;
   max-width: 339px;
   padding: 23px 33px;
@@ -62,6 +63,7 @@
   }
 
   &__registry {
+    margin-bottom: 13px;
     color: $additionalColor;
     background-color: $backgroundColor;
     border: $borderInput;
@@ -70,5 +72,26 @@
       color: $hoverColor;
       border-color: $hoverColor;
     }
+  }
+
+  &__row {
+    display: flex;
+    gap: 15px;
+  }
+
+  &__checkBox {
+    min-height: 24px;
+    min-width: 24px;
+  }
+
+  &__conditions {
+    font-size: $veryLittleSize;
+    line-height: 13px;
+    color: $text4Color;
+  }
+
+  &__link {
+    color: $linkColor;
+    text-decoration: underline;
   }
 }
