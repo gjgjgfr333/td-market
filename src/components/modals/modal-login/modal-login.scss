@@ -4,7 +4,7 @@
 .modalLogin {
   position: fixed;
   top: calc(50%  - 100px);
-  left: 50%;
+  left: calc(50% - 160px);
   max-width: 339px;
   padding: 23px 33px;
   border-radius: 22px;
@@ -21,6 +21,7 @@
     border: none;
     border-radius: 15px;
     background-color: $background2Color;
+    font-size: $bigMediumSize;
     transition: $fastTransition;
 
     &::placeholder {
