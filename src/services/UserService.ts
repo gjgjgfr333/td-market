@@ -1,5 +1,5 @@
 import {AxiosResponse} from "axios";
-import {IUser} from "../models/IUser";
+import {IUser} from "../models/response/IUser";
 import $api from "../http";
 
 export class UserService {

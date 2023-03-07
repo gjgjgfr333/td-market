@@ -2,7 +2,7 @@ import {AppDispatch} from "../../store";
 
 import {userSlice} from "./UserSlice";
 import {AuthService} from "../../../services/AuthService";
-import {IUser} from "../../../models/IUser";
+import {IUser} from "../../../models/response/IUser";
 import axios from "axios";
 import {IAuthResponse} from "../../../models/response/IAuthResponse";
 import {API_URL} from "../../../http";
