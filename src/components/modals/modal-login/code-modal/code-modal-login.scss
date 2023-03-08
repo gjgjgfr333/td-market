@@ -1,0 +1,13 @@
+@import "src/styles/constants";
+
+.modalCode {
+  &__text {
+    margin-bottom: 16px;
+    font-size: $littleSize;
+    line-height: 20px;
+
+    & strong {
+      font-weight: 700;
+    }
+  }
+}

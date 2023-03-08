@@ -1,10 +1,12 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {IUser} from "../../../models/response/IUser";
 
 const initialState = {
-    user: {},
+    user: {} as IUser,
     isUserModal: false,
     isAuth: false,
     isLoading: false,
+    activationCode: '',
     error: '',
 }
 
@@ -33,9 +35,17 @@ export const userSlice = createSlice({
             state.isAuth = action.payload
         },
 
-        setUser: (state, action) => {
+        setUser: (state, action: PayloadAction<IUser>) => {
             state.user = action.payload
         },
+
+        setEmailUser: (state, action: PayloadAction<string>) => {
+            state.user.email = action.payload
+        },
+
+        setActivationCode: (state, action: PayloadAction<string>) => {
+            state.activationCode = action.payload
+        }
     }
 })
 

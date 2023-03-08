@@ -1,46 +1,16 @@
 @import "src/styles/constants";
 @import "src/styles/mixins";
 
-.modalLogin {
+.userAuthModal {
   position: fixed;
   top: calc(50%  - 100px);
   left: calc(50% - 160px);
-  max-width: 339px;
+  width: 339px;
+  height: 293px;
   padding: 23px 33px;
   border-radius: 22px;
+  color: $text4Color;
   @extend %modal;
-
-  &__title {
-    @extend %subtitle
-  }
-  &__email {
-    margin-bottom: 17px;
-    padding: 0 13px;
-    width: 100%;
-    height: $heightWidget;
-    border: none;
-    border-radius: 15px;
-    background-color: $background2Color;
-    font-size: $bigMediumSize;
-    transition: $fastTransition;
-
-    &::placeholder {
-      font-size: $bigMediumSize;
-      color: $text3CColor;
-    }
-
-    &:hover {
-      background-color: $background3Color;
-    }
-
-    &:focus {
-      border: $borderInput;
-    }
-
-    &.error {
-      border: $borderError;
-    }
-  }
 
   & .button {
     width: 100%;
@@ -50,9 +20,10 @@
     font-weight: 700;
     font-size: $littleSize;
     transition: $slowTransition;
+
   }
 
-  &__enter {
+  & .button_dark {
     margin-bottom: 7px;
     background-color: $additionalColor;
     color: $backgroundColor;
@@ -63,7 +34,7 @@
     }
   }
 
-  &__registry {
+  & .button_light {
     margin-bottom: 13px;
     color: $additionalColor;
     background-color: $backgroundColor;
@@ -74,25 +45,33 @@
       border-color: $hoverColor;
     }
   }
+}
 
-  &__row {
-    display: flex;
-    gap: 15px;
+.modalInput {
+  margin-bottom: 17px;
+  padding: 0 13px;
+  width: 100%;
+  height: $heightWidget;
+  border: none;
+  border-radius: 15px;
+  background-color: $background2Color;
+  font-size: $bigMediumSize;
+  transition: $fastTransition;
+
+  &::placeholder {
+    font-size: $bigMediumSize;
+    color: $text3CColor;
   }
 
-  &__checkBox {
-    min-height: 24px;
-    min-width: 24px;
+  &:hover {
+    background-color: $background3Color;
   }
 
-  &__conditions {
-    font-size: $veryLittleSize;
-    line-height: 13px;
-    color: $text4Color;
+  &:focus {
+    border: $borderInput;
   }
 
-  &__link {
-    color: $linkColor;
-    text-decoration: underline;
+  &.error {
+    border: $borderError;
   }
 }

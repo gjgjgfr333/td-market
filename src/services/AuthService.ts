@@ -14,4 +14,8 @@ export class AuthService {
     static async logout(): Promise<void> {
         return $api.post('/auth/logout')
     }
+
+    static async sendCode(email: string): Promise<AxiosResponse<string>> {
+        return $api.post<string>('/auth/activate', {email})
+    }
 }

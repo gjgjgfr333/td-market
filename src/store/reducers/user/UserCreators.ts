@@ -13,11 +13,11 @@ export const loginUser = (email: string, password: string) => async (dispatch: A
         const response = await AuthService.login(email, password)
         localStorage.setItem('token', response.data.accessToken)
         dispatch(userSlice.actions.setAuth(true))
-        dispatch(userSlice.actions.setUser(response.data))
+        dispatch(userSlice.actions.setUser(response.data.user))
         dispatch(userSlice.actions.loginSuccess())
     } catch (e: any) {
         console.log('e', e)
-        dispatch(userSlice.actions.loginSuccess(e.message))
+        dispatch(userSlice.actions.loginFetchingError(e.message))
     }
 }
 
@@ -27,11 +27,11 @@ export const registrationUser = (email: string, password: string) => async (disp
         const response = await AuthService.registration(email, password)
         localStorage.setItem('token', response.data.accessToken)
         dispatch(userSlice.actions.setAuth(true))
-        dispatch(userSlice.actions.setUser(response.data))
+        dispatch(userSlice.actions.setUser(response.data.user))
         dispatch(userSlice.actions.loginSuccess())
     } catch (e: any) {
         console.log('e', e)
-        dispatch(userSlice.actions.loginSuccess(e.message))
+        dispatch(userSlice.actions.loginFetchingError(e.message))
     }
 }
 
@@ -45,7 +45,7 @@ export const logout = () => async (dispatch: AppDispatch) => {
         dispatch(userSlice.actions.loginSuccess())
     } catch (e: any) {
         console.log('e', e)
-        dispatch(userSlice.actions.loginSuccess(e.message))
+        dispatch(userSlice.actions.loginFetchingError(e.message))
     }
 }
 
@@ -55,9 +55,19 @@ export const checkAuth = () => async (dispatch: AppDispatch) => {
         localStorage.removeItem('token')
         localStorage.setItem('token', response.data.accessToken)
         dispatch(userSlice.actions.setAuth(true))
-        dispatch(userSlice.actions.setUser(response.data))
+        dispatch(userSlice.actions.setUser(response.data.user))
     } catch (e: any) {
         console.log('e', e)
-        dispatch(userSlice.actions.loginSuccess(e.message))
+        dispatch(userSlice.actions.loginFetchingError(e.message))
+    }
+}
+
+export const sendCode = (email: string) => async (dispatch: AppDispatch) => {
+    try {
+        const response = await AuthService.sendCode(email)
+        dispatch(userSlice.actions.setActivationCode(response.data))
+    } catch (e: any) {
+        console.log('e', e)
+        dispatch(userSlice.actions.loginFetchingError(e.message))
     }
 }

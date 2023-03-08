@@ -3,20 +3,15 @@ import './modal-login.scss'
 import Cover from "../../cover/Cover";
 import {useAppDispatch} from "../../../hooks/redux";
 import {userSlice} from "../../../store/reducers/user/UserSlice";
+import InitialModalLogin from "./initial-modal/InitialModalLogin";
+import CodeModalLogin from "./code-modal/CodeModalLogin";
 
 const ModalLogin = () => {
     const {changeIsUserModal} = userSlice.actions
     const dispatch = useAppDispatch()
-
-    const [isAgree, setIsAgree] = useState(false)
-
-    const onRegistry = () => {
-        if (!isAgree) return
-    }
-
-    const onAgreeRules = () => {
-        setIsAgree(!isAgree)
-    }
+    // 0 - InitialModalLogin
+    // 0 - CodeModalLogin
+    const [currentModal, setCurrentModal] = useState(0)
 
     const closeUserModal = () => {
         dispatch(changeIsUserModal(false))
@@ -24,18 +19,9 @@ const ModalLogin = () => {
 
     return (
         <>
-            <div className={'modalLogin'}>
-                <h3 className={'modalLogin__title'}>Войти или создать аккаунт</h3>
-                <input type="email" className={'modalLogin__email'} placeholder={'E-mail...'}/>
-                <button className={'button modalLogin__enter'}>ВОЙТИ</button>
-                <button className={'button modalLogin__registry'} onClick={onRegistry}>ЗАРЕГИСТРИРОВАТЬСЯ</button>
-                <div className={'modalLogin__row'}>
-                    <input type={'checkbox'} className={'modalLogin__checkBox'} onChange={onAgreeRules}/>
-                    <p className={'modalLogin__conditions'}>
-                        Согласен с условиями, <a href={'/'} className={'modalLogin__link'}>правилами возврата</a> и
-                        <a href="/" className={'modalLogin__link'}> правилами пользования торговой площадкой</a>.
-                    </p>
-                </div>
+            <div className={'userAuthModal'}>
+                {currentModal === 0 && <InitialModalLogin setCurrentModal={setCurrentModal}/>}
+                {currentModal === 1 && <CodeModalLogin/>}
             </div>
             <Cover callback={closeUserModal}/>
         </>
