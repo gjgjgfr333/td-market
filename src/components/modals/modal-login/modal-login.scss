@@ -12,6 +12,11 @@
   color: $text4Color;
   @extend %modal;
 
+  &__title {
+    @extend %subtitle;
+    margin-bottom: 20px;
+  }
+
   & .button {
     width: 100%;
     height: $heightWidget;
@@ -35,7 +40,7 @@
   }
 
   & .button_light {
-    margin-bottom: 13px;
+    margin-bottom: 27px;
     color: $additionalColor;
     background-color: $backgroundColor;
     border: $borderInput;
@@ -74,4 +79,10 @@
   &.error {
     border: $borderError;
   }
+}
+
+.warningLogin {
+  position: absolute;
+  font-size: $veryLittleSize;
+  color: $errorColor;
 }

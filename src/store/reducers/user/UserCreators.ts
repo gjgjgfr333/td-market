@@ -64,8 +64,10 @@ export const checkAuth = () => async (dispatch: AppDispatch) => {
 
 export const sendCode = (email: string) => async (dispatch: AppDispatch) => {
     try {
+        dispatch(userSlice.actions.loginFetching())
         const response = await AuthService.sendCode(email)
         dispatch(userSlice.actions.setActivationCode(response.data))
+        dispatch(userSlice.actions.loginSuccess())
     } catch (e: any) {
         console.log('e', e)
         dispatch(userSlice.actions.loginFetchingError(e.message))

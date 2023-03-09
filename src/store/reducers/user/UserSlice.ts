@@ -43,6 +43,11 @@ export const userSlice = createSlice({
             state.user.email = action.payload
         },
 
+        setNameUser: (state, action: PayloadAction<{name: string, family: string}>) => {
+            state.user.name = action.payload.name
+            state.user.family = action.payload.family
+        },
+
         setActivationCode: (state, action: PayloadAction<string>) => {
             state.activationCode = action.payload
         }

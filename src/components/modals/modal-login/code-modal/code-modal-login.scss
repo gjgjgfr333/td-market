@@ -10,4 +10,17 @@
       font-weight: 700;
     }
   }
+
+  & .inputCode {
+    position: relative;
+  }
+
+  & .modalInput {
+   margin-bottom: 47px;
+  }
+
+  & .warningLogin {
+    position: absolute;
+    bottom: 15px;
+  }
 }

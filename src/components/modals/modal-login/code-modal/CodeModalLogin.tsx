@@ -1,22 +1,32 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, Dispatch, SetStateAction, useState} from 'react';
 import './code-modal-login.scss'
-import {useAppSelector} from "../../../../hooks/redux";
+import {useAppDispatch, useAppSelector} from "../../../../hooks/redux";
+import {sendCode} from "../../../../store/reducers/user/UserCreators";
 
-const CodeModalLogin = () => {
+const CodeModalLogin = ({setCurrentModal}: {setCurrentModal: Dispatch<SetStateAction<number>>}) => {
+    const dispatch = useAppDispatch()
     const {email} = useAppSelector(state => state.userReducer.user)
     const {activationCode} = useAppSelector(state => state.userReducer)
     const [code, setCode] = useState('')
+    const [isError, setIsError] = useState(false)
 
     const onChangeCode = (e: ChangeEvent<HTMLInputElement>) => {
         // пустая строка или только цифры
-        if (e.target.value === '' || /^\d+$/i.test(e.target.value)) setCode(e.target.value)
+        if (e.target.value === '' || /^\d+$/i.test(e.target.value)) {
+            setCode(e.target.value)
+            setIsError(false)
+        }
     }
 
     const onCompareCode = () => {
-        console.log('activationCode', activationCode, typeof activationCode)
-        console.log('code', code, typeof code)
         const stringCode = activationCode.toString()
-        if (stringCode === code) console.log('YEAH UUUUUU')
+        if (stringCode === code) {
+            setCurrentModal(2)
+        } else setIsError(true)
+    }
+
+    const onRepeatCode = () => {
+        dispatch(sendCode(email))
     }
 
     return (
@@ -24,15 +34,20 @@ const CodeModalLogin = () => {
             <p className={'modalCode__text'}>
                 Мы отправили письмо с кодом на почту <strong>{email}</strong>. Введите код для завершения регистрации.
             </p>
-            <input
-                type="text"
-                className={'modalInput'}
-                placeholder={'Ввести полученный код'}
-                value={code}
-                onChange={onChangeCode}
-            />
+            <div className={'inputCode'}>
+                <input
+                    type="text"
+                    className={`modalInput ${isError && 'error'}`}
+                    placeholder={'Ввести полученный код'}
+                    value={code}
+                    onChange={onChangeCode}
+                />
+                {isError && <p className={'warningLogin'}>
+                    Вы ввели неверный код авторизации. Попробуйте ввести полученный код еще раз.
+                </p>}
+            </div>
             <button className={'button button_dark'} onClick={onCompareCode}>ПРОДОЛЖИТЬ</button>
-            <button className={'button button_light'}>ВЫСЛАТЬ КОД ЕЩЁ РАЗ-</button>
+            <button className={'button button_light'} onClick={onRepeatCode}>ВЫСЛАТЬ КОД ЕЩЁ РАЗ-</button>
         </div>
     );
 };
