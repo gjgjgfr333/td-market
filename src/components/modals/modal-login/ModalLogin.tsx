@@ -12,8 +12,10 @@ const ModalLogin = () => {
     const {changeIsUserModal} = userSlice.actions
     const dispatch = useAppDispatch()
     // 0 - InitialModalLogin
-    // 0 - CodeModalLogin
-    const [currentModal, setCurrentModal] = useState(3)
+    // 1 - CodeModalLogin
+    // 2 - NameModalLogin
+    // 3 - CreateModalLogin
+    const [currentModal, setCurrentModal] = useState(0)
 
     const closeUserModal = () => {
         dispatch(changeIsUserModal(false))
@@ -22,10 +24,10 @@ const ModalLogin = () => {
     return (
         <>
             <div className={'userAuthModal'}>
-                {/*{currentModal === 0 && <InitialModalLogin setCurrentModal={setCurrentModal}/>}*/}
-                {/*{currentModal === 1 && <CodeModalLogin setCurrentModal={setCurrentModal}/>}*/}
-                {/*{currentModal === 2 && <NameModalLogin setCurrentModal={setCurrentModal}/>}*/}
-                {currentModal === 3 && <CreateModalLogin/>}
+                {currentModal === 0 && <InitialModalLogin setCurrentModal={setCurrentModal}/>}
+                {currentModal === 1 && <CodeModalLogin setCurrentModal={setCurrentModal}/>}
+                {currentModal === 2 && <NameModalLogin setCurrentModal={setCurrentModal}/>}
+                {currentModal === 3 && <CreateModalLogin closeUserModal={closeUserModal}/>}
             </div>
             <Cover callback={closeUserModal}/>
         </>

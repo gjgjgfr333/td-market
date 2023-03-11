@@ -21,10 +21,10 @@ export const loginUser = (email: string, password: string) => async (dispatch: A
     }
 }
 
-export const registrationUser = (email: string, password: string) => async (dispatch: AppDispatch) => {
+export const registrationUser = (user: IUser, password: string) => async (dispatch: AppDispatch) => {
     try {
         dispatch(userSlice.actions.loginFetching())
-        const response = await AuthService.registration(email, password)
+        const response = await AuthService.registration(user, password)
         localStorage.setItem('token', response.data.accessToken)
         dispatch(userSlice.actions.setAuth(true))
         dispatch(userSlice.actions.setUser(response.data.user))
@@ -69,6 +69,18 @@ export const sendCode = (email: string) => async (dispatch: AppDispatch) => {
         dispatch(userSlice.actions.setActivationCode(response.data))
         dispatch(userSlice.actions.loginSuccess())
     } catch (e: any) {
+        console.log('e', e)
+        dispatch(userSlice.actions.loginFetchingError(e.message))
+    }
+}
+
+export const checkEmail = (email: string) => async (dispatch: AppDispatch) => {
+    try {
+        dispatch(userSlice.actions.loginFetching())
+        const response = await  AuthService.checkEmail(email)
+        dispatch(userSlice.actions.loginSuccess())
+        return response
+    } catch (e:any) {
         console.log('e', e)
         dispatch(userSlice.actions.loginFetchingError(e.message))
     }

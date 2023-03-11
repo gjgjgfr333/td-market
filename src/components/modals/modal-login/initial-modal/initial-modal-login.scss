@@ -3,7 +3,14 @@
 
 .modalLogin {
 
+  &__email {
+    position: relative;
+  }
 
+  &__email .warningLogin {
+    top: -15px;
+    left: 5px;
+  }
 
   &__row {
     display: flex;
@@ -32,5 +39,6 @@
 
   &__rules .warningLogin {
     top: -17px;
+    left: 46px;
   }
 }
