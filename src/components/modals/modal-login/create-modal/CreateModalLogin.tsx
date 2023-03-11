@@ -2,8 +2,9 @@ import React, {ChangeEvent, useState} from 'react';
 import './create-modal-login.scss'
 import {useAppDispatch, useAppSelector} from "../../../../hooks/redux";
 import {registrationUser} from "../../../../store/reducers/user/UserCreators";
+import {TVisibility} from "../../../../models/types";
 
-type TVisibility = 'password' | 'text'
+
 
 const CreateModalLogin = ({closeUserModal} : {closeUserModal: () => void}) => {
     const dispatch = useAppDispatch()
@@ -44,8 +45,8 @@ const CreateModalLogin = ({closeUserModal} : {closeUserModal: () => void}) => {
     return (
         <div className={'creatModal'}>
             <h3 className={'userAuthModal__title creatModal__title'}>Придумайте надёжный пароль</h3>
-            <div className={'creatModal__form'}>
-                <label className={'creatModal__label'} htmlFor={'passwordInput'}>Введите пароль</label>
+            <div className={'userAuthModal__form'}>
+                <label className={'userAuthModal__label'} htmlFor={'passwordInput'}>Введите пароль</label>
                 <input
                     value={password}
                     onChange={onSetPassword}
@@ -59,14 +60,14 @@ const CreateModalLogin = ({closeUserModal} : {closeUserModal: () => void}) => {
                     alt={''}
                     onClick={() => onSwitchVisibility(0)}/>
             </div>
-            <div className={'creatModal__form'}>
-                <label className={'creatModal__label'} htmlFor={'repeatPasswordInput'}>Введите пароль еще раз</label>
+            <div className={'userAuthModal__form'}>
+                <label className={'userAuthModal__label'} htmlFor={'repeatPasswordInput'}>Введите пароль еще раз</label>
                 <input
                     value={repeatPassword}
                     onChange={onSetRepeatPassword}
                     id={'repeatPasswordInput'}
                     type={visibilityRepeat}
-                    className={`modalInput modalInput creatModal__repeat-password`}
+                    className={`modalInput creatModal__repeat-password`}
                 />
                 <img
                     src={'/images/svg/open-eye.svg'}

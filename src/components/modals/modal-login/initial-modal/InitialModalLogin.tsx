@@ -14,10 +14,13 @@ const InitialModalLogin = ({setCurrentModal}: {setCurrentModal: Dispatch<SetStat
     const [warningAgree, setWarningAgree] = useState(false)
 
     const changeEmail = (e: ChangeEvent<HTMLInputElement>) => {
+        setIsEmailError(false)
         setEmail(e.target.value);
     }
 
     const onLogin = async () => {
+        if (!isAgree) setWarningAgree(true)
+        if (!isAgree || !validator.isEmail(email)) return
         const isExistEmail = await dispatch(checkEmail(email))
         if (isExistEmail) {
             dispatch(setEmailUser(email))

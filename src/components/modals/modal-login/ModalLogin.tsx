@@ -7,6 +7,7 @@ import InitialModalLogin from "./initial-modal/InitialModalLogin";
 import CodeModalLogin from "./code-modal/CodeModalLogin";
 import NameModalLogin from "./name-modal/NameModalLogin";
 import CreateModalLogin from "./create-modal/CreateModalLogin";
+import EnterModalLogin from "./enter-modal/EnterModalLogin";
 
 const ModalLogin = () => {
     const {changeIsUserModal} = userSlice.actions
@@ -28,6 +29,7 @@ const ModalLogin = () => {
                 {currentModal === 1 && <CodeModalLogin setCurrentModal={setCurrentModal}/>}
                 {currentModal === 2 && <NameModalLogin setCurrentModal={setCurrentModal}/>}
                 {currentModal === 3 && <CreateModalLogin closeUserModal={closeUserModal}/>}
+                {currentModal === 4 && <EnterModalLogin/>}
             </div>
             <Cover callback={closeUserModal}/>
         </>

@@ -1,0 +1,19 @@
+.enterModal {
+  &__form {
+    position: relative;
+    margin-bottom: 57px;
+  }
+
+  &__warningLogin {
+    top: -15px;
+    left: 5px;
+  }
+
+  &__password {
+    margin-bottom: 5px;
+  }
+
+  &__img {
+    top: 8px !important;
+  }
+}

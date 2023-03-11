@@ -14,6 +14,7 @@
 
   &__title {
     @extend %subtitle;
+    text-align: center;
     margin-bottom: 20px;
   }
 
@@ -50,6 +51,23 @@
       border-color: $hoverColor;
     }
   }
+
+  &__form {
+    position: relative;
+
+    & .img {
+      position: absolute;
+      right: 7px;
+      top: 32px;
+      cursor: pointer;
+    }
+  }
+
+  &__label {
+    font-size: 11.8px;
+    margin-left: 8px;
+  }
+
 }
 
 .modalInput {
