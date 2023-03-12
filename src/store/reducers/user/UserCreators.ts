@@ -11,6 +11,7 @@ export const loginUser = (email: string, password: string) => async (dispatch: A
     try {
         dispatch(userSlice.actions.loginFetching())
         const response = await AuthService.login(email, password)
+        console.log('response', response)
         localStorage.setItem('token', response.data.accessToken)
         dispatch(userSlice.actions.setAuth(true))
         dispatch(userSlice.actions.setUser(response.data.user))

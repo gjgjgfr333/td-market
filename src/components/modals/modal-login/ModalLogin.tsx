@@ -16,6 +16,7 @@ const ModalLogin = () => {
     // 1 - CodeModalLogin
     // 2 - NameModalLogin
     // 3 - CreateModalLogin
+    // 4 - EnterModalLogin
     const [currentModal, setCurrentModal] = useState(0)
 
     const closeUserModal = () => {
@@ -29,7 +30,7 @@ const ModalLogin = () => {
                 {currentModal === 1 && <CodeModalLogin setCurrentModal={setCurrentModal}/>}
                 {currentModal === 2 && <NameModalLogin setCurrentModal={setCurrentModal}/>}
                 {currentModal === 3 && <CreateModalLogin closeUserModal={closeUserModal}/>}
-                {currentModal === 4 && <EnterModalLogin/>}
+                {currentModal === 4 && <EnterModalLogin closeUserModal={closeUserModal}/>}
             </div>
             <Cover callback={closeUserModal}/>
         </>

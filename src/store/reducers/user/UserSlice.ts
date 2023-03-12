@@ -27,6 +27,11 @@ export const userSlice = createSlice({
             state.error = action.payload
         },
 
+        loginCleanError(state) {
+            state.isLoading = true
+            state.error = ''
+        },
+
         changeIsUserModal: (state, action: PayloadAction<boolean>) => {
             state.isUserModal = action.payload
         },

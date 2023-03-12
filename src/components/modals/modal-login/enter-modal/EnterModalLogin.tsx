@@ -3,10 +3,13 @@ import './enter-modal-login.scss'
 import {TVisibility} from "../../../../models/types";
 import {useAppDispatch, useAppSelector} from "../../../../hooks/redux";
 import {loginUser} from "../../../../store/reducers/user/UserCreators";
+import {userSlice} from "../../../../store/reducers/user/UserSlice";
 
-const EnterModalLogin = () => {
+const EnterModalLogin = ({closeUserModal} : {closeUserModal: () => void}) => {
     const dispatch = useAppDispatch()
     const {email} = useAppSelector(state => state.userReducer.user)
+    const {error: networkError} = useAppSelector(state => state.userReducer)
+    const {loginCleanError} = userSlice.actions
     const [password, setPassword] = useState('')
     const [visibilityPassword, setVisibilityPassword] = useState<TVisibility>('password')
     const [error, setError] = useState(false)
@@ -16,11 +19,21 @@ const EnterModalLogin = () => {
     }
 
     const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
+        if (error) {
+            dispatch(loginCleanError())
+            setError(false)
+        }
         setPassword(e.target.value)
     }
 
     const onFinishLogin = () => {
         dispatch(loginUser(email, password))
+        if (networkError) {
+            console.log(networkError)
+            setError(true)
+            return
+        }
+        closeUserModal()
     }
 
     return (
