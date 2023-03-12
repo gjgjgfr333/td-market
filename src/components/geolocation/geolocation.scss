@@ -1,6 +1,7 @@
 @import "./src/styles/constants";
 
 .geolocation {
+  justify-self: flex-start;
   display: flex;
   align-items: center;
   gap: 5px;
