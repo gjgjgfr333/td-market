@@ -15,6 +15,7 @@ import ShoppingSvg from "../svg/ShoppingSvg";
 const Header = () => {
     const {isUserModal} = useAppSelector(state => state.userReducer)
     const {changeIsUserModal} = userSlice.actions
+    const {categories} = useAppSelector(state => state.categoriesReducer)
     const dispatch = useAppDispatch()
 
     const openUserModal = () => dispatch(changeIsUserModal(true))
@@ -44,7 +45,11 @@ const Header = () => {
                     </div>
                     {isUserModal && <ModalLogin/>}
                 </div>
-
+                <div className={'header__row-3'}>
+                    {categories.map(category => (
+                        <Link to={'/'}>{category.name}</Link>
+                    ))}
+                </div>
             </Container>
         </header>
     );
