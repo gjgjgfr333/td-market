@@ -1,12 +1,8 @@
-import React, {ReactNode} from 'react';
+import React from 'react';
 import './container.scss'
+import {IChildren} from "../../models/IChildren";
 
-interface Props {
-    children?: ReactNode
-    // any props that come into the component
-}
-
-const Container = ({children}: Props) => {
+const Container = ({children}: IChildren) => {
     return (
         <div className={'container'}>
             {children}
