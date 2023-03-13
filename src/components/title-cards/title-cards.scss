@@ -1,0 +1,11 @@
+@import "./src/styles/mixins";
+
+.title {
+  @include flex(flex-start, center, 16px);
+  margin-bottom: 36px;
+
+  & img {
+    position: relative;
+    top: 2px;
+  }
+}
