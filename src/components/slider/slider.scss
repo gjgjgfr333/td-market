@@ -1,0 +1,25 @@
+@import "./src/styles/mixins";
+
+.slider {
+  position: relative;
+  margin-top: 54px;
+
+  &__item {
+    background-color: #D9D9D9;
+    min-height: 344px;
+    border-radius: 37px;
+    text-align: center;
+  }
+}
+
+.slider-button {
+  top: 50%;
+  @include square(48px);
+  @include flex(center, center);
+  border-radius: 15px;
+  border: none;
+
+  &::after {
+    content: '';
+  }
+}
