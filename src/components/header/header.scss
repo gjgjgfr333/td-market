@@ -3,7 +3,7 @@
 .header {
   padding: 18px 0 8px;
   color: $headerColor;
-  background: linear-gradient(180deg, #643ABE 0%, #AE52DA 100%);
+  background: $backgroundGradient;
 
   &__row-1 {
     display: flex;

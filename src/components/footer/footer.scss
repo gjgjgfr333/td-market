@@ -1,0 +1,12 @@
+@import "./src/styles/constants";
+
+.footer {
+  padding-top: 29px;
+  padding-bottom: 87px;
+  background: $backgroundGradient;
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+  }
+}
