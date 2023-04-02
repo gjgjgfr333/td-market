@@ -1,12 +1,41 @@
 @import "./src/styles/constants";
+@import "./src/styles/mixins";
 
 .footer {
   padding-top: 29px;
   padding-bottom: 87px;
   background: $backgroundGradient;
+  color: $headerColor;
+
+
+  &__wrapper {
+    @include flex(space-between);
+  }
 
   &__column {
     display: flex;
     flex-direction: column;
+  }
+
+  &__title {
+    color: $backgroundColor;
+    font-size: $subTitleSize;
+    margin-bottom: 13px;
+  }
+
+  &__link {
+    font-size: $littleMediumSize;
+    margin-bottom: 10px;
+  }
+
+  &__icons {
+    margin-bottom: 26px;
+    @include flex();
+    gap: 39px;
+  }
+
+  &__text {
+    font-size: $mediumLittleSize;
+    max-width: 300px;
   }
 }
