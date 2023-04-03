@@ -7,10 +7,14 @@ export interface ICategories {
 export interface ICategory {
     name: string,
     icon: string,
-    subcategories: ISubcategories
+    children: ISubcategories
 }
 
 export interface ISubcategories {
     name: string,
-    sections: string[]
+    children: ISections[]
+}
+
+export interface ISections {
+    name: string,
 }

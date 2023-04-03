@@ -1,0 +1,49 @@
+@import '../constants';
+
+.modalInput {
+  padding: 0 13px;
+  width: 100%;
+  height: $heightWidget;
+  border-radius: 15px;
+  font-size: $bigMediumSize;
+  transition: $fastTransition;
+
+  &_dark {
+    border: none;
+    background-color: $background2Color;
+  }
+
+  &_light {
+    border: 1.5px solid #979798;
+    background-color: transparent;
+  }
+
+  &::placeholder {
+    font-size: $bigMediumSize;
+    color: $text3CColor;
+  }
+
+  &:hover {
+    background-color: $background3Color;
+  }
+
+  &:focus {
+    border: $borderInput;
+  }
+
+  &.error {
+    border: $borderError;
+  }
+}
+
+.warningLogin {
+  position: absolute;
+  font-size: $veryLittleSize;
+  color: $errorColor;
+}
+
+.label {
+  font-size: 11.8px;
+  margin-left: 8px;
+  color: $text4Color;
+}

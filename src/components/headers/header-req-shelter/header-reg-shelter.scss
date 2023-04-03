@@ -1,0 +1,18 @@
+@import "./src/styles/constants";
+@import "./src/styles/mixins";
+
+.header-reg {
+  padding-top: 40px;
+  height: 154px;
+  font-size: $bigMediumSize;
+  color: $backgroundColor;
+  background: $backgroundGradient;
+
+  &__content {
+    @include flex(flex-end, center, 12px)
+  }
+
+  &__button {
+    max-width: 110px;
+  }
+}

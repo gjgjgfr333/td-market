@@ -1,0 +1,53 @@
+@import "../../../styles/constants";
+
+.reg-main {
+  position: relative;
+  top: -37px;
+  padding-top: 110px;
+  background: $backgroundColor;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__img {
+    max-height: 584px;
+  }
+
+  & form {
+    max-width: 410px;
+  }
+
+  &__title {
+    font-size: $bigTitleSize;
+    line-height: 114.9%;
+    margin-bottom: 32px;
+  }
+
+  & .reg-field {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-bottom: 20px;
+  }
+
+  &__button {
+    margin: 32px 0 48px;
+    max-width: 305px;
+  }
+
+  & .contract {
+    font-size: $littleMediumSize;
+    color: $text5Color;
+    line-height: 20px;
+
+    & > a {
+      color: $text4Color;
+      text-decoration: underline;
+    }
+  }
+}
+

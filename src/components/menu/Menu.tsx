@@ -14,11 +14,15 @@ const Menu = () => {
 
     useEffect(() => {
         dispatch(fetchCategories())
-    }, [])
+    }, [dispatch])
+
+    useEffect(() => {
+        console.log('categories',categories)
+    }, [categories])
 
     useEffect(() => {
         if (categories.length > 0) {
-            setSelectCategory(categories[activeCategory].subcategories)
+            setSelectCategory(categories[activeCategory].children)
         }
     }, [categories, activeCategory])
 
@@ -55,8 +59,8 @@ const Menu = () => {
                         <div key={index}>
                             <h3 className={'subcategory'}>{subcat.name}</h3>
                             <div className={'sections'}>
-                                {subcat.sections.map((section, index) => (
-                                    <a className={''} href={'/'} key={index}>{section}</a>
+                                {subcat.children.map((section, index) => (
+                                    <a className={''} href={'/'} key={index}>{section.name}</a>
                                 ))}
                             </div>
                         </div>

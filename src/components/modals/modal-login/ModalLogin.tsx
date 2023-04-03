@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import './modal-login.scss'
+import './../../../styles/elements/buttons.scss'
+import './../../../styles/elements/inputs.scss'
 import Cover from "../../cover/Cover";
 import {useAppDispatch} from "../../../hooks/redux";
 import {userSlice} from "../../../store/reducers/user/UserSlice";

@@ -1,0 +1,35 @@
+@import "src/styles/constants";
+@import "src/styles/mixins";
+
+.button {
+  width: 100%;
+  height: $heightWidget;
+  border-radius: 17px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: $littleSize;
+  transition: $slowTransition;
+
+}
+
+.button_dark {
+  margin-bottom: 7px;
+  background-color: $additionalColor;
+  color: $backgroundColor;
+  border: none;
+
+  &:hover {
+    background-color: $hoverColor;
+  }
+}
+
+.button_light {
+  color: $additionalColor;
+  background-color: $backgroundColor;
+  border: $borderInput;
+
+  &:hover {
+    color: $hoverColor;
+    border-color: $hoverColor;
+  }
+}

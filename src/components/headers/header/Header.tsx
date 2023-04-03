@@ -1,16 +1,16 @@
 import React from 'react';
 import './header.scss'
-import Container from "../container/Container";
-import Geolocation from "../geolocation/Geolocation";
-import Menu from "../menu/Menu";
-import Search from "../search/Search";
-import UserSvg from "../svg/UserSvg";
-import ModalLogin from "../modals/modal-login/ModalLogin";
-import {useAppDispatch, useAppSelector} from "../../hooks/redux";
-import {userSlice} from "../../store/reducers/user/UserSlice";
+import Container from "../../container/Container";
+import Geolocation from "../../geolocation/Geolocation";
+import Menu from "../../menu/Menu";
+import Search from "../../search/Search";
+import UserSvg from "../../svg/UserSvg";
+import ModalLogin from "../../modals/modal-login/ModalLogin";
+import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
+import {userSlice} from "../../../store/reducers/user/UserSlice";
 import {Link} from "react-router-dom";
-import FavoritesSvg from "../svg/FavoritesSvg";
-import ShoppingSvg from "../svg/ShoppingSvg";
+import FavoritesSvg from "../../svg/FavoritesSvg";
+import ShoppingSvg from "../../svg/ShoppingSvg";
 
 const Header = () => {
     const {isUserModal} = useAppSelector(state => state.userReducer)
@@ -26,7 +26,7 @@ const Header = () => {
                 <div className={'header__row-1'}>
                     <Geolocation/>
                     <div className={'header__links'}>
-                        <Link className={'header__registry'} to={'/'}>Продавайте на td-market</Link>
+                        <Link className={'header__registry'} to={'registration'}>Продавайте на td-market</Link>
                         <Link to="/">Часто задаваемые вопросы</Link>
                     </div>
                 </div>
