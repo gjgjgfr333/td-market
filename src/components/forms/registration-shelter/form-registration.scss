@@ -1,0 +1,32 @@
+@import "../../../styles/constants";
+
+.reg {
+  &__title {
+    font-size: $bigTitleSize;
+    line-height: 114.9%;
+    margin-bottom: 32px;
+  }
+
+  & .reg-field {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-bottom: 20px;
+  }
+
+  &__button {
+    margin: 32px 0 48px;
+    max-width: 305px;
+  }
+
+  & .contract {
+    font-size: $littleMediumSize;
+    color: $text5Color;
+    line-height: 20px;
+
+    & > a {
+      color: $text4Color;
+      text-decoration: underline;
+    }
+  }
+}

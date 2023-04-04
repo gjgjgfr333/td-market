@@ -1,3 +1,5 @@
+@import "constants";
+
 @mixin flex($justify-content: flex-start, $align-items: flex-start, $gap: auto) {
   display: flex;
   justify-content: $justify-content;
@@ -14,4 +16,12 @@
   position: fixed;
   top: calc(50% - $top);
   left: calc(50% - $left);
+}
+
+%header-shelter {
+  padding-top: 40px;
+  height: 154px;
+  font-size: $bigMediumSize;
+  color: $backgroundColor;
+  background: $backgroundGradient;
 }

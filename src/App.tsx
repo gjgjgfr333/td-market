@@ -4,6 +4,7 @@ import {checkAuth} from "./store/reducers/user/UserCreators";
 import MainPage from "./pages/MainPage";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import RegistrShelter from "./pages/RegistrShelter";
+import LoginShelter from "./pages/LoginShelter";
 
 function App() {
     useEffect(() => {
@@ -20,7 +21,11 @@ function App() {
         {
             path: '/registration',
             element: <RegistrShelter/>,
-        }
+        },
+        {
+            path: '/login',
+            element: <LoginShelter/>,
+        },
     ])
 
   return (
