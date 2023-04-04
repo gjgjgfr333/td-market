@@ -32,11 +32,12 @@ const InputPassword = ({password,
                 className={`modalInput ${className}`}
                 placeholder={placeholder}
             />
-            <img
-                src={'/images/svg/open-eye.svg'}
-                className={'img'}
-                alt={''}
-                onClick={onSwitchVisibility}/>
+            <div className={'img'}>
+                <img
+                    src={visibilityPassword === 'password' ? '/images/svg/open-eye.svg' : '/images/svg/close-eye.svg'}
+                    alt={''}
+                    onClick={onSwitchVisibility}/>
+            </div>
         </div>
     );
 };
