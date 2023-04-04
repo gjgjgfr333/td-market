@@ -52,7 +52,6 @@ export const userSlice = createSlice({
             state.user.firstName = action.payload.name
             state.user.secondName = action.payload.family
         },
-
         setActivationCode: (state, action: PayloadAction<string>) => {
             state.activationCode = action.payload
         }

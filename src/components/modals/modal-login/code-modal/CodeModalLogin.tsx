@@ -2,11 +2,21 @@ import React, {ChangeEvent, Dispatch, SetStateAction, useState} from 'react';
 import './code-modal-login.scss'
 import {useAppDispatch, useAppSelector} from "../../../../hooks/redux";
 import {sendCode} from "../../../../store/reducers/user/UserCreators";
+import {sendCodeShelter} from "../../../../store/reducers/shelter/ShelterCreator";
+import {useNavigate} from "react-router-dom";
 
-const CodeModalLogin = ({setCurrentModal}: {setCurrentModal: Dispatch<SetStateAction<number>>}) => {
+interface ICodeModalLogin {
+    setCurrentModal: Dispatch<SetStateAction<number>>,
+    isShelter?: boolean,
+}
+
+const CodeModalLogin = ({setCurrentModal, isShelter}: ICodeModalLogin) => {
+    const navigate = useNavigate();
     const dispatch = useAppDispatch()
     const {email} = useAppSelector(state => state.userReducer.user)
+    const emailShelter = useAppSelector(state => state.shelterReducer.shelter.email)
     const {activationCode} = useAppSelector(state => state.userReducer)
+    const activationCodeShelter = useAppSelector(state => state.shelterReducer.activationCode)
     const [code, setCode] = useState('')
     const [isError, setIsError] = useState(false)
 
@@ -19,20 +29,28 @@ const CodeModalLogin = ({setCurrentModal}: {setCurrentModal: Dispatch<SetStateAc
     }
 
     const onCompareCode = () => {
-        const stringCode = activationCode.toString()
-        if (stringCode === code) {
-            setCurrentModal(2)
-        } else setIsError(true)
+        if (!isShelter) {
+            const stringCode = activationCode.toString()
+            if (stringCode === code) {
+                setCurrentModal(2)
+            } else setIsError(true)
+        } else  {
+            const stringCode = activationCodeShelter.toString()
+            if (stringCode === code) {
+                navigate('/registration-next')
+                // setCurrentModal(2)
+            } else setIsError(true)
+        }
     }
 
     const onRepeatCode = () => {
-        dispatch(sendCode(email))
+        !isShelter ? dispatch(sendCode(email)) : dispatch(sendCodeShelter(emailShelter))
     }
 
     return (
         <div className={'modalCode'}>
             <p className={'modalCode__text'}>
-                Мы отправили письмо с кодом на почту <strong>{email}</strong>. Введите код для завершения регистрации.
+                Мы отправили письмо с кодом на почту <strong>{emailShelter}</strong>. Введите код для завершения регистрации.
             </p>
             <div className={'inputCode'}>
                 <input

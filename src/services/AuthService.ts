@@ -17,7 +17,7 @@ export class AuthService {
     }
 
     static async sendCode(email: string): Promise<AxiosResponse<string>> {
-        return $api.post<string>('/auth/activate', {email})
+        return $api.post<string>('/mail', {email})
     }
 
     static async checkEmail(email: string): Promise<AxiosResponse<boolean>> {

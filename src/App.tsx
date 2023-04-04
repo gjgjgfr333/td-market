@@ -26,6 +26,10 @@ function App() {
             path: '/login',
             element: <LoginShelter/>,
         },
+        {
+            path: '/registration-next',
+            element: <LoginShelter/>,
+        },
     ])
 
   return (

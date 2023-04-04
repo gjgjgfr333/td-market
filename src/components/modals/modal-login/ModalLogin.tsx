@@ -11,7 +11,12 @@ import NameModalLogin from "./name-modal/NameModalLogin";
 import CreateModalLogin from "./create-modal/CreateModalLogin";
 import EnterModalLogin from "./enter-modal/EnterModalLogin";
 
-const ModalLogin = () => {
+interface IModalLogin {
+    observableModal?: number,
+    isShelter?: boolean,
+}
+
+const ModalLogin = ({observableModal = 0, isShelter = false}: IModalLogin) => {
     const {changeIsUserModal} = userSlice.actions
     const dispatch = useAppDispatch()
     // 0 - InitialModalLogin
@@ -19,7 +24,7 @@ const ModalLogin = () => {
     // 2 - NameModalLogin
     // 3 - CreateModalLogin
     // 4 - EnterModalLogin
-    const [currentModal, setCurrentModal] = useState(0)
+    const [currentModal, setCurrentModal] = useState(observableModal)
 
     const closeUserModal = () => {
         dispatch(changeIsUserModal(false))
@@ -29,7 +34,7 @@ const ModalLogin = () => {
         <>
             <div className={'userAuthModal'}>
                 {currentModal === 0 && <InitialModalLogin setCurrentModal={setCurrentModal}/>}
-                {currentModal === 1 && <CodeModalLogin setCurrentModal={setCurrentModal}/>}
+                {currentModal === 1 && <CodeModalLogin setCurrentModal={setCurrentModal} isShelter={isShelter}/>}
                 {currentModal === 2 && <NameModalLogin setCurrentModal={setCurrentModal}/>}
                 {currentModal === 3 && <CreateModalLogin closeUserModal={closeUserModal}/>}
                 {currentModal === 4 && <EnterModalLogin closeUserModal={closeUserModal}/>}
