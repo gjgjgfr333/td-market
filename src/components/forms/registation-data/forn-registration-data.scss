@@ -1,0 +1,122 @@
+@import "../../../styles/constants";
+@import "../../../styles/mixins";
+
+fieldset {
+  border: none;
+  padding: 0;
+  margin-bottom: 36px;
+  max-width: 1000px;
+}
+
+.form-data {
+  margin-top: -72px;
+
+  &__description {
+    margin-bottom: 44px;
+    font-size: $littleMediumSize;
+    line-height: 20px;
+    color: $text2Color;
+  }
+
+  & .legend {
+    font-weight: 800;
+    font-size: $subTitleSize;
+    color: $title2Color;
+    margin-bottom: 8px;
+  }
+
+  &__inputs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  & .reg-field {
+    width: 305px;
+    position: relative;
+
+    &__check {
+      min-width: 413px;
+    }
+  }
+
+  &__nearly {
+    margin-bottom: 8px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+
+    & .legend {
+      margin-bottom: 0;
+    }
+  }
+
+  & .mark {
+    display: flex;
+    align-items: center;
+
+    &_absolute {
+      margin-top: 8.75px;
+
+      & > span {
+        white-space: nowrap;
+      }
+    }
+  }
+
+  & .checkbox {
+    @include square(20px)
+  }
+}
+
+.input-file {
+  width: 50%;
+  display: flex;
+  padding-top: 25px;
+  font-weight: 800;
+  font-size: $littleSize;
+
+
+  input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+
+  label {
+    padding: 0 16px;
+    height: 40px;
+    @include flex(center, center, 8.75px);
+    border: 1px solid $additionalColor;
+    border-radius: 17px;
+    color: $additionalColor;
+    cursor: pointer;
+
+    & > span {
+      text-transform: uppercase;
+    }
+
+
+  }
+
+  label.current {
+    color: $successColor;
+    border: 1px solid $successColor;
+  }
+
+  .name-image {
+    margin-left: 8px;
+    padding: 0 16px;
+    background-color: $background4Color;
+    height: 40px;
+    @include flex(center, center, 8px);
+    border-radius: 16px;
+
+    & > img {
+      cursor: pointer;
+    }
+  }
+}

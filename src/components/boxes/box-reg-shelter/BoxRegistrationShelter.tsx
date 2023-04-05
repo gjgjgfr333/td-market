@@ -1,15 +1,20 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 import './box-registration-shelter.scss'
 import '../../../styles/elements/inputs.scss'
 import Container from "../../container/Container";
-import {IChildren} from "../../../models/IChildren";
 
-const BoxRegistrationShelter = ({children}: IChildren) => {
+interface IBoxRegistrationShelter {
+    children: ReactNode,
+    isImage?: boolean
+}
+
+const BoxRegistrationShelter = ({children, isImage = true}: IBoxRegistrationShelter) => {
     return (
         <main className={'reg-main'}>
             <Container>
                 <div className={'reg-main__container'}>
-                    <img className={'reg-main__img'} src={'/images/registration-shelter.png'} alt={'Регистрируйтесь и продавайте'}/>
+                    {isImage && <img className={'reg-main__img'} src={'/images/registration-shelter.png'}
+                          alt={'Регистрируйтесь и продавайте'}/>}
                     {children}
                 </div>
             </Container>
