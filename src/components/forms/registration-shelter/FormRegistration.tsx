@@ -11,7 +11,9 @@ const FormRegistration = () => {
     const dispatch = useAppDispatch()
     const {setFirstData} = shelterSlice.actions
     const [name, setName] = useState('')
+    const [isErrorName, setIsErrorName] = useState(false)
     const [password, setPassword] = useState('')
+    const [isErrorPassword, setIsErrorPassword] = useState(false)
     const [phone, setPhone] = useState('')
     const [isErrorPhone, setIsErrorPhone] = useState(false)
     const [mail, setMail] = useState('')
@@ -43,9 +45,21 @@ const FormRegistration = () => {
         if (errorMail) {
             setIsErrorMail(true)
         }
-        if (errorPhone || errorMail) return
+        if (!name) {
+            setIsErrorName(true)
+        }
+        if (!password) {
+            setIsErrorPassword(true)
+        }
+        if (errorPhone || errorMail || !name || !password) return
         setIsCover(true)
         dispatch(setFirstData({
+            password,
+            email: mail,
+            name,
+            phone
+        }))
+        localStorage.setItem('shelter', JSON.stringify({
             password,
             email: mail,
             name,
@@ -63,7 +77,7 @@ const FormRegistration = () => {
                 </h2>
                 <div className={'reg-field'}>
                     <label htmlFor="Name" className={'label'}>Имя/Наименование</label>
-                    <input id={'Name'} className={'modalInput modalInput_light'}
+                    <input id={'Name'} className={`modalInput modalInput_light ${isErrorName && 'error'}`}
                            type="text"
                            placeholder={'Введите Ваше имя или наименование'}
                            value={name}
@@ -88,7 +102,7 @@ const FormRegistration = () => {
                            onChange={onSetMail}
                     />
                 </div>
-                <InputPassword password={password} onSetPassword={onSetPassword} placeholder={'Придумайте пароль'}/>
+                <InputPassword password={password} onSetPassword={onSetPassword} placeholder={'Придумайте пароль'} error={isErrorPassword}/>
                 <button onClick={onContinueRegistry} className={'button button_dark reg__button'}>ПРОДОЛЖИТЬ</button>
                 <p className={'contract'}>
                     Нажимая на кнопку “Продолжить”,

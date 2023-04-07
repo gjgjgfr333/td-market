@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IFirstShelter, IShelter} from "../../../models/response/IShelter";
+import {IMainShelter, IShelter} from "../../../models/response/IShelter";
 
 const initialState = {
     shelter: {} as IShelter,
@@ -7,6 +7,7 @@ const initialState = {
     isLoading: false,
     activationCode: '',
     error: '',
+    isRegistry: false
 }
 
 export const shelterSlice = createSlice({
@@ -31,29 +32,37 @@ export const shelterSlice = createSlice({
             state.error = ''
         },
 
+        setIsRegistry(state) {
+            state.isRegistry = true
+        },
+
         // changeIsUserModal: (state, action: PayloadAction<boolean>) => {
         //     state.isUserModal = action.payload
         // },
 
-        setFirstData(state, action: PayloadAction<IFirstShelter>) {
+        setFirstData(state, action: PayloadAction<IMainShelter>) {
+            const {email, name, phone, password} = action.payload
+            state.shelter.email = email
+            state.shelter.name = name
+            state.shelter.phone = phone
+            state.shelter.password = password
+        },
+
+        setAuth: (state, action: PayloadAction<boolean>) => {
+            state.isAuth = action.payload
+        },
+
+        setShelter: (state, action: PayloadAction<IShelter>) => {
             state.shelter = action.payload
         },
 
-        // setAuth: (state, action: PayloadAction<boolean>) => {
-        //     state.isAuth = action.payload
+        // setEmailShelter: (state, action: PayloadAction<string>) => {
+        //     state.shelter.email = action.payload
         // },
-        //
-        // setUser: (state, action: PayloadAction<IUser>) => {
-        //     state.user = action.payload
-        // },
-        //
-        setEmailShelter: (state, action: PayloadAction<string>) => {
-            state.shelter.email = action.payload
-        },
 
-        setPasswordShelter: (state, action: PayloadAction<string>) => {
-            state.shelter.email = action.payload
-        },
+        // setPasswordShelter: (state, action: PayloadAction<string>) => {
+        //     state.shelter.email = action.payload
+        // },
 
         // setNameUser: (state, action: PayloadAction<{name: string, family: string}>) => {
         //     state.user.firstName = action.payload.name

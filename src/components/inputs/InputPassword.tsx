@@ -8,12 +8,14 @@ interface IInputPassword {
     label?: string,
     className?: string,
     placeholder?: string,
+    error?: boolean
 }
 
 const InputPassword = ({password,
                            onSetPassword,
                            label = 'Пароль',
                            className = 'modalInput_light',
+                            error = false,
                            placeholder = ''}: IInputPassword) => {
     const [visibilityPassword, setVisibilityPassword] = useState<TVisibility>('password')
 
@@ -29,7 +31,7 @@ const InputPassword = ({password,
                 onChange={onSetPassword}
                 id={'passwordInput'}
                 type={visibilityPassword}
-                className={`modalInput ${className}`}
+                className={`modalInput ${className} ${error && 'error'}`}
                 placeholder={placeholder}
             />
             <div className={'img'}>

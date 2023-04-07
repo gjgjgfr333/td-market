@@ -62,6 +62,18 @@ fieldset {
         white-space: nowrap;
       }
     }
+
+    &.error {
+      max-width: 630px;
+      margin-bottom: 32px;
+      padding: 9px 11px;
+      border-radius: 15px;
+      background: $error2Color;
+
+      & > span {
+        color: $backgroundColor;
+      }
+    }
   }
 
   & .checkbox {

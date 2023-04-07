@@ -1,5 +1,5 @@
 import axios from "axios";
-import {IAuthResponse} from "../models/response/IAuthResponse";
+import {IAuthResponse, IAuthShelterResponse} from "../models/response/IAuthResponse";
 
 export const API_URL = 'http://localhost:5000/'
 
@@ -21,6 +21,33 @@ $api.interceptors.response.use((config) => {
         originalRequest._isRetry = true
         try {
             const response = await axios.get<IAuthResponse>(`${API_URL}/auth/refresh`, {withCredentials: true})
+            localStorage.setItem('token', response.data.accessToken)
+            return $api.request(originalRequest)
+        } catch (e) {
+            console.log('НЕ АВТОРИЗОВАН')
+        }
+    }
+})
+
+export const $apiShelter = axios.create({
+    withCredentials: true,
+    baseURL: API_URL
+})
+
+$api.interceptors.request.use((config) => {
+    config.headers.Authorization = `Bearer ${localStorage.getItem('token-shelter')}`
+    console.log('config.headers.Authorization', config.headers.Authorization)
+    return config
+})
+
+$api.interceptors.response.use((config) => {
+    return config
+}, async (error) => {
+    const originalRequest = error.config
+    if (error.response.status === 401 && error.config && !error.config._isRetry) {
+        originalRequest._isRetry = true
+        try {
+            const response = await axios.get<IAuthShelterResponse>(`${API_URL}/auth/refresh`, {withCredentials: true})
             localStorage.setItem('token', response.data.accessToken)
             return $api.request(originalRequest)
         } catch (e) {
