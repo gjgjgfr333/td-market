@@ -12,7 +12,7 @@ const FormRegistrationData = () => {
     const {shelter} = useAppSelector(state => state.shelterReducer)
     const {setIsRegistry} = shelterSlice.actions
     const inputFileRef = useRef<HTMLInputElement>(null)
-    const [imageName, setImageName] = useState('')
+    const [image, setImage] = useState<File | null>()
     const [isCompletedInputs, setIsCompletedInputs] = useState(false)
     const [closePerson, setClosePerson] = useState({
         name: '',
@@ -63,12 +63,11 @@ const FormRegistrationData = () => {
                 }
             }
 
-            // if (!imageName) {
-            //     console.log('hey 68')
-            //     isCompletedFields = false
-            // }
+            if (!image) {
+                isCompletedFields = false
+            }
 
-            if (!isCompletedFields) {
+            if (!isCompletedFields || !image) {
                 console.log('bro')
                 setIsRegistry()
                 setIsCompletedInputs(true)
@@ -82,7 +81,7 @@ const FormRegistrationData = () => {
                 closePerson,
                 personalData,
                 entity: entityData
-            }))
+            }, image))
         }
     }, [isRegistry, isCompletedInputs])
 
@@ -132,15 +131,31 @@ const FormRegistrationData = () => {
         setEntityData({...entityData, check: e.target.value})
     }
 
-    const onSubmitFile = () => {
+    const onSubmitFile = (e: ChangeEvent<HTMLInputElement>) => {
+        console.log('e', e.target.files)
+        const { files } = e.target;
+        const selectedFiles = files as FileList;
+        setImage(selectedFiles?.[0])
+        // if (e.target.files) {
+        //     setImage(e.target.files[0])
+        // }
         if (inputFileRef.current?.files) {
-            setImageName(inputFileRef.current?.files?.[0].name)
+            // setImage(inputFileRef.current?.files?.[0].name)
         }
         console.dir(inputFileRef.current?.files)
+        // try {
+        //     const formData = new FormData()
+        //     if (e.target.files?.[0]) {
+        //         const file = e.target.files[0]
+        //         formData.append('image', file)
+        //     }
+        // } catch (e) {
+        //
+        // }
     }
 
     const onDeleteFile = () => {
-        setImageName('')
+        setImage(null)
     }
 
     return (
@@ -280,12 +295,14 @@ const FormRegistrationData = () => {
                         </div>
                     </div>
                     <div className={'input-file'}>
-                        <label htmlFor="Scan" className={imageName ? 'current' : ''}>
+                        <label className={image ? 'current' : ''} onClick={() => {
+                            if (inputFileRef.current) inputFileRef.current.click()
+                        }}>
                             <img
-                                src={imageName ? '/images/svg/input-file-success.svg' : "/images/svg/input-file.svg"}
+                                src={image ? '/images/svg/input-file-success.svg' : "/images/svg/input-file.svg"}
                                 alt="Прикрепите скан"
                             />
-                            <span>{imageName     ? 'Прикреплено' : 'Прикрепить'}</span>
+                            <span>{image ? 'Прикреплено' : 'Прикрепить'}</span>
                         </label>
                         <input
                                type="file"
@@ -294,10 +311,10 @@ const FormRegistrationData = () => {
                                ref={inputFileRef}
                         />
                         {
-                            imageName &&
+                            image &&
                             <div className={'name-image'}>
                                 <span>
-                                    {imageName}
+                                    {image.name}
                                 </span>
                                 <img src="/images/svg/close.svg" alt="Убрать фото" onClick={onDeleteFile}/>
                             </div>

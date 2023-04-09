@@ -17,11 +17,15 @@ export const sendCodeShelter = (email: string) => async (dispatch: AppDispatch) 
     }
 }
 
-export const registrationShelter = (data: IShelter) => async (dispatch: AppDispatch) => {
+export const registrationShelter = (data: IShelter, photo: File) => async (dispatch: AppDispatch) => {
     try {
         console.log('data', data)
         dispatch(shelterSlice.actions.loginFetching())
-        const response = await AuthShelterService.registrationShelter(data)
+        const formData = new FormData()
+        formData.append('photo', photo)
+        // @ts-ignore
+        Object.keys(data).forEach(key => formData.append(key, JSON.stringify(data[key])))
+        const response = await AuthShelterService.registrationShelter(formData)
         console.log('response', response)
         localStorage.setItem('token-shelter', response.data.accessToken)
         dispatch(shelterSlice.actions.setAuth(true))
