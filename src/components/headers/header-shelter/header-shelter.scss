@@ -1,0 +1,21 @@
+@import "./src/styles/constants";
+
+.links {
+  margin-left: 80px;
+  margin-top: 42px;
+  display: flex;
+  gap: 24px;
+
+  &__item {
+    padding: 5px 12px;
+    border-radius: 8px 8px 0 0;
+    font-size: $subTitleSize;
+    font-weight: 800;
+    color: $headerColor;
+
+    &.active {
+      background: $backgroundColor;
+      color: $additionalColor;
+    }
+  }
+}

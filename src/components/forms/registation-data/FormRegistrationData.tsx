@@ -5,10 +5,12 @@ import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
 import {IPersonalData} from "../../../models/response/IShelter";
 import {shelterSlice} from "../../../store/reducers/shelter/ShelterSlice";
 import {registrationShelter} from "../../../store/reducers/shelter/ShelterCreator";
+import {useNavigate} from "react-router-dom";
 
 const FormRegistrationData = () => {
+    const navigate = useNavigate();
     const dispatch = useAppDispatch()
-    const {isRegistry} = useAppSelector(state => state.shelterReducer)
+    const {isRegistry, isAuth} = useAppSelector(state => state.shelterReducer)
     const {shelter} = useAppSelector(state => state.shelterReducer)
     const {setIsRegistry} = shelterSlice.actions
     const inputFileRef = useRef<HTMLInputElement>(null)
@@ -35,8 +37,8 @@ const FormRegistrationData = () => {
     })
 
     useEffect(() => {
-        console.log(shelter)
-    }, [shelter])
+        isAuth && navigate('/shelter')
+    }, [isAuth, navigate])
 
     useEffect(() => {
         if (isRegistry) {
@@ -83,7 +85,7 @@ const FormRegistrationData = () => {
                 entity: entityData
             }, image))
         }
-    }, [isRegistry, isCompletedInputs])
+    }, [isRegistry, isCompletedInputs, image, shelter, dispatch, closePerson, personalData, entityData, setIsRegistry])
 
     const onSetName = (e: ChangeEvent<HTMLInputElement>) => {
         setPersonalData({...personalData, name: e.target.value})

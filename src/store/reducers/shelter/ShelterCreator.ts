@@ -23,9 +23,32 @@ export const registrationShelter = (data: IShelter, photo: File) => async (dispa
         dispatch(shelterSlice.actions.loginFetching())
         const formData = new FormData()
         formData.append('photo', photo)
-        // @ts-ignore
-        Object.keys(data).forEach(key => formData.append(key, JSON.stringify(data[key])))
+        Object.keys(data).forEach(key => {
+            // @ts-ignore
+            if (!(typeof data[key] === 'string')) {
+                // @ts-ignore
+                formData.append(key, JSON.stringify(data[key]))
+            } else { // @ts-ignore
+                formData.append(key, data[key])
+            }
+        })
         const response = await AuthShelterService.registrationShelter(formData)
+        localStorage.setItem('token-shelter', response.data.accessToken)
+        dispatch(shelterSlice.actions.setAuth(true))
+        dispatch(shelterSlice.actions.setShelter(response.data.shelter))
+        dispatch(shelterSlice.actions.setIsRegistry())
+        dispatch(shelterSlice.actions.loginSuccess())
+    } catch (e: any) {
+        console.log('e', e)
+        dispatch(shelterSlice.actions.loginFetchingError(e.message))
+        dispatch(shelterSlice.actions.setIsRegistry())
+    }
+}
+
+export const loginShelter = (email: string, password: string) => async (dispatch: AppDispatch) => {
+    try {
+        dispatch(shelterSlice.actions.loginFetching())
+        const response = await AuthShelterService.login(email, password)
         console.log('response', response)
         localStorage.setItem('token-shelter', response.data.accessToken)
         dispatch(shelterSlice.actions.setAuth(true))

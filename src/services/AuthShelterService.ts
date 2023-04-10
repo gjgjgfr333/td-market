@@ -10,4 +10,8 @@ export class AuthShelterService {
             }
         })
     }
+
+    static async login(email: string, password: string) {
+        return $apiShelter.post<IAuthShelterResponse>('/auth-shelter/login', {email, password})
+    }
 }

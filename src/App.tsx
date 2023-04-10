@@ -6,6 +6,7 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import RegistrShelter from "./pages/RegistrShelter";
 import LoginShelter from "./pages/LoginShelter";
 import RegistrData from "./pages/RegistrData";
+import Shelter from "./pages/Shelter";
 
 function App() {
     useEffect(() => {
@@ -30,6 +31,10 @@ function App() {
         {
             path: '/registration-next',
             element: <RegistrData/>,
+        },
+        {
+            path: '/shelter',
+            element: <Shelter/>,
         },
     ])
 
