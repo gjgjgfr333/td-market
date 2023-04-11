@@ -14,7 +14,7 @@ const HeaderShelter = () => {
             name: 'Мои заказы',
         },
         {
-            href: '/shelter',
+            href: '/shelter/goods',
             name: 'Мои товары',
         },
         {
@@ -40,6 +40,7 @@ const HeaderShelter = () => {
                     links.map((link, index) => (
                         <Link className={`links__item ${activeLink === index && 'active'}`}
                               to={link.href}
+                              key={index}
                               onClick={() => onClickLink(index)}>
                             {link.name}
                         </Link>
