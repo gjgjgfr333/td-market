@@ -7,11 +7,9 @@ import RegistrShelter from "./pages/RegistrShelter";
 import LoginShelter from "./pages/LoginShelter";
 import RegistrData from "./pages/RegistrData";
 import Shelter from "./pages/Shelter";
-import {useAppSelector} from "./hooks/redux";
 import ShelterGoods from "./pages/ShelterGoods";
 
 function App() {
-    const {isAuth} = useAppSelector(state => state.shelterReducer)
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
@@ -54,15 +52,11 @@ function App() {
                 <Route path={'/login'} element={<LoginShelter/>}/>
                 <Route path={'/registration-next'} element={<RegistrData/>}/>
                 <Route path={'/shelter/'} element={<Shelter/>} loader={() => {
-                    if (!isAuth) {
+                    if (!localStorage.getItem('token-shelter')) {
                         throw redirect('/')
                     } else return null
                 }}>
-                    <Route path={'goods'} element={<ShelterGoods/>} loader={() => {
-                        if (!isAuth) {
-                            throw redirect('/')
-                        } else return null
-                    }}/>
+                    <Route index path={'goods'} element={<ShelterGoods />} />
                 </Route>
             </>
         )

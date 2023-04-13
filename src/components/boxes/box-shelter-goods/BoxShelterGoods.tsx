@@ -4,10 +4,16 @@ import './box-shelter-goods.scss'
 const BoxShelterGoods = () => {
     return (
         <div className={'goods'}>
-            <div>
-                <div>
-                    <span>Показать товары</span>
-                    <select></select>
+            <div className={'goods__selects'}>
+                <div className={'select'}>
+                    <span className={'select__label'}>Показать товары</span>
+                    <select>
+                        <option>все</option>
+                        <option>в продаже</option>
+                        <option>нет в наличии</option>
+                        <option>отклоненные</option>
+                        <option>на модерации</option>
+                    </select>
                 </div>
                 <div>
                     <span>Отсортировать</span>

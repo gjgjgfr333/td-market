@@ -1,3 +1,20 @@
+@import "../../../styles/constants";
+
 .goods {
-  margin-top: 40px;
+  margin-top: -70px;
+
+  &__selects {
+    display: flex;
+    gap: 36px;
+  }
+}
+
+.select {
+  display: flex;
+  gap: 12px;
+
+  &__label {
+    font-size: $littleMediumSize;
+    color: $title3Color;
+  }
 }
