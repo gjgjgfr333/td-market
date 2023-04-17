@@ -2,19 +2,16 @@
 
 .goods {
   margin-top: -70px;
+  width: 100%;
 
   &__selects {
     display: flex;
     gap: 36px;
   }
-}
 
-.select {
-  display: flex;
-  gap: 12px;
-
-  &__label {
-    font-size: $littleMediumSize;
-    color: $title3Color;
+  &__button {
+    margin-left: auto;
+    width: 157px;
+    margin-bottom: 0;
   }
 }

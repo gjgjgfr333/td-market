@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import '../header-req-shelter/header-reg-shelter.scss'
 import './header-shelter.scss'
 import {Link} from "react-router-dom";
+import Container from "../../container/Container";
 
 const HeaderShelter = () => {
     const links = [
@@ -35,18 +36,21 @@ const HeaderShelter = () => {
 
     return (
         <header className={'header-reg'}>
-            <div className={'links'}>
-                {
-                    links.map((link, index) => (
-                        <Link className={`links__item ${activeLink === index && 'active'}`}
-                              to={link.href}
-                              key={index}
-                              onClick={() => onClickLink(index)}>
-                            {link.name}
-                        </Link>
-                    ))
-                }
-            </div>
+            <Container>
+                <div className={'links'}>
+                    {
+                        links.map((link, index) => (
+                            <Link className={`links__item ${activeLink === index && 'active'}`}
+                                  to={link.href}
+                                  key={index}
+                                  onClick={() => onClickLink(index)}>
+                                {link.name}
+                            </Link>
+                        ))
+                    }
+                </div>
+            </Container>
+
         </header>
     );
 };

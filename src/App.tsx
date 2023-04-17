@@ -8,6 +8,7 @@ import LoginShelter from "./pages/LoginShelter";
 import RegistrData from "./pages/RegistrData";
 import Shelter from "./pages/Shelter";
 import ShelterGoods from "./pages/ShelterGoods";
+import CreateGood from "./pages/CreateGood";
 
 function App() {
 
@@ -57,6 +58,7 @@ function App() {
                     } else return null
                 }}>
                     <Route index path={'goods'} element={<ShelterGoods />} />
+                    <Route index path={'goods/create'} element={<CreateGood />} />
                 </Route>
             </>
         )

@@ -17,10 +17,6 @@ const Menu = () => {
     }, [dispatch])
 
     useEffect(() => {
-        console.log('categories',categories)
-    }, [categories])
-
-    useEffect(() => {
         if (categories.length > 0) {
             setSelectCategory(categories[activeCategory].children)
         }

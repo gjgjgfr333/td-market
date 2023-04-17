@@ -1,0 +1,35 @@
+@import '../constants';
+
+.select {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+
+  &__label {
+    font-size: $littleMediumSize;
+    color: $title3Color;
+  }
+}
+
+.select-input {
+  height: 36px;
+
+  &_goods {
+    width: 170px;
+  }
+
+  &_filter {
+    width: 297px;
+  }
+}
+
+.select__control {
+  border: 1.5px solid $additionalColor !important;
+  border-radius: 15px !important;
+}
+
+.select__single-value {
+  color: $additionalColor !important;
+  font-weight: 800;
+  font-size: $littleMediumSize;
+}
