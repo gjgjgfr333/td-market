@@ -1,0 +1,13 @@
+.description {
+  &__block {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-bottom: 12px;
+  }
+
+  &__input {
+    width: 100%;
+    max-width: 847px;
+  }
+}
