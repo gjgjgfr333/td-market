@@ -4,14 +4,17 @@ import '../../../styles/elements/selects.scss'
 import AsyncSelect from "react-select/async";
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
 import {fetchCategories} from "../../../store/reducers/categories/CategoriesCreators";
-import Select, {InputActionMeta} from "react-select";
+import Select from "react-select";
+import {ICategory, ISubcategories} from "../../../models/ICategories";
 
 const FormCreateGood = () => {
     const dispatch = useAppDispatch();
     const {categories} = useAppSelector(state => state.categoriesReducer);
-    const [selectedCategory, setSelectedCategory] = useState('');
-    const [selectedSubcategory, setSelectedSubcategory] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState<ICategory | null>(null);
+    const [selectedSubcategory, setSelectedSubcategory] = useState<ISubcategories | null>(null);
     const [isSubcategoryDisabled, setIsSubcategoryDisabled] = useState(true);
+    const [subcategories, setSubcategories] = useState<Array<{value: string, label: string}>>([]);
+
 
     useEffect(() => {
         if (categories.length < 1) {
@@ -22,7 +25,7 @@ const FormCreateGood = () => {
     const loadCategories = (
         inputValue: string,
         callback: (options: any[]) => void,
-        selectedCategory: string
+        selectedCategory: {name: string, children: Array<any>} | null
     ) => {
         const filteredCategories = categories.filter(category =>
             category.name.toLowerCase().includes(inputValue.toLowerCase())
@@ -35,41 +38,48 @@ const FormCreateGood = () => {
 
         callback(options);
 
-        if (selectedCategory && !filteredCategories.find(c => c.name === selectedCategory)) {
+        if (selectedCategory && !filteredCategories.find(c => c.name === selectedCategory.name)) {
             // Если выбранная категория больше не проходит фильтр, сбросьте ее.
-            setSelectedCategory('');
+            setSelectedCategory(null);
         }
     };
 
-    const onChangeCategory = (
-        inputValue: string,
-        { action }: InputActionMeta
-    ) => {
-        if (action === 'set-value') {
+    const onChangeCategory = (e: any) => {
+        const {value} = e
+        console.log('value', value)
             const option = categories.find(
-                (category) => category.name.toLowerCase() === inputValue.toLowerCase()
+                (category) => category.name.toLowerCase() === value.toLowerCase()
             );
+            console.log('option', option)
             if (option) {
-                setSelectedCategory(option.name);
+                setSelectedCategory(option);
+                setSubcategories(option.children.map((subcategory: { name: any; }) => ({ value: subcategory.name, label: subcategory.name })));
             }
-        }
     };
 
-    const onChangeSubcategory = (
-        inputValue: string,
-        {action}: InputActionMeta
-    ) => {
-        if (action === 'set-value') {
-            console.log('e', inputValue);
-            setSelectedSubcategory(inputValue);
-        }
+    const onChangeSubcategory = (e: any) => {
+        const {value} = e
+        console.log('value', value)
+        // const option = subcategories.find(
+        //     (category) => category.name.toLowerCase() === value.toLowerCase()
+        // );
+        // console.log('option', option)
+        // if (option) {
+        //     setSelectedCategory(option);
+        //     setSubcategories(option.children.map((subcategory: { name: any; }) => ({ value: subcategory.name, label: subcategory.name })));
+        // }
     };
 
     useEffect(() => {
         if (selectedCategory) {
+            console.log('selectedCategory', selectedCategory)
             setIsSubcategoryDisabled(false)
         }
     }, [selectedCategory, isSubcategoryDisabled])
+
+    useEffect(() => {
+        console.log('subcategories', subcategories)
+    }, [subcategories])
 
     return (
         <div className={'create'}>
@@ -84,9 +94,9 @@ const FormCreateGood = () => {
                     loadOptions={(inputValue, callback) =>
                         loadCategories(inputValue, callback, selectedCategory)
                     }
-                    onInputChange={onChangeCategory}
-                    value={selectedCategory ? { value: selectedCategory, label: selectedCategory } : null}
-                    onChange={(option: any) => setSelectedCategory(option?.value ?? '')}
+                    // onInputChange={onChangeCategory}
+                    value={selectedCategory ? { value: selectedCategory.name, label: selectedCategory.name } : null}
+                    onChange={onChangeCategory}
                 />
             </div>
             <div className={'create__form'}>
@@ -96,9 +106,9 @@ const FormCreateGood = () => {
                     className={'select-input create__select'}
                     classNamePrefix={'select'}
                     isDisabled={isSubcategoryDisabled}
-                    // options={subcategories}
-                    // loadOptions={loadCategories}
+                    options={subcategories}
                     onInputChange={onChangeSubcategory}
+                    value={selectedSubcategory ? { value: selectedSubcategory.name, label: selectedSubcategory.name } : null}
                 />
             </div>
         </div>

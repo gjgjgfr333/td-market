@@ -6,7 +6,7 @@ export interface ICategories {
 
 export interface ICategory {
     name: string,
-    icon: string,
+    icon?: string,
     children: ISubcategories[]
 }
 
