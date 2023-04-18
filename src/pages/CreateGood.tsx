@@ -3,7 +3,7 @@ import FormCreateGood from "../components/forms/create-good/FormCreateGood";
 
 const CreateGood = () => {
     return (
-        <div>
+        <div style={{width: '100%'}}>
             <FormCreateGood/>
         </div>
     );
