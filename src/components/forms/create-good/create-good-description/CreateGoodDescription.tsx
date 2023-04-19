@@ -1,11 +1,26 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import './create-good-description.scss'
 import '../../../../styles/elements/inputs.scss'
 import {useForm} from "react-hook-form";
-import ReactMarkdown from "react-markdown";
+import {SimpleMdeReact} from "react-simplemde-editor";
+import "easymde/dist/easymde.min.css";
 
 const CreateGoodDescription = () => {
     const {register, handleSubmit} = useForm()
+
+    const mdeReactOptions = useMemo(() => {
+        return {
+            autosave: {
+                enabled: true,
+                uniqueId: "create-good",
+                delay: 1000,
+            },
+            lineNumbers: false,
+            maxHeight: '281px',
+            spellChecker: false,
+            status: false,
+        };
+    }, []);
 
     const onSubmit = () => {
 
@@ -24,9 +39,11 @@ const CreateGoodDescription = () => {
             </div>
             <div>
                 <label className={'label'} htmlFor="">Описание</label>
-                <ReactMarkdown>
-                    # Hello, *world*!
-                </ReactMarkdown>
+                <SimpleMdeReact
+                    className={'mde'}
+                    placeholder={'Добавьте описание вашему товару'}
+                    options={mdeReactOptions}
+                />
             </div>
         </form>
     );

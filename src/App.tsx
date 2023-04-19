@@ -9,6 +9,7 @@ import RegistrData from "./pages/RegistrData";
 import Shelter from "./pages/Shelter";
 import ShelterGoods from "./pages/ShelterGoods";
 import CreateGood from "./pages/CreateGood";
+import RegistrShop from "./pages/RegistrShop";
 
 function App() {
 
@@ -52,6 +53,7 @@ function App() {
                 <Route path={'/registration'} element={<RegistrShelter/>}/>
                 <Route path={'/login'} element={<LoginShelter/>}/>
                 <Route path={'/registration-next'} element={<RegistrData/>}/>
+                <Route path={'/registration-shop'} element={<RegistrShop/>}/>
                 <Route path={'/shelter/'} element={<Shelter/>} loader={() => {
                     if (!localStorage.getItem('token-shelter')) {
                         throw redirect('/')

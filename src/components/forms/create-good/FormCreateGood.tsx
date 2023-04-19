@@ -12,6 +12,7 @@ const FormCreateGood = () => {
             <CreateGoodSelects/>
             <hr className={'create__divider'}/>
             <CreateGoodDescription/>
+            <hr className={'create__divider'}/>
         </div>
     );
 };
