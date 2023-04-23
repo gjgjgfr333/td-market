@@ -7,7 +7,8 @@ const initialState = {
     isLoading: false,
     activationCode: '',
     error: '',
-    isRegistry: false
+    isRegistry: false,
+    isRegistered: false
 }
 
 export const shelterSlice = createSlice({
@@ -34,6 +35,10 @@ export const shelterSlice = createSlice({
 
         setIsRegistry(state) {
             state.isRegistry = true
+        },
+
+        setIsRegistered(state, action: PayloadAction<boolean>) {
+            state.isRegistered = action.payload
         },
 
         // changeIsUserModal: (state, action: PayloadAction<boolean>) => {

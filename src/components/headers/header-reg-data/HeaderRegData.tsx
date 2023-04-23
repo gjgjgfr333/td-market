@@ -4,12 +4,15 @@ import '../header-req-shelter/header-reg-shelter.scss'
 import './header-reg-data.scss'
 import {useAppDispatch} from "../../../hooks/redux";
 import {shelterSlice} from "../../../store/reducers/shelter/ShelterSlice";
+import {useNavigate} from "react-router-dom";
 
 const HeaderRegData = () => {
+    const navigate = useNavigate();
     const dispatch = useAppDispatch()
     const {setIsRegistry} = shelterSlice.actions
 
     const onSaveShelter = () => {
+        navigate('/registration-shop')
         dispatch(setIsRegistry())
     }
 

@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import InputPassword from "../../inputs/InputPassword";
+import InputPassword from "../../inputs/input-password/InputPassword";
 import validator from "validator";
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
 import {loginShelter} from "../../../store/reducers/shelter/ShelterCreator";

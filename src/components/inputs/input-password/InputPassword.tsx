@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
 import './input-password.scss'
-import {TVisibility} from "../../models/types";
+import {TVisibility} from "../../../models/types";
 
 interface IInputPassword {
     password: string,

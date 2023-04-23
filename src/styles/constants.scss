@@ -54,9 +54,13 @@ $slowTransition: all .6s ease-in-out;
   color: $title2Color;
 }
 
-
 %modal {
   background: $backgroundColor;
   border: $borderModal;
   z-index: 999;
+}
+
+%add-letter {
+  font-size: $mediumLittleSize;
+  color: $text4Color;
 }

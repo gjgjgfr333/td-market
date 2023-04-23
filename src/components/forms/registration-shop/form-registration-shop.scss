@@ -1,0 +1,50 @@
+@import "../../../styles/constants";
+
+
+.form-shop {
+  margin-top: -72px;
+  max-width: 850px;
+
+  &__inf {
+    font-size: $littleMediumSize;
+    color: $text2Color;
+    margin-bottom: 32px;
+  }
+
+  &__block {
+    margin-bottom: 36px;
+  }
+
+  &__block-2 {
+    margin-bottom: 24px;
+  }
+
+  &__short {
+    max-width: 305px;
+  }
+
+  &__p {
+    @extend %add-letter;
+
+    &_address {
+    margin-bottom: 16px;
+    }
+  }
+
+  &__add {
+    margin-top: 24px;
+    width: 245px;
+    margin-bottom: 24px;
+
+  }
+
+  &__save {
+    width: 291px;
+  }
+}
+
+.textarea {
+  height: 113px;
+  padding-top: 10px;
+  font-family: 'Open Sans';
+}

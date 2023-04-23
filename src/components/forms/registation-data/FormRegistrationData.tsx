@@ -46,21 +46,18 @@ const FormRegistrationData = () => {
 
             for (let field of Object.values(closePerson)) {
                 if (!field) {
-                    console.log('hey 48')
                     isCompletedFields = false
                 }
             }
 
             for (let field of Object.values(personalData)) {
                 if (!field) {
-                    console.log('hey 55', !field)
                     isCompletedFields = false
                 }
             }
 
             for (let field of Object.values(entityData)) {
                 if (!(typeof field === 'boolean') && !field) {
-                    console.log('hey 62', field)
                     isCompletedFields = false
                 }
             }
@@ -134,7 +131,6 @@ const FormRegistrationData = () => {
     }
 
     const onSubmitFile = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log('e', e.target.files)
         const { files } = e.target;
         const selectedFiles = files as FileList;
         setImage(selectedFiles?.[0])
@@ -144,7 +140,6 @@ const FormRegistrationData = () => {
         if (inputFileRef.current?.files) {
             // setImage(inputFileRef.current?.files?.[0].name)
         }
-        console.dir(inputFileRef.current?.files)
         // try {
         //     const formData = new FormData()
         //     if (e.target.files?.[0]) {

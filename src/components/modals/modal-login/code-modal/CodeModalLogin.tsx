@@ -4,6 +4,7 @@ import {useAppDispatch, useAppSelector} from "../../../../hooks/redux";
 import {sendCode} from "../../../../store/reducers/user/UserCreators";
 import {sendCodeShelter} from "../../../../store/reducers/shelter/ShelterCreator";
 import {useNavigate} from "react-router-dom";
+import {shelterSlice} from "../../../../store/reducers/shelter/ShelterSlice";
 
 interface ICodeModalLogin {
     setCurrentModal: Dispatch<SetStateAction<number>>,
@@ -17,6 +18,7 @@ const CodeModalLogin = ({setCurrentModal, isShelter}: ICodeModalLogin) => {
     const emailShelter = useAppSelector(state => state.shelterReducer.shelter.email)
     const {activationCode} = useAppSelector(state => state.userReducer)
     const activationCodeShelter = useAppSelector(state => state.shelterReducer.activationCode)
+    const {setIsRegistered} = shelterSlice.actions
     const [code, setCode] = useState('')
     const [isError, setIsError] = useState(false)
 
@@ -38,7 +40,8 @@ const CodeModalLogin = ({setCurrentModal, isShelter}: ICodeModalLogin) => {
             const stringCode = activationCodeShelter.toString()
             if (stringCode === code) {
                 navigate('/registration-next')
-                // setCurrentModal(2)
+                setIsRegistered(true)
+
             } else setIsError(true)
         }
     }

@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
-import InputPassword from "../../inputs/InputPassword";
+import InputPassword from "../../inputs/input-password/InputPassword";
 import './form-registration.scss'
 import validator from "validator";
 import {useAppDispatch} from "../../../hooks/redux";

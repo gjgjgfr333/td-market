@@ -83,10 +83,23 @@ fieldset {
 
 .input-file {
   width: 50%;
+  max-width: 150px;
   display: flex;
   padding-top: 25px;
   font-weight: 800;
   font-size: $littleSize;
+
+  &.bottom {
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .image-user {
+    width: 92px;
+    height: 92px;
+    border-radius: 50%;
+  }
 
 
   input {
@@ -121,9 +134,9 @@ fieldset {
 
   .name-image {
     margin-left: 8px;
-    padding: 0 16px;
+    padding: 2px 16px;
     background-color: $background4Color;
-    height: 40px;
+    min-height: 40px;
     @include flex(center, center, 8px);
     border-radius: 16px;
 

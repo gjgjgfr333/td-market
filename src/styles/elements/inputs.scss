@@ -1,4 +1,12 @@
 @import '../constants';
+@import "../mixins";
+
+.input-box {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 20px;
+}
 
 .modalInput {
   padding: 0 13px;
@@ -46,4 +54,61 @@
   font-size: 11.8px;
   margin-left: 8px;
   color: $text4Color;
+}
+
+.input-file {
+  width: 50%;
+  display: flex;
+  padding-top: 25px;
+  font-weight: 800;
+  font-size: $littleSize;
+
+
+  input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+
+  label {
+    padding: 0 16px;
+    height: 40px;
+    @include flex(center, center, 8.75px);
+    border: 1px solid $additionalColor;
+    border-radius: 17px;
+    color: $additionalColor;
+    cursor: pointer;
+
+    & > span {
+      text-transform: uppercase;
+    }
+
+
+  }
+
+  label.current {
+    color: $successColor;
+    border: 1px solid $successColor;
+  }
+
+  .name-image {
+    margin-left: 8px;
+    padding: 0 16px;
+    background-color: $background4Color;
+    height: 40px;
+    @include flex(center, center, 8px);
+    border-radius: 16px;
+
+    & > img {
+      cursor: pointer;
+    }
+  }
+}
+
+.required::after {
+  content: '*';
+  color: $errorColor;
 }
