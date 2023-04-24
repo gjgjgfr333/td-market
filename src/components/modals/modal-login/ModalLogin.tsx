@@ -27,6 +27,7 @@ const ModalLogin = ({observableModal = 0, isShelter = false}: IModalLogin) => {
     const [currentModal, setCurrentModal] = useState(observableModal)
 
     const closeUserModal = () => {
+        console.log('hey')
         dispatch(changeIsUserModal(false))
     }
 

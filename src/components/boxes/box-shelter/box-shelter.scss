@@ -3,7 +3,7 @@
 .reg-main {
   position: relative;
   top: -37px;
-  padding-top: 110px;
+  padding-top: 38px;
   background: $backgroundColor;
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
@@ -21,6 +21,9 @@
     max-width: 410px;
   }
 
+  &__back {
+    margin-bottom: 23px;
+  }
 
 }
 

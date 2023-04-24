@@ -1,15 +1,15 @@
 import React from 'react';
 import HeaderRegData from "../components/headers/header-reg-data/HeaderRegData";
-import BoxRegistrationShelter from "../components/boxes/box-reg-shelter/BoxRegistrationShelter";
+import BoxShelter from "../components/boxes/box-shelter/BoxShelter";
 import FormRegistrationShop from "../components/forms/registration-shop/FormRegistrationShop";
 
 const RegistrShop = () => {
     return (
         <div>
             <HeaderRegData/>
-            <BoxRegistrationShelter isImage={false}>
+            <BoxShelter isImage={false}>
                 <FormRegistrationShop/>
-            </BoxRegistrationShelter>
+            </BoxShelter>
         </div>
     );
 };

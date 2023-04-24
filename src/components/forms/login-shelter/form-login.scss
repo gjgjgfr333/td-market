@@ -1,0 +1,19 @@
+@import "../../../styles/constants";
+
+.log  {
+  max-width: 414px;
+
+  &__title {
+    margin-bottom: 41px;
+  }
+
+  &__field {
+    margin-bottom: 20px;
+  }
+
+  & .label-pas {
+    margin-top: 8px;
+    cursor: pointer;
+    color: $linkColor;
+  }
+}
