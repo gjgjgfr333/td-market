@@ -6,16 +6,17 @@ import ButtonBack from "../../buttons/button-back/ButtonBack";
 
 interface IBoxRegistrationShelter {
     children: ReactNode,
-    isImage?: boolean
+    isImage?: boolean,
+    isRegistry?: boolean
 }
 
-const BoxShelter = ({children, isImage = true}: IBoxRegistrationShelter) => {
+const BoxShelter = ({children, isImage = true, isRegistry = false}: IBoxRegistrationShelter) => {
     return (
         <main className={'reg-main'}>
             <Container>
-                <div className={'reg-main__back'}>
+                {isRegistry && <div className={'reg-main__back'}>
                     <ButtonBack/>
-                </div>
+                </div>}
                 <div className={'reg-main__container'}>
                     {isImage && <img className={'reg-main__img'} src={'/images/registration-shelter.png'}
                           alt={'Регистрируйтесь и продавайте'}/>}

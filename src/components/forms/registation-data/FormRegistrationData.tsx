@@ -4,7 +4,6 @@ import '../../../styles/elements/inputs.scss'
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
 import {IPersonalData} from "../../../models/response/IShelter";
 import {shelterSlice} from "../../../store/reducers/shelter/ShelterSlice";
-import {registrationShelter} from "../../../store/reducers/shelter/ShelterCreator";
 import {useNavigate} from "react-router-dom";
 
 const FormRegistrationData = () => {
@@ -67,20 +66,19 @@ const FormRegistrationData = () => {
             }
 
             if (!isCompletedFields || !image) {
-                console.log('bro')
                 setIsRegistry()
                 setIsCompletedInputs(true)
                 return
             }
             const localShelter = localStorage.getItem('shelter')
             // @ts-ignore
-            const shelterData = (localShelter !== '{}') || (localShelter !== null) ? JSON.parse(localShelter) : shelter
-            dispatch(registrationShelter({
-                ...shelterData,
-                closePerson,
-                personalData,
-                entity: entityData
-            }, image))
+            // const shelterData = (localShelter !== '{}') || (localShelter !== null) ? JSON.parse(localShelter) : shelter
+            // dispatch(registrationShelter({
+            //     ...shelterData,
+            //     closePerson,
+            //     personalData,
+            //     entity: entityData
+            // }, image))
         }
     }, [isRegistry, isCompletedInputs, image, shelter, dispatch, closePerson, personalData, entityData, setIsRegistry])
 

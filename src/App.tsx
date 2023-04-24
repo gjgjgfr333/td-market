@@ -62,7 +62,7 @@ function App() {
                 <Route path={'/registration-shop'} element={<RegistrShop/>}/>
                 <Route path={'/shelter/'} element={<Shelter/>} loader={() => {
                     if (!localStorage.getItem('token-shelter')) {
-                        throw redirect('/')
+                        throw redirect('/login')
                     } else return null
                 }}>
                     <Route index path={'goods'} element={<ShelterGoods />} />

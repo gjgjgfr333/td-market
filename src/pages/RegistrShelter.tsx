@@ -8,7 +8,7 @@ const RegistrShelter = () => {
     return (
         <div>
             <HeaderRegShelter/>
-            <BoxShelter>
+            <BoxShelter isRegistry={true}>
                 <FormRegistration/>
             </BoxShelter>
         </div>

@@ -5,8 +5,9 @@ import './header-reg-data.scss'
 import {useAppDispatch} from "../../../hooks/redux";
 import {shelterSlice} from "../../../store/reducers/shelter/ShelterSlice";
 import {useNavigate} from "react-router-dom";
+import ButtonBack from "../../buttons/button-back/ButtonBack";
 
-const HeaderRegData = () => {
+const HeaderRegData = ({isData = true}) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch()
     const {setIsRegistry} = shelterSlice.actions
@@ -20,10 +21,17 @@ const HeaderRegData = () => {
         <header className={'header-reg'}>
             <Container>
                 <div className={'header-reg-_data'}>
-                    <h2>Личные данные</h2>
-                    <button className={'button button_light header-reg__button'} onClick={onSaveShelter}>
+                    <ButtonBack/>
+                    {
+                        isData ?
+                            <h2>Личные данные</h2>
+                            :
+                            <h2>Данные магазина</h2>
+                    }
+
+                    {isData && <button className={'button button_light header-reg__button'} onClick={onSaveShelter}>
                         СОХРАНИТЬ
-                    </button>
+                    </button>}
                 </div>
             </Container>
         </header>

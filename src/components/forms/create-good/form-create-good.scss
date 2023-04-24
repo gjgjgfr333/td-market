@@ -1,8 +1,8 @@
 @import "../../../styles/constants";
 
 .create {
-  margin-top: -70px;
   width: 100%;
+  color: $text2Color;
 
   &__title {
     font-weight: 800;
@@ -13,7 +13,14 @@
   &__divider {
     margin-left: 0;
     margin-top: 32px;
+    margin-bottom: 32px;
     max-width: 847px;
     color: $text3CColor;
   }
+}
+
+.subtitle {
+  margin-bottom: 16px;
+  font-size: $bigMediumSize;
+  font-weight: 400;
 }

@@ -6,7 +6,7 @@ import FormRegistrationShop from "../components/forms/registration-shop/FormRegi
 const RegistrShop = () => {
     return (
         <div>
-            <HeaderRegData/>
+            <HeaderRegData isData={false}/>
             <BoxShelter isImage={false}>
                 <FormRegistrationShop/>
             </BoxShelter>
