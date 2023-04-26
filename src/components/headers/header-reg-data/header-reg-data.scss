@@ -1,4 +1,9 @@
 .header-reg-_data {
   display: flex;
   justify-content: space-between;
+
+  &.shop {
+    justify-content: flex-start;
+    gap: 36px;
+  }
 }

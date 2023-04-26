@@ -11,11 +11,11 @@
   }
 
   &__block {
-    margin-bottom: 36px;
+    margin-bottom: 24px;
   }
 
   &__block-2 {
-    margin-bottom: 24px;
+    margin-bottom: 4px;
   }
 
   &__short {
@@ -39,6 +39,11 @@
 
   &__save {
     width: 291px;
+  }
+
+  & hr {
+    color: $text3CColor;
+    margin-bottom: 24px;
   }
 }
 

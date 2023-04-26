@@ -7,7 +7,7 @@ import {shelterSlice} from "../../../store/reducers/shelter/ShelterSlice";
 import {useNavigate} from "react-router-dom";
 import ButtonBack from "../../buttons/button-back/ButtonBack";
 
-const HeaderRegData = ({isData = true}) => {
+const HeaderRegData = ({isData = true, isShop = false}) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch()
     const {setIsRegistry} = shelterSlice.actions
@@ -18,9 +18,9 @@ const HeaderRegData = ({isData = true}) => {
     }
 
     return (
-        <header className={'header-reg'}>
+        <header className={`header-reg`}>
             <Container>
-                <div className={'header-reg-_data'}>
+                <div className={`header-reg-_data ${isShop && 'shop'}`}>
                     <ButtonBack/>
                     {
                         isData ?

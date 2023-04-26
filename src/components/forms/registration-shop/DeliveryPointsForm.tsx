@@ -18,6 +18,7 @@ function DeliveryPointsForm() {
     ]);
 
     const addDeliveryPoint = () => {
+        if (deliveryPoints.length > 15) return
         setDeliveryPoints([...deliveryPoints, { city: '', address: '', shopName: '', notes: '' }]);
     };
 
@@ -33,12 +34,13 @@ function DeliveryPointsForm() {
 
     return (
         <div>
+            <legend className={'legend'}>Пункты выдачи</legend>
+            <p className={'form-shop__p form-shop__p_address'}>
+                Добавьте адреса пунктов выдачи, в которых покупатель сможет забрать заказ, оформленный в Вашем магазине.
+            </p>
             {deliveryPoints.map((deliveryPoint, index) => (
                 <fieldset className={'form-shop__block-2'} key={index}>
-                    <legend className={'legend'}>Пункты выдачи</legend>
-                    <p className={'form-shop__p form-shop__p_address'}>
-                        Добавьте адреса пунктов выдачи, в которых покупатель сможет забрать заказ, оформленный в Вашем магазине.
-                    </p>
+                    {index > 0 && <hr/>}
                     <div className={'input-box'}>
                         <label className={'label required'} htmlFor={`city-shop-${index}`}>Город, населённый пункт</label>
                         <input
