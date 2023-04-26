@@ -1,11 +1,40 @@
+@import "../../../../styles/constants";
+@import "../../../../styles/mixins";
+
+.add-photos {
+  padding-left: 20px;
+
+  &__title {
+    font-weight: 400;
+    font-size: $bigMediumSize;
+    margin-bottom: 8px;
+  }
+
+  & .annotation {
+    @extend %add-letter;
+    margin-bottom: 16px;
+  }
+}
+
 .image-good {
   label {
-    display: flex;
+    @include flex(center, center, 10.5px);
+    flex-direction: column;
     width: 88px;
     height: 120px;
     border: 1px dashed #6F6E71;
     border-radius: 8px;
     cursor: pointer;
+
+    & img {
+      @include square(12px);
+    }
+
+    & span {
+      @extend %add-letter;
+      width: 56px;
+      text-align: center;
+    }
   }
 
   input {
