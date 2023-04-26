@@ -1,0 +1,17 @@
+.dimensions {
+  &__add {
+    margin-bottom: 16px;
+  }
+
+  & .good-dimensions {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+    max-width: 847px;
+
+    &__input {
+      width: 197px;
+    }
+  }
+}

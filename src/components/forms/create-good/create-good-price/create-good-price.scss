@@ -1,0 +1,11 @@
+.good-price {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  max-width: 847px;
+
+  &__input {
+    width: 413px;
+  }
+}

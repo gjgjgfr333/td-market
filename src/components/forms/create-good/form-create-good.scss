@@ -23,4 +23,13 @@
   margin-bottom: 16px;
   font-size: $bigMediumSize;
   font-weight: 400;
+
+  &_add {
+    margin-bottom: 4px;
+  }
+}
+
+.add-description {
+  font-size: $littleMediumSize;
+  color: $text4Color;
 }
