@@ -1,10 +1,13 @@
 @import "../../../styles/constants";
 
 .log  {
-  max-width: 414px;
+  max-width: 411px;
 
   &__title {
-    margin-bottom: 41px;
+    font-size: $bigTitleSize;
+    line-height: 114.9%;
+    margin-bottom: 52px;
+    max-width: 414px;
   }
 
   &__field {

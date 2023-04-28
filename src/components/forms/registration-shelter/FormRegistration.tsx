@@ -102,7 +102,9 @@ const FormRegistration = () => {
                            onChange={onSetMail}
                     />
                 </div>
-                <InputPassword password={password} onSetPassword={onSetPassword} placeholder={'Придумайте пароль'} error={isErrorPassword}/>
+                <div className={'reg-field'}>
+                    <InputPassword password={password} onSetPassword={onSetPassword} placeholder={'Придумайте пароль'} error={isErrorPassword}/>
+                </div>
                 <button onClick={onContinueRegistry} className={'button button_dark reg__button'}>ПРОДОЛЖИТЬ</button>
                 <p className={'contract'}>
                     Нажимая на кнопку “Продолжить”,

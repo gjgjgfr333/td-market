@@ -59,3 +59,14 @@ export const loginShelter = (email: string, password: string) => async (dispatch
         dispatch(shelterSlice.actions.loginFetchingError(e.message))
     }
 }
+
+export const createNewPasswordShelter = (email: string ,password: string) => async (dispatch: AppDispatch) => {
+    try {
+        dispatch(shelterSlice.actions.loginFetching())
+        await AuthShelterService.createNewPassword(email, password)
+        dispatch(shelterSlice.actions.loginSuccess())
+    } catch (e: any) {
+        console.log('e', e)
+        dispatch(shelterSlice.actions.loginFetchingError(e.message))
+    }
+}

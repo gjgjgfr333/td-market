@@ -9,9 +9,10 @@ import {shelterSlice} from "../../../../store/reducers/shelter/ShelterSlice";
 interface ICodeModalLogin {
     setCurrentModal: Dispatch<SetStateAction<number>>,
     isShelter?: boolean,
+    forgotPassword?: boolean
 }
 
-const CodeModalLogin = ({setCurrentModal, isShelter}: ICodeModalLogin) => {
+const CodeModalLogin = ({setCurrentModal, isShelter, forgotPassword}: ICodeModalLogin) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch()
     const {email} = useAppSelector(state => state.userReducer.user)
@@ -31,6 +32,10 @@ const CodeModalLogin = ({setCurrentModal, isShelter}: ICodeModalLogin) => {
     }
 
     const onCompareCode = () => {
+        if (forgotPassword) {
+            setCurrentModal(3)
+            return
+        }
         if (!isShelter) {
             const stringCode = activationCode.toString()
             if (stringCode === code) {
@@ -46,15 +51,23 @@ const CodeModalLogin = ({setCurrentModal, isShelter}: ICodeModalLogin) => {
         }
     }
 
-    const onRepeatCode = () => {
+    const onRepeatCode = (e: any) => {
+        e.preventDefault()
         !isShelter ? dispatch(sendCode(email)) : dispatch(sendCodeShelter(emailShelter))
     }
 
     return (
         <div className={'modalCode'}>
-            <p className={'modalCode__text'}>
-                Мы отправили письмо с кодом на почту <strong>{emailShelter}</strong>. Введите код для завершения регистрации.
-            </p>
+            {!forgotPassword ?
+                <p className={'modalCode__text'}>
+                    Мы отправили письмо с кодом на почту <strong>{emailShelter}</strong>. Введите код для завершения регистрации.
+                </p>
+                :
+                <p className={'modalCode__text'}>
+                    Мы отправили письмо с кодом на почту <strong>{emailShelter}</strong>. Введите код для создания нового пароля.
+                </p>
+            }
+
             <div className={'inputCode'}>
                 <input
                     type="text"

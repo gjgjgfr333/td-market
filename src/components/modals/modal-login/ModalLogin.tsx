@@ -14,9 +14,10 @@ import EnterModalLogin from "./enter-modal/EnterModalLogin";
 interface IModalLogin {
     observableModal?: number,
     isShelter?: boolean,
+    forgotPassword?: boolean
 }
 
-const ModalLogin = ({observableModal = 0, isShelter = false}: IModalLogin) => {
+const ModalLogin = ({observableModal = 0, isShelter = false, forgotPassword = false}: IModalLogin) => {
     const {changeIsUserModal} = userSlice.actions
     const dispatch = useAppDispatch()
     // 0 - InitialModalLogin
@@ -27,7 +28,6 @@ const ModalLogin = ({observableModal = 0, isShelter = false}: IModalLogin) => {
     const [currentModal, setCurrentModal] = useState(observableModal)
 
     const closeUserModal = () => {
-        console.log('hey')
         dispatch(changeIsUserModal(false))
     }
 
@@ -35,9 +35,10 @@ const ModalLogin = ({observableModal = 0, isShelter = false}: IModalLogin) => {
         <>
             <div className={'userAuthModal'}>
                 {currentModal === 0 && <InitialModalLogin setCurrentModal={setCurrentModal}/>}
-                {currentModal === 1 && <CodeModalLogin setCurrentModal={setCurrentModal} isShelter={isShelter}/>}
+                {currentModal === 1 &&
+                    <CodeModalLogin setCurrentModal={setCurrentModal} isShelter={isShelter} forgotPassword={forgotPassword}/>}
                 {currentModal === 2 && <NameModalLogin setCurrentModal={setCurrentModal}/>}
-                {currentModal === 3 && <CreateModalLogin closeUserModal={closeUserModal}/>}
+                {currentModal === 3 && <CreateModalLogin closeUserModal={closeUserModal} forgotPassword={forgotPassword}/>}
                 {currentModal === 4 && <EnterModalLogin closeUserModal={closeUserModal}/>}
             </div>
             <Cover callback={closeUserModal}/>

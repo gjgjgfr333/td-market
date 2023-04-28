@@ -1,10 +1,13 @@
 @import "../../../styles/constants";
 
 .reg {
+  max-width: 521px;
+
   &__title {
     font-size: $bigTitleSize;
     line-height: 114.9%;
     margin-bottom: 32px;
+    max-width: 414px;
   }
 
   & .reg-field {
@@ -12,6 +15,7 @@
     flex-direction: column;
     gap: 3px;
     margin-bottom: 20px;
+    max-width: 411px;
   }
 
   &__button {

@@ -3,12 +3,17 @@ import './create-modal-login.scss'
 import {useAppDispatch, useAppSelector} from "../../../../hooks/redux";
 import {registrationUser} from "../../../../store/reducers/user/UserCreators";
 import {TVisibility} from "../../../../models/types";
+import {createNewPasswordShelter} from "../../../../store/reducers/shelter/ShelterCreator";
 
+interface ICreateModalLogin {
+    closeUserModal: () => void,
+    forgotPassword?: boolean
+}
 
-
-const CreateModalLogin = ({closeUserModal} : {closeUserModal: () => void}) => {
+const CreateModalLogin = ({closeUserModal, forgotPassword = false} : ICreateModalLogin) => {
     const dispatch = useAppDispatch()
     const {user} = useAppSelector(state => state.userReducer)
+    const {email} = useAppSelector(state => state.shelterReducer.shelter)
     const [password, setPassword] = useState('')
     const [repeatPassword, setRepeatPassword] = useState('')
     const [visibilityPassword, setVisibilityPassword] = useState<TVisibility>('password')
@@ -36,6 +41,15 @@ const CreateModalLogin = ({closeUserModal} : {closeUserModal: () => void}) => {
     const onFinalRegistry = () => {
         if (password.trim() === repeatPassword.trim()) {
             dispatch(registrationUser(user, password))
+            closeUserModal()
+        } else {
+            setError(true)
+        }
+    }
+
+    const onNewPassword = () => {
+        if (password.trim() === repeatPassword.trim()) {
+            dispatch(createNewPasswordShelter(email, password))
             closeUserModal()
         } else {
             setError(true)
@@ -77,7 +91,11 @@ const CreateModalLogin = ({closeUserModal} : {closeUserModal: () => void}) => {
                 />
                 {error && <p className={'warningLogin creatModal__warningLogin'}>Пароли не совпадают. Проверьте правильность ввода.</p>}
             </div>
-            <button className={'button button_dark'} onClick={onFinalRegistry}>ЗАВЕРШИТЬ РЕГИСТРАЦИЮ</button>
+            {!forgotPassword ?
+                <button className={'button button_dark'} onClick={onFinalRegistry}>ЗАВЕРШИТЬ РЕГИСТРАЦИЮ</button>
+                :
+                <button className={'button button_dark'} onClick={onNewPassword}> Создать Новый пароль</button>
+            }
         </div>
     );
 };

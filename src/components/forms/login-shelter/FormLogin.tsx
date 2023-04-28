@@ -7,12 +7,14 @@ import {loginShelter, sendCodeShelter} from "../../../store/reducers/shelter/She
 import {useNavigate} from "react-router-dom";
 import ModalLogin from "../../modals/modal-login/ModalLogin";
 import {userSlice} from "../../../store/reducers/user/UserSlice";
+import {shelterSlice} from "../../../store/reducers/shelter/ShelterSlice";
 
 const FormLogin = () => {
     const navigation = useNavigate()
     const dispatch = useAppDispatch()
     const {isAuth} = useAppSelector(state => state.shelterReducer)
     const {isUserModal} = useAppSelector(state => state.userReducer)
+    const {setEmailShelter} = shelterSlice.actions
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
     const [isErrorMail, setIsErrorMail] = useState(false)
@@ -44,6 +46,7 @@ const FormLogin = () => {
             return
         }
         dispatch(changeIsUserModal(true))
+        dispatch(setEmailShelter(email))
         dispatch(sendCodeShelter(email))
     }
 
@@ -68,7 +71,7 @@ const FormLogin = () => {
                 <p className={'label label-pas'} onClick={createNewPassword}>Забыли пароль?</p>
             </div>
             <button className={'button button_dark reg__button'} onClick={onEnterShelter}>ВОЙТИ</button>
-            {isUserModal && <ModalLogin observableModal={1} isShelter={true}/>}
+            {isUserModal && <ModalLogin observableModal={1} isShelter={true} forgotPassword={true}/>}
         </form>
     );
 };

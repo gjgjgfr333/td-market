@@ -61,9 +61,9 @@ export const shelterSlice = createSlice({
             state.shelter = action.payload
         },
 
-        // setEmailShelter: (state, action: PayloadAction<string>) => {
-        //     state.shelter.email = action.payload
-        // },
+        setEmailShelter: (state, action: PayloadAction<string>) => {
+            state.shelter.email = action.payload
+        },
 
         // setPasswordShelter: (state, action: PayloadAction<string>) => {
         //     state.shelter.email = action.payload

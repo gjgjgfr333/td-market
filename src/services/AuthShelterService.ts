@@ -14,4 +14,8 @@ export class AuthShelterService {
     static async login(email: string, password: string) {
         return $apiShelter.post<IAuthShelterResponse>('/auth-shelter/login', {email, password})
     }
+
+    static async createNewPassword(email: string, password: string) {
+        return $apiShelter.post<boolean>('/auth-shelter/create-password', {email, password})
+    }
 }
