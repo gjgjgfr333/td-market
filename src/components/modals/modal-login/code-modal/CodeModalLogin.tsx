@@ -44,6 +44,7 @@ const CodeModalLogin = ({setCurrentModal, isShelter, forgotPassword}: ICodeModal
         } else  {
             const stringCode = activationCodeShelter.toString()
             if (stringCode === code) {
+                console.log('hey')
                 navigate('/registration-next')
                 setIsRegistered(true)
 

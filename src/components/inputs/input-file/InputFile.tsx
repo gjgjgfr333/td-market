@@ -1,4 +1,5 @@
-import React, {ChangeEvent, Dispatch, SetStateAction, useRef} from 'react';
+import React, {ChangeEvent, Dispatch, SetStateAction, useEffect, useRef} from 'react';
+import '../../../styles/elements/inputs.scss'
 
 interface IInputFile {
     image: File | null,
@@ -34,6 +35,10 @@ const InputFile = ({image, setImage, position}: IInputFile) => {
         setImage(null)
     }
 
+    useEffect(() => {
+        console.log('position', position)
+    }, [position])
+
     return (
         <div className={`input-file ${position}`}>
             <label className={image ? 'current' : ''} onClick={() => {
@@ -50,6 +55,7 @@ const InputFile = ({image, setImage, position}: IInputFile) => {
                 id={'Scan'}
                 onChange={onSubmitFile}
                 ref={inputFileRef}
+                value={''}
             />
             {
                 image && (position === 'right') &&

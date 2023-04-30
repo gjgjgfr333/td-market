@@ -5,15 +5,16 @@ import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
 import {IPersonalData} from "../../../models/response/IShelter";
 import {shelterSlice} from "../../../store/reducers/shelter/ShelterSlice";
 import {useNavigate} from "react-router-dom";
+import InputFile from "../../inputs/input-file/InputFile";
 
 const FormRegistrationData = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch()
-    const {isRegistry, isAuth} = useAppSelector(state => state.shelterReducer)
+    const {isRegistry} = useAppSelector(state => state.shelterReducer)
     const {shelter} = useAppSelector(state => state.shelterReducer)
     const {setIsRegistry} = shelterSlice.actions
     const inputFileRef = useRef<HTMLInputElement>(null)
-    const [image, setImage] = useState<File | null>()
+    const [image, setImage] = useState<File | null>(null)
     const [isCompletedInputs, setIsCompletedInputs] = useState(false)
     const [closePerson, setClosePerson] = useState({
         name: '',
@@ -34,10 +35,7 @@ const FormRegistrationData = () => {
         bic: '',
         check: ''
     })
-
-    useEffect(() => {
-        isAuth && navigate('/shelter')
-    }, [isAuth, navigate])
+    
 
     useEffect(() => {
         if (isRegistry) {
@@ -70,15 +68,25 @@ const FormRegistrationData = () => {
                 setIsCompletedInputs(true)
                 return
             }
-            const localShelter = localStorage.getItem('shelter')
-            // @ts-ignore
-            // const shelterData = (localShelter !== '{}') || (localShelter !== null) ? JSON.parse(localShelter) : shelter
-            // dispatch(registrationShelter({
-            //     ...shelterData,
-            //     closePerson,
-            //     personalData,
-            //     entity: entityData
-            // }, image))
+            localStorage.setItem('shelter-data', JSON.stringify({
+                    closePerson,
+                    personalData,
+                    entity: entityData
+            }))
+            const reader = new FileReader();
+
+            reader.readAsDataURL(image)
+
+            reader.onload = () => {
+                if (reader.result !== null) {
+                    const base64String = reader.result.toString();
+                    localStorage.setItem('image-shelter-data', base64String);
+                } else {
+                    console.error('Не удалось прочитать файл');
+                }
+            }
+            navigate('/registration-shop')
+
         }
     }, [isRegistry, isCompletedInputs, image, shelter, dispatch, closePerson, personalData, entityData, setIsRegistry])
 
@@ -126,31 +134,6 @@ const FormRegistrationData = () => {
 
     const onSetCheck = (e: ChangeEvent<HTMLInputElement>) => {
         setEntityData({...entityData, check: e.target.value})
-    }
-
-    const onSubmitFile = (e: ChangeEvent<HTMLInputElement>) => {
-        const { files } = e.target;
-        const selectedFiles = files as FileList;
-        setImage(selectedFiles?.[0])
-        // if (e.target.files) {
-        //     setImage(e.target.files[0])
-        // }
-        if (inputFileRef.current?.files) {
-            // setImage(inputFileRef.current?.files?.[0].name)
-        }
-        // try {
-        //     const formData = new FormData()
-        //     if (e.target.files?.[0]) {
-        //         const file = e.target.files[0]
-        //         formData.append('image', file)
-        //     }
-        // } catch (e) {
-        //
-        // }
-    }
-
-    const onDeleteFile = () => {
-        setImage(null)
     }
 
     return (
@@ -272,49 +255,27 @@ const FormRegistrationData = () => {
                 </div>
 
                 <div className={'form-data__inputs'}>
-                    <div className={'reg-field'}>
-                        <label htmlFor="Naming" className={'label'}>
-                            {entityData.isIndividual ? 'Регистрационный номер' : 'Фискальный код'}
-                        </label>
-                        <input id={'Naming'} className={`modalInput modalInput_light`}
-                               type="text"
-                               placeholder={`Введите ${entityData.isIndividual ? 'регистрационный номер' : 'фискальный код'}`}
-                               value={entityData.code}
-                               onChange={onSetCode}
-                        />
-                        <div className={'mark mark_absolute'}>
-                            <img src="/images/svg/mark.svg" alt="Пометка"/>
-                            <span className={'label'}>
+                    <div className={'form-data__block'}>
+                        <div className={'reg-field'}>
+                            <label htmlFor="Naming" className={'label'}>
+                                {entityData.isIndividual ? 'Регистрационный номер' : 'Фискальный код'}
+                            </label>
+                            <input id={'Naming'} className={`modalInput modalInput_light`}
+                                   type="text"
+                                   placeholder={`Введите ${entityData.isIndividual ? 'регистрационный номер' : 'фискальный код'}`}
+                                   value={entityData.code}
+                                   onChange={onSetCode}
+                            />
+                            <div className={'mark mark_absolute'}>
+                                <img src="/images/svg/mark.svg" alt="Пометка"/>
+                                <span className={'label'}>
                                 Для проверки необходимо прикрепить скан (фото) ИНН
                             </span>
-                        </div>
-                    </div>
-                    <div className={'input-file'}>
-                        <label className={image ? 'current' : ''} onClick={() => {
-                            if (inputFileRef.current) inputFileRef.current.click()
-                        }}>
-                            <img
-                                src={image ? '/images/svg/input-file-success.svg' : "/images/svg/input-file.svg"}
-                                alt="Прикрепите скан"
-                            />
-                            <span>{image ? 'Прикреплено' : 'Прикрепить'}</span>
-                        </label>
-                        <input
-                               type="file"
-                               id={'Scan'}
-                               onChange={onSubmitFile}
-                               ref={inputFileRef}
-                        />
-                        {
-                            image &&
-                            <div className={'name-image'}>
-                                <span>
-                                    {image.name}
-                                </span>
-                                <img src="/images/svg/close.svg" alt="Убрать фото" onClick={onDeleteFile}/>
                             </div>
-                        }
+                        </div>
+                        <InputFile image={image} setImage={setImage} position={'right'}/>
                     </div>
+
                     <div className={'reg-field'}>
                         <label htmlFor="Bank" className={'label'}>БИК банка</label>
                         <input id={'Bank'} className={`modalInput modalInput_light`}

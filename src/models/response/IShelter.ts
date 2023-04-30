@@ -1,12 +1,17 @@
+import {IDeliveryPoint} from "../IDeliveryPoint";
+
 export interface IShelter {
     id?: string,
     password?: string,
     email: string,
     name: string,
     phone: string,
-    personalData: IPersonalData,
-    closePerson: IClosePerson,
-    entity: IEntity
+    shelterData: {
+        personalData: IPersonalData,
+        closePerson: IClosePerson,
+        entity: IEntity
+    },
+    shop: IShelterShop,
 }
 
 export interface IMainShelter {
@@ -36,4 +41,10 @@ export interface IEntity {
     // photo: File,
     bic: string,
     check: string
+}
+
+export interface IShelterShop {
+    name: string,
+    description: string,
+    deliveryPoints: IDeliveryPoint[]
 }

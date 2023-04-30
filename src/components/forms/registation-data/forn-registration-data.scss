@@ -9,8 +9,6 @@ fieldset {
 }
 
 .form-data {
-  margin-top: -72px;
-
   &__description {
     margin-bottom: 44px;
     font-size: $littleMediumSize;
@@ -29,6 +27,12 @@ fieldset {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+  }
+
+  &__block {
+    display: flex;
+    gap: 12px;
+    width: 100%;
   }
 
   & .reg-field {
@@ -81,67 +85,67 @@ fieldset {
   }
 }
 
-.input-file {
-  width: 50%;
-  max-width: 150px;
-  display: flex;
-  padding-top: 25px;
-  font-weight: 800;
-  font-size: $littleSize;
-
-  &.bottom {
-    flex-direction: column;
-    align-items: center;
-    gap: 18px;
-  }
-
-  .image-user {
-    width: 92px;
-    height: 92px;
-    border-radius: 50%;
-  }
-
-
-  input {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
-  }
-
-  label {
-    padding: 0 16px;
-    height: 40px;
-    @include flex(center, center, 8.75px);
-    border: 1px solid $additionalColor;
-    border-radius: 17px;
-    color: $additionalColor;
-    cursor: pointer;
-
-    & > span {
-      text-transform: uppercase;
-    }
-
-
-  }
-
-  label.current {
-    color: $successColor;
-    border: 1px solid $successColor;
-  }
-
-  .name-image {
-    margin-left: 8px;
-    padding: 2px 16px;
-    background-color: $background4Color;
-    min-height: 40px;
-    @include flex(center, center, 8px);
-    border-radius: 16px;
-
-    & > img {
-      cursor: pointer;
-    }
-  }
-}
+//.input-file {
+//  width: 50%;
+//  max-width: 150px;
+//  display: flex;
+//  padding-top: 25px;
+//  font-weight: 800;
+//  font-size: $littleSize;
+//
+//  &.bottom {
+//    flex-direction: column;
+//    align-items: center;
+//    gap: 18px;
+//  }
+//
+//  .image-user {
+//    width: 92px;
+//    height: 92px;
+//    border-radius: 50%;
+//  }
+//
+//
+//  input {
+//    width: 0.1px;
+//    height: 0.1px;
+//    opacity: 0;
+//    overflow: hidden;
+//    position: absolute;
+//    z-index: -1;
+//  }
+//
+//  label {
+//    padding: 0 16px;
+//    height: 40px;
+//    @include flex(center, center, 8.75px);
+//    border: 1px solid $additionalColor;
+//    border-radius: 17px;
+//    color: $additionalColor;
+//    cursor: pointer;
+//
+//    & > span {
+//      text-transform: uppercase;
+//    }
+//
+//
+//  }
+//
+//  label.current {
+//    color: $successColor;
+//    border: 1px solid $successColor;
+//  }
+//
+//  .name-image {
+//    margin-left: 8px;
+//    padding: 2px 16px;
+//    background-color: $background4Color;
+//    min-height: 40px;
+//    @include flex(center, center, 8px);
+//    border-radius: 16px;
+//
+//    & > img {
+//      cursor: pointer;
+//    }
+//  }
+//}
