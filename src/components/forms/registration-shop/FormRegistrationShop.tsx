@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './form-registration-shop.scss'
 import '../../../styles/elements/titles.scss'
 import '../../../styles/elements/buttons.scss'
@@ -6,13 +6,16 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import InputFile from "../../inputs/input-file/InputFile";
 import DeliveryPointsForm from "./DeliveryPointsForm";
 import {IDeliveryPoint} from "../../../models/IDeliveryPoint";
-import {useAppDispatch} from "../../../hooks/redux";
+import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
 import {registrationShelter} from "../../../store/reducers/shelter/ShelterCreator";
 import {IShelterShop} from "../../../models/response/IShelter";
+import {useNavigate} from "react-router-dom";
 
 const FormRegistrationShop = () => {
     const dispatch = useAppDispatch()
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<IShelterShop>();
+    const navigate = useNavigate();
+    const isRegistry = useAppSelector(state => state.shelterReducer.isRegistry)
+    const { register, handleSubmit, formState: { errors } } = useForm<IShelterShop>();
     const [imageShop, setImage] = useState<File | null>(null)
     const [deliveryPoints, setDeliveryPoints] = useState<IDeliveryPoint[]>([
         {
@@ -23,35 +26,40 @@ const FormRegistrationShop = () => {
         }
     ]);
 
+    useEffect(() => {
+        isRegistry && navigate('/shelter')
+    }, [isRegistry, navigate])
+
     const onSubmit: SubmitHandler<IShelterShop> = (data) => {
         const shelter = localStorage.getItem('shelter');
-
         const shelterData = localStorage.getItem('shelter-data');
         const shelterDataImage = localStorage.getItem('image-shelter-data');
         const imgScan = new Image();
+        imgScan.onload = () => { // добавляем обработчик событий onload
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            if (ctx) {
+                canvas.width = imgScan.width;
+                canvas.height = imgScan.height;
+                ctx.drawImage(imgScan, 0, 0);
+                canvas.toBlob((blob) => {
+                    if (blob) {
+                        const fileScan = new File([blob], 'filename.png', { type: 'image/png' });
+                        if (shelter && shelterData && imageShop) {
+                            dispatch(registrationShelter({
+                                ...JSON.parse(shelter),
+                                shelterData: JSON.parse(shelterData),
+                                shop: data
+                            }, fileScan, imageShop));
+                        }
+                    }
+                }, 'image/png');
+            }
+        };
         if (shelterDataImage) {
             imgScan.src = shelterDataImage;
         }
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        if (ctx) {
-            canvas.width = imgScan.width;
-            canvas.height = imgScan.height;
-            ctx.drawImage(imgScan, 0, 0);
-            canvas.toBlob((blob) => {
-                if (blob) {
-                    const fileScan = new File([blob], 'filename.png', { type: 'image/png' });
-                    if (shelter && shelterData && imageShop) {
-                        dispatch(registrationShelter({
-                            ...JSON.parse(shelter),
-                            shelterData: JSON.parse(shelterData),
-                            shop: data
-                        }, fileScan, imageShop));
-                    }
-                }
-            }, 'image/png');
-        }
-    }
+    };
 
     return (
         <div className={'form-shop'}>
@@ -68,7 +76,7 @@ const FormRegistrationShop = () => {
                         id={'name-shop'}
                         placeholder={'Введите название магазина'}
                         className={'modalInput form-shop__short'}
-                        {...register('name', {required: true})}
+                        {...register('nameMarket', {required: true})}
                     />
                 </div>
                 <div className={'input-box'}>

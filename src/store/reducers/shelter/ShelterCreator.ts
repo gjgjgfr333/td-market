@@ -21,7 +21,7 @@ export const registrationShelter = (data: IShelter, photo: File, imageShop: File
     try {
         dispatch(shelterSlice.actions.loginFetching())
         const formData = new FormData();
-        formData.append('photo', photo);
+        formData.append('fileScan', photo);
         formData.append('imageShop', imageShop);
         Object.entries(data).forEach(([key, value]) => {
             if (typeof value !== 'string') {
@@ -31,6 +31,7 @@ export const registrationShelter = (data: IShelter, photo: File, imageShop: File
             }
         });
         const response = await AuthShelterService.registrationShelter(formData)
+        console.log('response', response)
         localStorage.setItem('token-shelter', response.data.accessToken)
         dispatch(shelterSlice.actions.setAuth(true))
         dispatch(shelterSlice.actions.setShelter(response.data.shelter))

@@ -44,7 +44,7 @@ export interface IEntity {
 }
 
 export interface IShelterShop {
-    name: string,
+    nameMarket: string,
     description: string,
     deliveryPoints: IDeliveryPoint[]
 }
