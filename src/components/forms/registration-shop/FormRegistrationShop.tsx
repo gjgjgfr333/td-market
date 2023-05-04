@@ -14,7 +14,7 @@ import {useNavigate} from "react-router-dom";
 const FormRegistrationShop = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate();
-    const isRegistry = useAppSelector(state => state.shelterReducer.isRegistry)
+    const isRegistered = useAppSelector(state => state.shelterReducer.isRegistered)
     const { register, handleSubmit, formState: { errors } } = useForm<IShelterShop>();
     const [imageShop, setImage] = useState<File | null>(null)
     const [deliveryPoints, setDeliveryPoints] = useState<IDeliveryPoint[]>([
@@ -27,39 +27,71 @@ const FormRegistrationShop = () => {
     ]);
 
     useEffect(() => {
-        isRegistry && navigate('/shelter')
-    }, [isRegistry, navigate])
+        console.log('hey, to isRegistered', isRegistered)
+        isRegistered && navigate('/shelter')
+    }, [isRegistered, navigate])
 
     const onSubmit: SubmitHandler<IShelterShop> = (data) => {
         const shelter = localStorage.getItem('shelter');
         const shelterData = localStorage.getItem('shelter-data');
         const shelterDataImage = localStorage.getItem('image-shelter-data');
         const imgScan = new Image();
-        imgScan.onload = () => { // добавляем обработчик событий onload
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            if (ctx) {
-                canvas.width = imgScan.width;
-                canvas.height = imgScan.height;
-                ctx.drawImage(imgScan, 0, 0);
-                canvas.toBlob((blob) => {
-                    if (blob) {
-                        const fileScan = new File([blob], 'filename.png', { type: 'image/png' });
-                        if (shelter && shelterData && imageShop) {
-                            dispatch(registrationShelter({
-                                ...JSON.parse(shelter),
-                                shelterData: JSON.parse(shelterData),
-                                shop: data
-                            }, fileScan, imageShop));
-                        }
-                    }
-                }, 'image/png');
-            }
+        const loadImage = (url: string): Promise<HTMLImageElement> => {
+
+            return new Promise((resolve, reject) => {
+                imgScan.onload = () => {
+                    resolve(imgScan);
+                };
+                imgScan.onerror = () => {
+                    reject(new Error(`Could not load image at ${url}`));
+                };
+                imgScan.src = url;
+            });
         };
         if (shelterDataImage) {
-            imgScan.src = shelterDataImage;
+
+            loadImage(shelterDataImage)
+                .then((img) => {
+
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    if (ctx) {
+
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        ctx.drawImage(img, 0, 0);
+                        canvas.toBlob((blob) => {
+                            if (blob) {
+
+                                const fileScan = new File([blob], 'filename.png', { type: 'image/png' });
+                                if (shelter && shelterData && imageShop && deliveryPoints.length) {
+                                    console.log('deliveryPoints onSubmit', deliveryPoints)
+                                    data.deliveryPoints = deliveryPoints
+                                    dispatch(
+                                        registrationShelter(
+                                            {
+                                                ...JSON.parse(shelter),
+                                                shelterData: JSON.parse(shelterData),
+                                                shop: data,
+                                            },
+                                            fileScan,
+                                            imageShop
+                                        )
+                                    );
+                                }
+                            }
+                        }, 'image/png');
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         }
     };
+
+    useEffect(() => {
+        console.log('deliveryPoints useEffect', deliveryPoints)
+    }, [deliveryPoints])
 
     return (
         <div className={'form-shop'}>

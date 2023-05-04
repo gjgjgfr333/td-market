@@ -33,8 +33,8 @@ export const shelterSlice = createSlice({
             state.error = ''
         },
 
-        setIsRegistry(state) {
-            state.isRegistry = true
+        setIsRegistry(state, action: PayloadAction<boolean>) {
+            state.isRegistry = action.payload
         },
 
         setIsRegistered(state, action: PayloadAction<boolean>) {

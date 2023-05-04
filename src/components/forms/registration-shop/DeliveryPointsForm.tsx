@@ -39,6 +39,7 @@ const DeliveryPointsForm: React.FC<DeliveryPointsProps> = ({deliveryPoints, setD
     });
 
     const onSubmit = (data: { deliveryPoints: IDeliveryPoint[] }) => {
+        console.log('hey, deliveryPoints')
         setDeliveryPoints(data.deliveryPoints);
     };
 
@@ -70,7 +71,7 @@ const DeliveryPointsForm: React.FC<DeliveryPointsProps> = ({deliveryPoints, setD
                             placeholder={'Введите название города'}
                             className={'modalInput form-shop__short'}
                             {...register(`deliveryPoints.${index}.city`)}
-                            onChange={handleSubmit(onSubmit)}
+                            onInput={handleSubmit(onSubmit)}
                         />
                         {/*{errors.deliveryPoints && errors.deliveryPoints[index] && errors.deliveryPoints[index]?.city && (*/}
                         {/*    <p className="error-message">{errors?.deliveryPoints?.[index]?.city.message}</p>*/}
@@ -84,7 +85,7 @@ const DeliveryPointsForm: React.FC<DeliveryPointsProps> = ({deliveryPoints, setD
                             placeholder={'Введите адрес пункта выдачи'}
                             className={'modalInput'}
                             {...register(`deliveryPoints.${index}.address`)}
-                            onChange={handleSubmit(onSubmit)}
+                            onInput={handleSubmit(onSubmit)}
                         />
                     </div>
                     <div className={'input-box'}>
@@ -95,7 +96,7 @@ const DeliveryPointsForm: React.FC<DeliveryPointsProps> = ({deliveryPoints, setD
                             placeholder={'Введите название'}
                             className={'modalInput'}
                             {...register(`deliveryPoints.${index}.shopName`)}
-                            onChange={handleSubmit(onSubmit)}
+                            onInput={handleSubmit(onSubmit)}
                         />
                     </div>
                     <div className={'input-box'}>
@@ -106,7 +107,7 @@ const DeliveryPointsForm: React.FC<DeliveryPointsProps> = ({deliveryPoints, setD
                             placeholder={'Введите примечания'}
                             className={'modalInput'}
                             {...register(`deliveryPoints.${index}.notes`)}
-                            onChange={handleSubmit(onSubmit)}
+                            onInput={handleSubmit(onSubmit)}
                         />
                     </div>
                 </fieldset>

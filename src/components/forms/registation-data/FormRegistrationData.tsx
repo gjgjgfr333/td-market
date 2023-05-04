@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import './forn-registration-data.scss'
 import '../../../styles/elements/inputs.scss'
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
@@ -13,7 +13,6 @@ const FormRegistrationData = () => {
     const {isRegistry} = useAppSelector(state => state.shelterReducer)
     const {shelter} = useAppSelector(state => state.shelterReducer)
     const {setIsRegistry} = shelterSlice.actions
-    const inputFileRef = useRef<HTMLInputElement>(null)
     const [image, setImage] = useState<File | null>(null)
     const [isCompletedInputs, setIsCompletedInputs] = useState(false)
     const [closePerson, setClosePerson] = useState({
@@ -38,6 +37,8 @@ const FormRegistrationData = () => {
     
 
     useEffect(() => {
+        console.log('isRegistry', isRegistry)
+
         if (isRegistry) {
             let isCompletedFields = true
 
@@ -64,7 +65,6 @@ const FormRegistrationData = () => {
             }
 
             if (!isCompletedFields || !image) {
-                setIsRegistry()
                 setIsCompletedInputs(true)
                 return
             }
@@ -76,7 +76,7 @@ const FormRegistrationData = () => {
             const reader = new FileReader();
 
             reader.readAsDataURL(image)
-
+            console.log('image', image)
             reader.onload = () => {
                 if (reader.result !== null) {
                     const base64String = reader.result.toString();
@@ -85,10 +85,10 @@ const FormRegistrationData = () => {
                     console.error('Не удалось прочитать файл');
                 }
             }
+            setIsRegistry(false)
             navigate('/registration-shop')
-
         }
-    }, [isRegistry, isCompletedInputs, image, shelter, dispatch, closePerson, personalData, entityData, setIsRegistry])
+    }, [isRegistry, isCompletedInputs, image, shelter, dispatch, closePerson, personalData, entityData, setIsRegistry, navigate])
 
     const onSetName = (e: ChangeEvent<HTMLInputElement>) => {
         setPersonalData({...personalData, name: e.target.value})

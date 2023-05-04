@@ -21,6 +21,7 @@ export const registrationShelter = (data: IShelter, photo: File, imageShop: File
     try {
         dispatch(shelterSlice.actions.loginFetching())
         const formData = new FormData();
+        console.log('data', data)
         formData.append('fileScan', photo);
         formData.append('imageShop', imageShop);
         Object.entries(data).forEach(([key, value]) => {
@@ -35,12 +36,12 @@ export const registrationShelter = (data: IShelter, photo: File, imageShop: File
         localStorage.setItem('token-shelter', response.data.accessToken)
         dispatch(shelterSlice.actions.setAuth(true))
         dispatch(shelterSlice.actions.setShelter(response.data.shelter))
-        dispatch(shelterSlice.actions.setIsRegistry())
+        dispatch(shelterSlice.actions.setIsRegistered(true))
         dispatch(shelterSlice.actions.loginSuccess())
     } catch (e: any) {
         console.log('e', e)
         dispatch(shelterSlice.actions.loginFetchingError(e.message))
-        dispatch(shelterSlice.actions.setIsRegistry())
+        dispatch(shelterSlice.actions.setIsRegistered(false))
     }
 }
 
