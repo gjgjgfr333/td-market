@@ -12,6 +12,7 @@ export interface IShelter {
         entity: IEntity
     },
     shop: IShelterShop,
+    deliveryPoints: IDeliveryPoint[]
 }
 
 export interface IMainShelter {
@@ -46,5 +47,4 @@ export interface IEntity {
 export interface IShelterShop {
     nameMarket: string,
     description: string,
-    deliveryPoints: IDeliveryPoint[]
 }

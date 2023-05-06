@@ -66,13 +66,13 @@ const FormRegistrationShop = () => {
                                 const fileScan = new File([blob], 'filename.png', { type: 'image/png' });
                                 if (shelter && shelterData && imageShop && deliveryPoints.length) {
                                     console.log('deliveryPoints onSubmit', deliveryPoints)
-                                    data.deliveryPoints = deliveryPoints
                                     dispatch(
                                         registrationShelter(
                                             {
                                                 ...JSON.parse(shelter),
                                                 shelterData: JSON.parse(shelterData),
                                                 shop: data,
+                                                deliveryPoints
                                             },
                                             fileScan,
                                             imageShop
