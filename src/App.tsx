@@ -1,12 +1,11 @@
 import React, {useEffect} from 'react';
 import './App.css';
-import {checkAuth} from "./store/reducers/user/UserCreators";
 import MainPage from "./pages/MainPage";
 import {
     BrowserRouter,
-    redirect,
     Route,
     Routes,
+    Navigate
 } from "react-router-dom";
 import RegistrShelter from "./pages/RegistrShelter";
 import LoginShelter from "./pages/LoginShelter";
@@ -16,49 +15,67 @@ import ShelterGoods from "./pages/ShelterGoods";
 import CreateGood from "./pages/CreateGood";
 import RegistrShop from "./pages/RegistrShop";
 import {useAppSelector} from "./hooks/redux";
+import {useDispatch} from "react-redux";
+import {getAccessTokenShelter, isTokenExpired, removeAccessTokenShelter} from "./utils/tokens";
+import {shelterSlice} from "./store/reducers/shelter/ShelterSlice";
+
 
 function App() {
-    const {isRegistered} = useAppSelector(state => state.shelterReducer)
+    const accessToken = useAppSelector((state) => state.shelterReducer.accessToken);
+    const dispatch = useDispatch();
+    const {setLogoutSuccess} = shelterSlice.actions
 
     useEffect(() => {
-        if (localStorage.getItem('token')) {
-            checkAuth()
+        const token = getAccessTokenShelter();
+        if (!token || isTokenExpired(token)) {
+            removeAccessTokenShelter()
+            dispatch(setLogoutSuccess());
         }
-
-        if (localStorage.getItem('token-shelter')) {
-            checkAuth()
-        }
-    }, [])
+    }, [dispatch, setLogoutSuccess]);
 
     return (
         <div className="App">
             <BrowserRouter>
                 <Routes>
-                    <Route path={'/'} element={<MainPage />} />
-                    <Route path={'/registration'} element={<RegistrShelter />} />
-                    <Route path={'/login'} element={<LoginShelter />} />
+
+                    <Route path="/registration" element={<RegistrShelter />} />
+                    <Route path="/login" element={<LoginShelter />} />
                     <Route
-                        path={'/registration-next'}
+                        path="/registration-next"
                         element={<RegistrData />}
                         loader={() => {
-                            if (!isRegistered) {
-                                throw redirect('/registration');
-                            } else return null;
+                            if (!accessToken) {
+                                return <Navigate to="/login" />;
+                            }
+                            return null;
                         }}
                     />
-                    <Route path={'/registration-shop'} element={<RegistrShop />} />
+                    <Route path="/registration-shop" element={<RegistrShop />} />
                     <Route
-                        path={'/shelter/'}
+                        path="/shelter/"
                         element={<Shelter />}
                         loader={() => {
-                            if (!localStorage.getItem('token-shelter')) {
-                                throw redirect('/login');
-                            } else return null;
+                            if (!accessToken) {
+                                console.log('!accessToken', !accessToken)
+                                return <Navigate to="/login" />;
+                            }
+                            return null;
                         }}
                     >
-                        <Route index path={'goods'} element={<ShelterGoods />} />
-                        <Route index path={'goods/create'} element={<CreateGood />} />
+                        <Route index path="goods" element={<ShelterGoods />} />
+                        <Route index path="goods/create" element={<CreateGood />} />
                     </Route>
+                    <Route
+                        path="/"
+                        element={<MainPage />}
+                        loader={() => {
+                            console.log('accessToken 34', accessToken)
+                            if (accessToken) {
+                                return <Navigate to="/shelter" />;
+                            }
+                            return null;
+                        }}
+                    />
                 </Routes>
             </BrowserRouter>
         </div>

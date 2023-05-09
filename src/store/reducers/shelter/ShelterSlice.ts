@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IMainShelter, IShelter} from "../../../models/response/IShelter";
+import {getAccessTokenShelter} from "../../../utils/tokens";
 
 const initialState = {
     shelter: {} as IShelter,
@@ -8,7 +9,9 @@ const initialState = {
     activationCode: '',
     error: '',
     isRegistry: false,
-    isRegistered: false
+    isRegistered: false,
+    isAuthenticated: false,
+    accessToken: getAccessTokenShelter(),
 }
 
 export const shelterSlice = createSlice({
@@ -76,7 +79,17 @@ export const shelterSlice = createSlice({
 
         setActivationCode: (state, action: PayloadAction<string>) => {
             state.activationCode = action.payload
-        }
+        },
+
+        setLoginSuccess: (state, action: PayloadAction<string>) => {
+            state.isAuthenticated = true;
+            state.accessToken = action.payload;
+        },
+
+        setLogoutSuccess: (state) => {
+            state.isAuthenticated = false;
+            state.accessToken = null
+        },
     }
 })
 

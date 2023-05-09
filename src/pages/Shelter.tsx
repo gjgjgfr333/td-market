@@ -4,6 +4,7 @@ import HeaderShelter from "../components/headers/header-shelter/HeaderShelter";
 import {Outlet} from "react-router-dom";
 
 const Shelter = () => {
+
     return (
         <main>
             <HeaderShelter/>

@@ -3,9 +3,6 @@ import {AppDispatch} from "../../store";
 import {userSlice} from "./UserSlice";
 import {AuthService} from "../../../services/AuthService";
 import {IUser} from "../../../models/response/IUser";
-import axios from "axios";
-import {IAuthResponse} from "../../../models/response/IAuthResponse";
-import {API_URL} from "../../../http";
 
 export const loginUser = (email: string, password: string) => async (dispatch: AppDispatch) => {
     try {
@@ -50,18 +47,18 @@ export const logout = () => async (dispatch: AppDispatch) => {
     }
 }
 
-export const checkAuth = () => async (dispatch: AppDispatch) => {
-    try {
-        const response = await axios.get<IAuthResponse>(`${API_URL}/refresh`, {withCredentials: true})
-        localStorage.removeItem('token')
-        localStorage.setItem('token', response.data.accessToken)
-        dispatch(userSlice.actions.setAuth(true))
-        dispatch(userSlice.actions.setUser(response.data.user))
-    } catch (e: any) {
-        console.log('e', e)
-        dispatch(userSlice.actions.loginFetchingError(e.message))
-    }
-}
+// export const checkAuth = () => async (dispatch: AppDispatch) => {
+//     try {
+//         const response = await axios.get<IAuthResponse>(`${API_URL}/refresh`, {withCredentials: true})
+//         localStorage.removeItem('token')
+//         localStorage.setItem('token', response.data.accessToken)
+//         dispatch(userSlice.actions.setAuth(true))
+//         dispatch(userSlice.actions.setUser(response.data.user))
+//     } catch (e: any) {
+//         console.log('e', e)
+//         dispatch(userSlice.actions.loginFetchingError(e.message))
+//     }
+// }
 
 export const sendCode = (email: string) => async (dispatch: AppDispatch) => {
     try {

@@ -3,6 +3,7 @@ import {AuthService} from "../../../services/AuthService";
 import {shelterSlice} from "./ShelterSlice";
 import {IShelter} from "../../../models/response/IShelter";
 import {AuthShelterService} from "../../../services/AuthShelterService";
+import {getAccessTokenFromCookieShelter, setAccessTokenShelter} from "../../../utils/tokens";
 
 export const sendCodeShelter = (email: string) => async (dispatch: AppDispatch) => {
     try {
@@ -33,10 +34,15 @@ export const registrationShelter = (data: IShelter, photo: File, imageShop: File
         });
         const response = await AuthShelterService.registrationShelter(formData)
         console.log('response', response)
-        localStorage.setItem('token-shelter', response.data.accessToken)
         dispatch(shelterSlice.actions.setAuth(true))
         dispatch(shelterSlice.actions.setShelter(response.data.shelter))
         dispatch(shelterSlice.actions.setIsRegistered(true))
+        const accessToken = getAccessTokenFromCookieShelter();
+        console.log('accessToken', accessToken)
+        if (accessToken) {
+            setAccessTokenShelter(accessToken);
+            dispatch(shelterSlice.actions.setLoginSuccess(accessToken));
+        }
         dispatch(shelterSlice.actions.loginSuccess())
     } catch (e: any) {
         console.log('e', e)
@@ -47,12 +53,19 @@ export const registrationShelter = (data: IShelter, photo: File, imageShop: File
 
 export const loginShelter = (email: string, password: string) => async (dispatch: AppDispatch) => {
     try {
+        console.log('hey bruh')
+
         dispatch(shelterSlice.actions.loginFetching())
         const response = await AuthShelterService.login(email, password)
         console.log('response', response)
-        localStorage.setItem('token-shelter', response.data.accessToken)
         dispatch(shelterSlice.actions.setAuth(true))
         dispatch(shelterSlice.actions.setShelter(response.data.shelter))
+        const accessToken = getAccessTokenFromCookieShelter();
+        console.log('accessToken', accessToken)
+        if (accessToken) {
+            setAccessTokenShelter(accessToken);
+            dispatch(shelterSlice.actions.setLoginSuccess(accessToken));
+        }
         dispatch(shelterSlice.actions.loginSuccess())
     } catch (e: any) {
         console.log('e', e)
