@@ -4,6 +4,7 @@ import {shelterSlice} from "./ShelterSlice";
 import {IShelter} from "../../../models/response/IShelter";
 import {AuthShelterService} from "../../../services/AuthShelterService";
 import {getAccessTokenFromCookieShelter, setAccessTokenShelter} from "../../../utils/tokens";
+import {ShelterService} from "../../../services/ShelterService";
 
 export const sendCodeShelter = (email: string) => async (dispatch: AppDispatch) => {
     try {
@@ -77,6 +78,19 @@ export const createNewPasswordShelter = (email: string ,password: string) => asy
     try {
         dispatch(shelterSlice.actions.loginFetching())
         await AuthShelterService.createNewPassword(email, password)
+        dispatch(shelterSlice.actions.loginSuccess())
+    } catch (e: any) {
+        console.log('e', e)
+        dispatch(shelterSlice.actions.loginFetchingError(e.message))
+    }
+}
+
+export const getPointIssues = () => async (dispatch: AppDispatch) => {
+    try {
+        dispatch(shelterSlice.actions.loginFetching())
+        const response = await ShelterService.getPointsIssue()
+        // await AuthShelterService.createNewPassword(email, password)
+        dispatch(shelterSlice.actions.setDeliveryPoints(response.data))
         dispatch(shelterSlice.actions.loginSuccess())
     } catch (e: any) {
         console.log('e', e)

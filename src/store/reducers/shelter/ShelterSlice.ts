@@ -1,6 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IMainShelter, IShelter} from "../../../models/response/IShelter";
 import {getAccessTokenShelter} from "../../../utils/tokens";
+import {IDeliveryPoint} from "../../../models/IDeliveryPoint";
 
 const initialState = {
     shelter: {} as IShelter,
@@ -90,6 +91,10 @@ export const shelterSlice = createSlice({
             state.isAuthenticated = false;
             state.accessToken = null
         },
+
+        setDeliveryPoints: (state, action: PayloadAction<IDeliveryPoint[]>) => {
+         state.shelter.deliveryPoints = action.payload
+        }
     }
 })
 

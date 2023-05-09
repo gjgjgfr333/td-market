@@ -1,5 +1,6 @@
 import axios from "axios";
 import {IAuthResponse, IAuthShelterResponse} from "../models/response/IAuthResponse";
+import {getAccessTokenShelter} from "../utils/tokens";
 
 export const API_URL = 'http://localhost:5000/'
 
@@ -34,9 +35,8 @@ export const $apiShelter = axios.create({
     baseURL: API_URL
 })
 
-$api.interceptors.request.use((config) => {
-    config.headers.Authorization = `Bearer ${localStorage.getItem('token-shelter')}`
-    console.log('config.headers.Authorization', config.headers.Authorization)
+$apiShelter.interceptors.request.use((config) => {
+    config.headers.Authorization = `Bearer ${getAccessTokenShelter()?.substring(1)}`
     return config
 })
 
