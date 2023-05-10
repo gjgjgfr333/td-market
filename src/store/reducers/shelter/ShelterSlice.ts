@@ -4,7 +4,9 @@ import {getAccessTokenShelter} from "../../../utils/tokens";
 import {IDeliveryPoint} from "../../../models/IDeliveryPoint";
 
 const initialState = {
-    shelter: {} as IShelter,
+    shelter: {
+        deliveryPoints: []
+    } as unknown as IShelter,
     isAuth: false,
     isLoading: false,
     activationCode: '',

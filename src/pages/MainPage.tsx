@@ -3,7 +3,7 @@ import Header from "../components/headers/header/Header";
 import Container from "../components/container/Container";
 import Slider from "../components/slider/Slider";
 import SpeciallyCards from "../components/cards-modules/specially-cards/SpeciallyCards";
-import Footer from "../components/footer/Footer";
+import Footer from "../components/footers/footer-user/Footer";
 import {useAppSelector} from "../hooks/redux";
 import {Navigate} from "react-router-dom";
 

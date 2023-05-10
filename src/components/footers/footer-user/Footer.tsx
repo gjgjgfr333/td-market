@@ -1,6 +1,6 @@
 import React from 'react';
 import './footer.scss';
-import Container from "../container/Container";
+import Container from "../../container/Container";
 import {Link} from "react-router-dom";
 
 const Footer = () => {

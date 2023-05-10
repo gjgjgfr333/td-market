@@ -17,6 +17,20 @@
     max-width: 847px;
     color: $text3CColor;
   }
+
+  &__buttons {
+    margin-top: 56px;
+    display: flex;
+    gap: 20px;
+  }
+
+  &__save {
+    width: 115px;
+  }
+
+  &__add-good {
+    width: 275px;
+  }
 }
 
 .subtitle {

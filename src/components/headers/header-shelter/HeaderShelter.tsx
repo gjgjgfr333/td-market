@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 import '../header-req-shelter/header-reg-shelter.scss'
 import './header-shelter.scss'
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Container from "../../container/Container";
 
 const HeaderShelter = () => {
+    const navigation = useNavigate()
+
     const links = [
         {
             href: '/shelter',
@@ -30,8 +32,9 @@ const HeaderShelter = () => {
 
     const [activeLink, setActiveLink] = useState(0)
 
-    const onClickLink = (index: number) => {
+    const onClickLink = (index: number, link: string) => {
         setActiveLink(index)
+        navigation(link)
     }
 
     return (
@@ -43,14 +46,13 @@ const HeaderShelter = () => {
                             <Link className={`links__item ${activeLink === index && 'active'}`}
                                   to={link.href}
                                   key={index}
-                                  onClick={() => onClickLink(index)}>
+                                  onClick={() => onClickLink(index, link.href)}>
                                 {link.name}
                             </Link>
                         ))
                     }
                 </div>
             </Container>
-
         </header>
     );
 };

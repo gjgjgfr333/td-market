@@ -1,5 +1,50 @@
+@import "../../../../styles/constants";
+
 .points {
   &__add {
     margin-bottom: 32px;
+  }
+}
+
+.delivery-point {
+  margin-bottom: 16px;
+  display: flex;
+  gap: 8px;
+
+  &__checkbox {
+    width: 20px;
+    height: 20px;
+  }
+
+  &__inf {
+    min-width: 305px;
+    min-height: 173px;
+    padding: 20px;
+    border: 1px solid $title3Color;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all .3s linear;
+
+     & > p {
+       font-size: $bigMediumSize;
+       color: $title3Color;
+       line-height: 25px;
+     }
+
+    &:hover {
+      border: 1px solid $text4Color;
+
+      & > p {
+        color: $text4Color;
+      }
+    }
+
+    &_selected {
+      border: 1.5px solid $additionalColor !important;
+
+      & > p {
+        color: $additionalColor !important;
+      }
+    }
   }
 }
