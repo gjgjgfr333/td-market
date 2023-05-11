@@ -1,12 +1,23 @@
 import React from 'react';
 import './create-good-description.scss'
 import '../../../../styles/elements/inputs.scss'
-import {useForm} from "react-hook-form";
+import {SubmitHandler, useForm} from "react-hook-form";
 import {SimpleMdeReact} from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
+import {ICategory, ISections, ISubcategories} from "../../../../models/ICategories";
 
-const CreateGoodDescription = () => {
-    const {register, handleSubmit} = useForm();
+type IDescriptionGood = {
+    name: string,
+    description: string
+}
+
+interface IProps {
+    descriptionGood: IDescriptionGood;
+    setDescriptionGood: (description: IDescriptionGood) => void;
+}
+
+const CreateGoodDescription = ({descriptionGood, setDescriptionGood}: IProps) => {
+    const {register, handleSubmit} = useForm<IDescriptionGood>();
 
     const mdeReactOptions = {
         autosave: {
@@ -20,11 +31,18 @@ const CreateGoodDescription = () => {
         status: false,
     };
 
-    const onSubmit = (data: any) => {
-        console.log('data', data);
+    const onSubmit: SubmitHandler<IDescriptionGood> = (data) => {
+        console.log('data', data)
+        setDescriptionGood(data)
     };
 
-    const handleChange = (value: string) => {
+    const handleChangeInput = (value: string) => {
+        handleSubmit((data: any) => {
+            onSubmit({ ...data, name: value })
+        })();
+    };
+
+    const handleChangeMde = (value: string) => {
         handleSubmit((data: any) => {
             onSubmit({ ...data, description: value })
         })();
@@ -40,7 +58,7 @@ const CreateGoodDescription = () => {
                     placeholder="Введите название товара"
                     className="modalInput description__input"
                     {...register('name')}
-                    onInput={handleSubmit(onSubmit)}
+                    onChange={(e) => handleChangeInput(e.target.value)}
                 />
             </div>
             <div>
@@ -50,7 +68,7 @@ const CreateGoodDescription = () => {
                     placeholder="Добавьте описание вашему товару"
                     options={mdeReactOptions}
                     {...register('description')}
-                    onChange={handleChange}
+                    onChange={handleChangeMde}
                 />
             </div>
         </form>

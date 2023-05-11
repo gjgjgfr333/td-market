@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './form-create-good.scss'
 import '../../../styles/elements/selects.scss'
 import '../../../styles/elements/buttons.scss'
@@ -16,6 +16,14 @@ const FormCreateGood = () => {
     const [parentSelectedCategory, setParentSelectedCategory] = useState<ICategory | null>(null);
     const [parentSelectedSubCategory, setParentSelectedSubCategory] = useState<ISubcategories | null>(null);
     const [parentSelectedType, setParentSelectedType] = useState<ISections | null>(null);
+    const [descriptionGood, setDescriptionGood] = useState({
+        name: '',
+        description: ''
+    });
+
+    useEffect(() => {
+        console.log('descriptionGood', descriptionGood)
+    }, [descriptionGood])
 
     return (
         <div className={'create'}>
@@ -29,7 +37,7 @@ const FormCreateGood = () => {
                 setSelectedType={setParentSelectedType}
             />
             <hr className={'create__divider'}/>
-            <CreateGoodDescription/>
+            <CreateGoodDescription descriptionGood={descriptionGood} setDescriptionGood={setDescriptionGood}/>
             <hr className={'create__divider'}/>
             <CreateGoodPhotos/>
             <hr className={'create__divider'}/>
