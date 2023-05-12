@@ -37,7 +37,7 @@ const FormCreateGood = () => {
                 setSelectedType={setParentSelectedType}
             />
             <hr className={'create__divider'}/>
-            <CreateGoodDescription descriptionGood={descriptionGood} setDescriptionGood={setDescriptionGood}/>
+            <CreateGoodDescription setDescriptionGood={setDescriptionGood}/>
             <hr className={'create__divider'}/>
             <CreateGoodPhotos/>
             <hr className={'create__divider'}/>
