@@ -1,9 +1,20 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import './create-good-photos.scss'
 
-const CreateGoodPhotos = () => {
-    const [generalImage, setGeneralImage] = useState<File | null>(null)
-    const [additionalImages, setAdditionalImages] = useState<File[]>([])
+interface CreateGoodPhotosProps {
+    generalImage: File | null;
+    setGeneralImage: React.Dispatch<React.SetStateAction<File | null>>;
+    additionalImages: File[];
+    setAdditionalImages: React.Dispatch<React.SetStateAction<File[]>>;
+}
+
+
+const CreateGoodPhotos = ({
+                            generalImage,
+                            setGeneralImage,
+                            additionalImages,
+                            setAdditionalImages
+                          }: CreateGoodPhotosProps) => {
 
     function onSubmitFile(e: ChangeEvent<HTMLInputElement>) {
         const { files } = e.target;

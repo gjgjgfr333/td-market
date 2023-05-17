@@ -1,21 +1,21 @@
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import './create-good-description.scss'
 import '../../../../styles/elements/inputs.scss'
 import {SimpleMdeReact} from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
+import {useFormContext} from "react-hook-form";
 
-type IDescriptionGood = {
-    name: string,
-    description: string
-}
 
 interface IProps {
-    setDescriptionGood: (description: IDescriptionGood) => void;
+    description: string
+    setDescription: (description: string) => void;
 }
 
-const CreateGoodDescription = React.memo(({setDescriptionGood}: IProps) => {
-    const [name, setName] = useState('')
-    const [description, setDescription] = useState('')
+const CreateGoodDescription = React.memo(({description, setDescription}: IProps) => {
+    const { register } = useFormContext();
+
+    // const name = watch('name');
+    // const description = watch('description');
 
 
     const mdeReactOptions = useMemo(() => {
@@ -33,30 +33,23 @@ const CreateGoodDescription = React.memo(({setDescriptionGood}: IProps) => {
     }, []) ;
 
 
-    useEffect(() => {
-        setDescriptionGood({
-            name,
-            description,
-        })
-    }, [setDescriptionGood, name, description])
+    // useEffect(() => {
+    //     setDescriptionGood(description || '');
+    // }, [setDescriptionGood, description]);
 
-    const handleChangeInput = (value: string) => {
-        setName(value)
-    };
-
-    const handleChangeMde = useCallback((value: string) => {
-        setDescription(value);
-    }, []);
+    const handleChangeDescription = useCallback((value: string) => {
+        setDescription(value)
+    }, [setDescription]);
 
     return (
-        <form className="description">
+        <div className="description">
             <div className="description__block">
                 <label className="label" htmlFor="name">Название</label>
                 <input
                     id="name"
                     placeholder="Введите название товара"
                     className="modalInput description__input"
-                    onChange={(e) => handleChangeInput(e.target.value)}
+                    {...register('name')}
                 />
             </div>
             <div>
@@ -66,10 +59,10 @@ const CreateGoodDescription = React.memo(({setDescriptionGood}: IProps) => {
                     placeholder="Добавьте описание вашему товару"
                     options={mdeReactOptions}
                     value={description}
-                    onChange={handleChangeMde}
+                    onChange={handleChangeDescription}
                 />
             </div>
-        </form>
+        </div>
     );
 });
 

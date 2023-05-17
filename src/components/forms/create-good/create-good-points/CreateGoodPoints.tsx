@@ -1,19 +1,22 @@
-import React, {useEffect, useState} from 'react';
-import './create-good-points.scss'
-import {useForm, Controller} from "react-hook-form";
-import {useAppDispatch, useAppSelector} from "../../../../hooks/redux";
-import {getPointIssues} from "../../../../store/reducers/shelter/ShelterCreator";
+import React, { useEffect, useState } from 'react';
+import './create-good-points.scss';
+import { useFormContext, Controller } from 'react-hook-form';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/redux';
+import { getPointIssues } from '../../../../store/reducers/shelter/ShelterCreator';
 import classNames from 'classnames';
 
+interface DeliveryPoint {
+    city: string;
+    address: string;
+    shopName?: string;
+    notes?: string;
+}
+
 const CreateGoodPoints = () => {
-    const { control, handleSubmit } = useForm();
-    const { deliveryPoints } = useAppSelector(
-        (state) => state.shelterReducer.shelter
-    );
+    const { handleSubmit } = useFormContext();
+    const { deliveryPoints } = useAppSelector((state) => state.shelterReducer.shelter);
     const dispatch = useAppDispatch();
-    const [checkedBoxes, setCheckedBoxes] = useState<boolean[]>(
-        new Array(deliveryPoints.length).fill(false)
-    );
+    const [checkedBoxes, setCheckedBoxes] = useState<boolean[]>(new Array(deliveryPoints.length).fill(false));
 
     useEffect(() => {
         dispatch(getPointIssues());
@@ -28,42 +31,40 @@ const CreateGoodPoints = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className={"points"}>
-            <h3 className={"subtitle subtitle_add"}>Пункты выдачи товара</h3>
-            <p className={"add-description dimensions__add"}>
-                Выберите все пункты выдачи, в которых покупатель или курьер сможет
-                забрать данный товар
+        <form onSubmit={handleSubmit(onSubmit)} className="points">
+            <h3 className="subtitle subtitle_add">Пункты выдачи товара</h3>
+            <p className="add-description dimensions__add">
+                Выберите все пункты выдачи, в которых покупатель или курьер сможет забрать данный товар
             </p>
-            {deliveryPoints.map((point, index) => (
-                <div key={index} className={"delivery-point"}>
+            {deliveryPoints.map((point: DeliveryPoint, index: number) => (
+                <div key={index} className="delivery-point">
                     <Controller
                         name={`checkbox-${index}`}
-                        control={control}
                         defaultValue={false}
                         rules={{ required: true }}
-                        render={({ field: { onChange, value } }) => (
+                        render={({ field }) => (
                             <input
                                 id={`checkbox-${index}`}
-                                className={"delivery-point__checkbox"}
+                                className="delivery-point__checkbox"
                                 type="checkbox"
                                 onChange={(e) => {
-                                    onChange(e.target.checked);
+                                    field.onChange(e.target.checked);
                                     handleCheckboxChange(index)(e.target.checked);
                                 }}
-                                checked={value}
+                                checked={field.value}
                             />
                         )}
                     />
                     <label
-                        className={classNames("delivery-point__inf", {
-                            "delivery-point__inf_selected": checkedBoxes[index],
+                        className={classNames('delivery-point__inf', {
+                            'delivery-point__inf_selected': checkedBoxes[index],
                         })}
                         htmlFor={`checkbox-${index}`}
                     >
                         <p>{point.city}</p>
                         <p>{point.address}</p>
-                        {point?.shopName && <p>{point.shopName}</p>}
-                        {point?.notes && <p>{point.notes}</p>}
+                        {point.shopName && <p>{point.shopName}</p>}
+                        {point.notes && <p>{point.notes}</p>}
                     </label>
                 </div>
             ))}

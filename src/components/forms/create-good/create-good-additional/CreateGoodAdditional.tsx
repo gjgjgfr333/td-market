@@ -1,37 +1,40 @@
-import React from 'react';
-import {useForm} from "react-hook-form";
+import { useEffect } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 const CreateGoodAdditional = () => {
-    const {register, handleSubmit} = useForm()
+    const { register, watch } = useFormContext();
 
+    const material = watch('material');
+    const recommendations = watch('recommendations');
 
-
-    const onSubmit = () => {
-
-    }
+    useEffect(() => {
+        // Действия, которые необходимо выполнить при изменении значений полей
+    }, [material, recommendations]);
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className={'description'}>
-            <h3 className={'subtitle'}>
-                Дополнительная информация
-            </h3>
-            <div className={'description__block'}>
-                <label className={'label'} htmlFor="material">Материал, состав ткани</label>
+        <div className="description">
+            <h3 className="subtitle">Дополнительная информация</h3>
+            <div className="description__block">
+                <label className="label" htmlFor="material">
+                    Материал, состав ткани
+                </label>
                 <input
-                    id={'material'}
-                    className={'modalInput description__input'}
+                    id="material"
+                    className="modalInput description__input"
                     {...register('material')}
                 />
             </div>
-            <div className={'description__block'}>
-                <label className={'label'} htmlFor="recommendations">Материал, состав ткани</label>
+            <div className="description__block">
+                <label className="label" htmlFor="recommendations">
+                    Рекомендации
+                </label>
                 <input
-                    id={'recommendations'}
-                    className={'modalInput description__input'}
+                    id="recommendations"
+                    className="modalInput description__input"
                     {...register('recommendations')}
                 />
             </div>
-        </form>
+        </div>
     );
 };
 
