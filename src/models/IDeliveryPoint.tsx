@@ -4,3 +4,11 @@ export interface IDeliveryPoint {
     shopName?: string;
     notes?: string;
 }
+
+export interface IDeliveryPoint2 {
+    city: string;
+    address: string;
+    shopName?: string;
+    notes?: string;
+    _id: string
+}

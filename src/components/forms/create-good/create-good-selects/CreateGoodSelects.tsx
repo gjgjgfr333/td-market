@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import './сreate-good-selects.scss'
-import AsyncSelect from "react-select/async";
 import Select from "react-select";
 import {useAppDispatch, useAppSelector} from "../../../../hooks/redux";
 import {ICategory, ISections, ISubcategories} from "../../../../models/ICategories";
@@ -32,9 +31,10 @@ const CreateGoodSelects = ({
     const [types, setTypes] = useState<Array<ISections>>([]);
 
 
+
     useEffect(() => {
-        console.log('selectedCategory', selectedCategory)
-    }, [selectedCategory])
+        console.log('categories', categories)
+    }, [categories])
 
     useEffect(() => {
         if (categories.length < 1) {
@@ -50,7 +50,7 @@ const CreateGoodSelects = ({
         const filteredCategories = categories.filter(category =>
             category.name.toLowerCase().includes(inputValue.toLowerCase())
         );
-
+        console.log('hey bro')
         const options = filteredCategories.map(category => ({
             value: category.name,
             label: category.name
@@ -119,16 +119,14 @@ const CreateGoodSelects = ({
         <>
             <div className={'form-select'}>
                 <label className={'label'}>Категория</label>
-                <AsyncSelect
-                    defaultOptions={true}
+                <Select
                     placeholder={'Выбрать категорию'}
                     className={'select-input form-select__select'}
                     classNamePrefix={'select'}
-                    loadOptions={(inputValue, callback) =>
-                        loadCategories(inputValue, callback, selectedCategory)
-                    }
+                    options={categories.map((category: { name: any; }) => ({ value: category.name, label: category.name }))}
                     value={selectedCategory ? { value: selectedCategory.name, label: selectedCategory.name } : null}
                     onChange={onChangeCategory}
+                    isDisabled={categories.length > 1}
                 />
             </div>
             <div className={'form-select'}>

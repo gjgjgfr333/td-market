@@ -11,9 +11,12 @@ import CreateGoodDimensions from "./create-good-dimensions/CreateGoodDimensions"
 import CreateGoodPoints from "./create-good-points/CreateGoodPoints";
 import {ICategory, ISections, ISubcategories} from "../../../models/ICategories";
 import {useForm, FormProvider} from "react-hook-form";
+import {fileToBase64} from "../../../utils/fileToBase64";
+import {useAppDispatch} from "../../../hooks/redux";
+import {IProductCard} from "../../../models/IProductCard";
 
 const FormCreateGood = () => {
-
+    const dispatch = useAppDispatch()
     const methods = useForm();
 
     const [parentSelectedCategory, setParentSelectedCategory] = useState<ICategory | null>(null);
@@ -23,14 +26,57 @@ const FormCreateGood = () => {
     const [generalImage, setGeneralImage] = useState<File | null>(null)
     const [additionalImages, setAdditionalImages] = useState<File[]>([])
 
-    const onSubmit = (data: any) => {
-        console.log('parentSelectedCategory', parentSelectedCategory)
-        console.log('description', description)
-        console.log('generalImage', generalImage)
-        console.log('additionalImages', additionalImages)
-        // console.log('parentSelectedCategory', parentSelectedCategory)
-        console.log(data);
-    }
+    const onSubmit = async (data: any) => {
+        console.log('data', data)
+        if (!generalImage
+            || additionalImages.length === 0
+            || !parentSelectedCategory
+            || !parentSelectedSubCategory
+            || !parentSelectedType
+        ) return;
+
+        try {
+            const generalImage64 = await fileToBase64(generalImage);
+            const additionalImages64 = await Promise.all(additionalImages.map(fileToBase64));
+
+            // console.log('parentSelectedCategory', parentSelectedCategory);
+            // console.log('description', description);
+            // console.log('generalImage', generalImage);
+            // console.log('additionalImages64', additionalImages64);
+            const good = {
+                categories: {
+                    category: parentSelectedCategory._id,
+                    subcategory: parentSelectedSubCategory._id,
+                    section: parentSelectedType._id
+                },
+                information: {
+                    name: data.name,
+                    description: description
+                },
+                mainPhoto: generalImage64,
+                additionalPhotos: additionalImages64,
+                additionalInformation: {
+                    material: data.material,
+                    recommendations: data.recommendations
+                },
+                pricesAndQuantity: {
+                    price: Number(data.price),
+                    priceBeforeDiscount: Number(data.priceBeforeDiscount),
+                    quantity: Number(data.quantity),
+                },
+                dimensions: {
+                    length: Number(data.length),
+                    height: Number(data.height),
+                    width: Number(data.width),
+                    weight: Number(data.weight)
+                }
+            } as IProductCard
+            // Ваш код дальнейшей обработки данных...
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
 
     return (
         <FormProvider {...methods}>

@@ -4,16 +4,21 @@ import './header-shelter.scss'
 import {Link, useNavigate} from "react-router-dom";
 import Container from "../../container/Container";
 
+import { useLocation } from 'react-router-dom';
+
+// Остальной код компонента...
+
 const HeaderShelter = () => {
     const navigation = useNavigate()
+    const location = useLocation()
 
     const links = [
         {
-            href: '/shelter',
+            href: '/shelter/main',
             name: 'Главная',
         },
         {
-            href: '/shelter',
+            href: '/shelter/orders',
             name: 'Мои заказы',
         },
         {
@@ -21,19 +26,29 @@ const HeaderShelter = () => {
             name: 'Мои товары',
         },
         {
-            href: '/shelter',
+            href: '/shelter/statistics',
             name: 'Статистика',
         },
         {
-            href: '/shelter',
+            href: '/shelter/subscription',
             name: 'Оформить подписку',
         },
     ]
 
-    const [activeLink, setActiveLink] = useState(0)
+    const findActiveLinkIndex = () => {
+        const currentPath = location.pathname;
+        for (let i = 0; i < links.length; i++) {
+            const link = links[i];
+            if (currentPath === link.href || currentPath.startsWith(link.href + '/')) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    const activeLinkIndex = findActiveLinkIndex();
 
     const onClickLink = (index: number, link: string) => {
-        setActiveLink(index)
         navigation(link)
     }
 
@@ -41,16 +56,16 @@ const HeaderShelter = () => {
         <header className={'header-reg'}>
             <Container>
                 <div className={'links'}>
-                    {
-                        links.map((link, index) => (
-                            <Link className={`links__item ${activeLink === index && 'active'}`}
-                                  to={link.href}
-                                  key={index}
-                                  onClick={() => onClickLink(index, link.href)}>
-                                {link.name}
-                            </Link>
-                        ))
-                    }
+                    {links.map((link, index) => (
+                        <Link
+                            className={`links__item ${activeLinkIndex === index && 'active'}`}
+                            to={link.href}
+                            key={index}
+                            onClick={() => onClickLink(index, link.href)}
+                        >
+                            {link.name}
+                        </Link>
+                    ))}
                 </div>
             </Container>
         </header>
@@ -58,3 +73,4 @@ const HeaderShelter = () => {
 };
 
 export default HeaderShelter;
+

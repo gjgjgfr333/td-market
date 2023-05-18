@@ -5,6 +5,7 @@ import {IShelter} from "../../../models/response/IShelter";
 import {AuthShelterService} from "../../../services/AuthShelterService";
 import {getAccessTokenFromCookieShelter, setAccessTokenShelter} from "../../../utils/tokens";
 import {ShelterService} from "../../../services/ShelterService";
+import {IProductCard} from "../../../models/IProductCard";
 
 export const sendCodeShelter = (email: string) => async (dispatch: AppDispatch) => {
     try {
@@ -39,7 +40,6 @@ export const registrationShelter = (data: IShelter, photo: File, imageShop: File
         dispatch(shelterSlice.actions.setShelter(response.data.shelter))
         dispatch(shelterSlice.actions.setIsRegistered(true))
         const accessToken = getAccessTokenFromCookieShelter();
-        console.log('accessToken', accessToken)
         if (accessToken) {
             setAccessTokenShelter(accessToken);
             dispatch(shelterSlice.actions.setLoginSuccess(accessToken));
@@ -95,5 +95,17 @@ export const getPointIssues = () => async (dispatch: AppDispatch) => {
     } catch (e: any) {
         console.log('e', e)
         dispatch(shelterSlice.actions.loginFetchingError(e.message))
+    }
+}
+
+export const createProductCard = (good: IProductCard) => async (dispatch: AppDispatch) => {
+    try {
+        const response = await ShelterService.createGoodCard(good)
+        if (response) {
+            dispatch(shelterSlice.actions.setCreateGoodCard(true))
+        } else dispatch(shelterSlice.actions.setCreateGoodCard(false))
+    } catch (e: any) {
+        console.log('e', e)
+        dispatch(shelterSlice.actions.setCreateGoodCard(false))
     }
 }

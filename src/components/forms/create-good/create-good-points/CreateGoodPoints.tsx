@@ -4,12 +4,14 @@ import { useFormContext, Controller } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/redux';
 import { getPointIssues } from '../../../../store/reducers/shelter/ShelterCreator';
 import classNames from 'classnames';
+import {log} from "util";
 
 interface DeliveryPoint {
     city: string;
     address: string;
     shopName?: string;
     notes?: string;
+    _id: string
 }
 
 const CreateGoodPoints = () => {
@@ -22,7 +24,6 @@ const CreateGoodPoints = () => {
         dispatch(getPointIssues());
     }, [dispatch]);
 
-    const onSubmit = () => {};
 
     const handleCheckboxChange = (index: number) => (checked: boolean) => {
         const newCheckedBoxes = [...checkedBoxes];
@@ -30,8 +31,10 @@ const CreateGoodPoints = () => {
         setCheckedBoxes(newCheckedBoxes);
     };
 
+
+
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="points">
+        <div className="points">
             <h3 className="subtitle subtitle_add">Пункты выдачи товара</h3>
             <p className="add-description dimensions__add">
                 Выберите все пункты выдачи, в которых покупатель или курьер сможет забрать данный товар
@@ -41,10 +44,9 @@ const CreateGoodPoints = () => {
                     <Controller
                         name={`checkbox-${index}`}
                         defaultValue={false}
-                        rules={{ required: true }}
                         render={({ field }) => (
                             <input
-                                id={`checkbox-${index}`}
+                                id={`${point._id}`}
                                 className="delivery-point__checkbox"
                                 type="checkbox"
                                 onChange={(e) => {
@@ -68,7 +70,7 @@ const CreateGoodPoints = () => {
                     </label>
                 </div>
             ))}
-        </form>
+        </div>
     );
 };
 

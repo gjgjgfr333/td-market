@@ -1,4 +1,4 @@
-import {IDeliveryPoint} from "../IDeliveryPoint";
+import {IDeliveryPoint2} from "../IDeliveryPoint";
 
 export interface IShelter {
     id?: string,
@@ -12,7 +12,7 @@ export interface IShelter {
         entity: IEntity
     },
     shop: IShelterShop,
-    deliveryPoints: IDeliveryPoint[]
+    deliveryPoints: IDeliveryPoint2[]
 }
 
 export interface IMainShelter {
