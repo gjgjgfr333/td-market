@@ -4,7 +4,6 @@ import { useFormContext, Controller } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/redux';
 import { getPointIssues } from '../../../../store/reducers/shelter/ShelterCreator';
 import classNames from 'classnames';
-import {log} from "util";
 
 interface DeliveryPoint {
     city: string;
@@ -42,7 +41,7 @@ const CreateGoodPoints = () => {
             {deliveryPoints.map((point: DeliveryPoint, index: number) => (
                 <div key={index} className="delivery-point">
                     <Controller
-                        name={`checkbox-${index}`}
+                        name={`checkbox-${point._id}`}
                         defaultValue={false}
                         render={({ field }) => (
                             <input
@@ -61,7 +60,7 @@ const CreateGoodPoints = () => {
                         className={classNames('delivery-point__inf', {
                             'delivery-point__inf_selected': checkedBoxes[index],
                         })}
-                        htmlFor={`checkbox-${index}`}
+                        htmlFor={`checkbox-${point._id}`}
                     >
                         <p>{point.city}</p>
                         <p>{point.address}</p>

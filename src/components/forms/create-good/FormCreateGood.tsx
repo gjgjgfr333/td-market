@@ -12,12 +12,16 @@ import CreateGoodPoints from "./create-good-points/CreateGoodPoints";
 import {ICategory, ISections, ISubcategories} from "../../../models/ICategories";
 import {useForm, FormProvider} from "react-hook-form";
 import {fileToBase64} from "../../../utils/fileToBase64";
-import {useAppDispatch} from "../../../hooks/redux";
+import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
 import {IProductCard} from "../../../models/IProductCard";
+import {createProductCard} from "../../../store/reducers/shelter/ShelterCreator";
+import {useNavigate} from "react-router-dom";
 
 const FormCreateGood = () => {
+    const navigation = useNavigate()
     const dispatch = useAppDispatch()
     const methods = useForm();
+    const {isCreateGoodCard} = useAppSelector(state => state.shelterReducer)
 
     const [parentSelectedCategory, setParentSelectedCategory] = useState<ICategory | null>(null);
     const [parentSelectedSubCategory, setParentSelectedSubCategory] = useState<ISubcategories | null>(null);
@@ -25,6 +29,14 @@ const FormCreateGood = () => {
     const [description, setDescription] = useState('')
     const [generalImage, setGeneralImage] = useState<File | null>(null)
     const [additionalImages, setAdditionalImages] = useState<File[]>([])
+    // const [selectedPoints, setSelectedPoints] = useState<{ [id: string]: boolean }>({});
+    // const handlePointSelection = (id: string, selected: boolean) => {
+    //     setSelectedPoints((prevState) => ({
+    //         ...prevState,
+    //         [id]: selected,
+    //     }));
+    // };
+    const [submitButton, setSubmitButton] = useState('');
 
     const onSubmit = async (data: any) => {
         console.log('data', data)
@@ -43,6 +55,11 @@ const FormCreateGood = () => {
             // console.log('description', description);
             // console.log('generalImage', generalImage);
             // console.log('additionalImages64', additionalImages64);
+            const points = Object.keys(data)
+                .filter(key => key.startsWith("checkbox-") && data[key])
+                .map(key => key.substring("checkbox-".length));
+
+            console.log('points', points)
             const good = {
                 categories: {
                     category: parentSelectedCategory._id,
@@ -69,11 +86,19 @@ const FormCreateGood = () => {
                     height: Number(data.height),
                     width: Number(data.width),
                     weight: Number(data.weight)
-                }
+                },
+                deliveryPoints: points
             } as IProductCard
-            // Ваш код дальнейшей обработки данных...
+            dispatch(createProductCard(good))
+            if (isCreateGoodCard) {
+                if (submitButton === 'saveButton') {
+                    navigation('/shelter/goods');
+                } else if (submitButton === 'addGoodButton') {
+                    window.location.reload();
+                }
+            }
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error create good:', error);
         }
     };
 
@@ -108,8 +133,22 @@ const FormCreateGood = () => {
                 <hr className={'create__divider'}/>
                 <CreateGoodPoints/>
                 <div className={'create__buttons'}>
-                    <button type="submit" className={'button button_dark create__save'}>Сохранить</button>
-                    <button type="button" className={'button button_light create__add-good'}>Добавить ещё карточку товара</button>
+                    <button
+                        type="submit"
+                        name="saveButton"
+                        className={'button button_dark create__save'}
+                        onClick={() => setSubmitButton('saveButton')}
+                    >
+                        Сохранить
+                    </button>
+                    <button
+                        type="submit"
+                        name="addGoodButton"
+                        className={'button button_light create__add-good'}
+                        onClick={() => setSubmitButton('addGoodButton')}
+                    >
+                        Добавить ещё карточку товара
+                    </button>
                 </div>
             </form>
         </FormProvider>
