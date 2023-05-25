@@ -11,7 +11,6 @@ import CreateGoodDimensions from "./create-good-dimensions/CreateGoodDimensions"
 import CreateGoodPoints from "./create-good-points/CreateGoodPoints";
 import {ICategory, ISections, ISubcategories} from "../../../models/ICategories";
 import {useForm, FormProvider} from "react-hook-form";
-import {fileToBase64} from "../../../utils/fileToBase64";
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
 import {IProductCard} from "../../../models/IProductCard";
 import {createProductCard} from "../../../store/reducers/shelter/ShelterCreator";
@@ -29,17 +28,9 @@ const FormCreateGood = () => {
     const [description, setDescription] = useState('')
     const [generalImage, setGeneralImage] = useState<File | null>(null)
     const [additionalImages, setAdditionalImages] = useState<File[]>([])
-    // const [selectedPoints, setSelectedPoints] = useState<{ [id: string]: boolean }>({});
-    // const handlePointSelection = (id: string, selected: boolean) => {
-    //     setSelectedPoints((prevState) => ({
-    //         ...prevState,
-    //         [id]: selected,
-    //     }));
-    // };
     const [submitButton, setSubmitButton] = useState('');
 
     const onSubmit = async (data: any) => {
-        console.log('data', data)
         if (!generalImage
             || additionalImages.length === 0
             || !parentSelectedCategory
@@ -48,18 +39,10 @@ const FormCreateGood = () => {
         ) return;
 
         try {
-            const generalImage64 = await fileToBase64(generalImage);
-            const additionalImages64 = await Promise.all(additionalImages.map(fileToBase64));
-
-            // console.log('parentSelectedCategory', parentSelectedCategory);
-            // console.log('description', description);
-            // console.log('generalImage', generalImage);
-            // console.log('additionalImages64', additionalImages64);
             const points = Object.keys(data)
                 .filter(key => key.startsWith("checkbox-") && data[key])
                 .map(key => key.substring("checkbox-".length));
 
-            console.log('points', points)
             const good = {
                 categories: {
                     category: parentSelectedCategory._id,
@@ -70,16 +53,14 @@ const FormCreateGood = () => {
                     name: data.name,
                     description: description
                 },
-                mainPhoto: generalImage64,
-                additionalPhotos: additionalImages64,
                 additionalInformation: {
                     material: data.material,
                     recommendations: data.recommendations
                 },
                 pricesAndQuantity: {
                     price: Number(data.price),
-                    priceBeforeDiscount: Number(data.priceBeforeDiscount),
-                    quantity: Number(data.quantity),
+                    priceBeforeDiscount: Number(data.priceDiscount),
+                    quantity: Number(data.quantityInStock),
                 },
                 dimensions: {
                     length: Number(data.length),
@@ -89,7 +70,7 @@ const FormCreateGood = () => {
                 },
                 deliveryPoints: points
             } as IProductCard
-            dispatch(createProductCard(good))
+            dispatch(createProductCard(good, generalImage, additionalImages))
             if (isCreateGoodCard) {
                 if (submitButton === 'saveButton') {
                     navigation('/shelter/goods');

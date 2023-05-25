@@ -98,9 +98,22 @@ export const getPointIssues = () => async (dispatch: AppDispatch) => {
     }
 }
 
-export const createProductCard = (good: IProductCard) => async (dispatch: AppDispatch) => {
+export const createProductCard = (good: IProductCard, mainPhoto: File, additionalPhotos: File[]) => async (dispatch: AppDispatch) => {
     try {
-        const response = await ShelterService.createGoodCard(good)
+        console.log('good', good)
+        const formData = new FormData();
+        formData.append('mainPhoto', mainPhoto);
+        additionalPhotos.forEach((photo) => {
+            formData.append(`additionalPhotos`, photo);
+        });
+        Object.entries(good).forEach(([key, value]) => {
+            if (typeof value !== 'string') {
+                formData.append(key, JSON.stringify(value));
+            } else {
+                formData.append(key, value);
+            }
+        });
+        const response = await ShelterService.createGoodCard(formData)
         if (response) {
             dispatch(shelterSlice.actions.setCreateGoodCard(true))
         } else dispatch(shelterSlice.actions.setCreateGoodCard(false))

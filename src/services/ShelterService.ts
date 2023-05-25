@@ -8,7 +8,11 @@ export class ShelterService {
         return $apiShelter.get<IDeliveryPoint2[]>('/shelters/delivery-points')
     }
 
-    static async createGoodCard(good: IProductCard): Promise<AxiosResponse<IProductCard>> {
-        return $apiShelter.post('/product-card', good)
+    static async createGoodCard(good: FormData): Promise<AxiosResponse<IProductCard>> {
+        return $apiShelter.post('/product-cards', good, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            }
+        })
     }
 }
