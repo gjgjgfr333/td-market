@@ -7,7 +7,6 @@ export const fetchCategories = () => async (dispatch: AppDispatch) => {
     try {
         dispatch(categoriesSlice.actions.categoriesFetching())
         const response = await axios.get<ICategory[]>('http://localhost:5000/categories')
-        console.log('response categories', response)
         dispatch(categoriesSlice.actions.categoriesFetchingSuccess(response.data))
     } catch (e: any) {
         console.log('e', e)
