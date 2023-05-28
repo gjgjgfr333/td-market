@@ -46,8 +46,8 @@ const Header = () => {
                     {isUserModal && <ModalLogin/>}
                 </div>
                 <div className={'header__row-3'}>
-                    {categories.map(category => (
-                        <Link to={'/'}>{category.name}</Link>
+                    {categories.map((category) => (
+                        <Link key={category.name} to={'/'}>{category.name}</Link>
                     ))}
                 </div>
             </Container>

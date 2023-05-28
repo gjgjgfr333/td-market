@@ -2,6 +2,8 @@ import TitleCards from "../../title-cards/TitleCards";
 import React, {useEffect, useState} from "react";
 import {GoodsService} from "../../../services/GoodsService";
 import {IProductCard} from "../../../models/IProductCard";
+import ProductCard from "../../cards/ProductCard";
+import WrapperCard from "../../wrappers/wrapper-card/WrapperCard";
 
 const NewCards = () => {
     const [newCards, setNewCards] = useState<IProductCard[]>([]);
@@ -27,9 +29,11 @@ const NewCards = () => {
     return (
         <div>
             <TitleCards text={'Новинки'}/>
-            <div className={'wrapper-card'}>
-                {/*{new}*/}
-            </div>
+            <WrapperCard>
+                {newCards.map(card => (
+                    <ProductCard card={card}/>
+                )) }
+            </WrapperCard>
         </div>
     );
 };
