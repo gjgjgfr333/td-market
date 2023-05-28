@@ -1,16 +1,17 @@
-import React, {Dispatch, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './menu.scss'
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {fetchCategories} from "../../store/reducers/categories/CategoriesCreators";
-import {ISubcategories} from "../../models/ICategories";
+import {ISections, ISubcategories} from "../../models/ICategories";
 
 const Menu = () => {
     const [isPressed, setIsPressed] = useState(false)
     const dispatch = useAppDispatch()
     const {categories} = useAppSelector(state => state.categoriesReducer)
     const [activeCategory, setActiveCategory] = useState(0)
-    // @ts-ignore
-    const [selectCategory, setSelectCategory]: [ISubcategories[] | null, Dispatch<any>] = useState<any[]>(null)
+    const [activeSubCategory, setActiveSubCategory] = useState(0)
+    const [selectCategory, setSelectCategory] = useState<ISubcategories[] | null>(null);
+    const [selectSubCategory, setSelectSubCategory] = useState<ISections[] | null>(null);
 
     useEffect(() => {
         dispatch(fetchCategories())
@@ -26,6 +27,11 @@ const Menu = () => {
         setActiveCategory(index)
     }
 
+    const onSelectSubCategory = (subcat: ISubcategories, index: number) => {
+        setActiveSubCategory(index)
+        setSelectSubCategory(subcat.children)
+    }
+
     return (
         <div>
             <div className={'hamburger-container'}>
@@ -39,26 +45,39 @@ const Menu = () => {
                 <div className={'main-categories'}>
                     {
                         categories.map((categ, index) => (
-                            <div onClick={() => onSelectCategory(index)} className={`main-categories__item ${index === activeCategory && 'active'}`}
-                                 key={index}>
+                            <div
+                                onClick={() => onSelectCategory(index)}
+                                className={`main-categories__item ${index === activeCategory && 'active'}`}
+                                key={index}
+                            >
                                 <img className={'icon'} src={categ.icon} alt=""/>
                                 <div>
                                     {categ.name}
                                 </div>
-                                <img className={'arrow'} src="/images/svg/arrow-right.svg" alt=""/>
                             </div>
                         ))
                     }
                 </div>
                 <div className={'subcategories'}>
+                    {/*{selectCategory && selectCategory.map((subcat, index) => (*/}
+                    {/*    <div key={index}>*/}
+                    {/*        <h3 className={'subcategory'}>{subcat.name}</h3>*/}
+                    {/*        <div className={'sections'}>*/}
+                    {/*            {subcat.children.map((section, index) => (*/}
+                    {/*                <a className={''} href={'/'} key={index}>{section.name}</a>*/}
+                    {/*            ))}*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*))}*/}
                     {selectCategory && selectCategory.map((subcat, index) => (
-                        <div key={index}>
+                        <div
+                            className={`subcategory-wrapper ${index === activeSubCategory && 'active'}`}
+                            key={index} onClick={() => onSelectSubCategory(subcat ,index)}
+                        >
                             <h3 className={'subcategory'}>{subcat.name}</h3>
-                            <div className={'sections'}>
-                                {subcat.children.map((section, index) => (
-                                    <a className={''} href={'/'} key={index}>{section.name}</a>
-                                ))}
-                            </div>
+                            {selectSubCategory && selectSubCategory?.length > 0 &&
+                                <img src={ index === activeSubCategory ? '/images/svg/arrow-right.svg' : '/images/svg/arrow-right-noactive.svg'}
+                                     alt={'Посмотреть подкатегории'}/>}
                         </div>
                     ))}
                 </div>

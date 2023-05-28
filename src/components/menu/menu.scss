@@ -60,6 +60,7 @@
   width: 100vw;
   top: 162px;
   left: -100vw;
+  padding-top: 32px;
   color: $menuColor;
   background-color: $backgroundColor;
   transition: $slowTransition;
@@ -73,19 +74,21 @@
 .main-categories {
   height: 100%;
   width: 305px;
-  margin-left: 80px;
+  margin-left: 40px;
   padding-right: 10px;
-  border-right: $borderMenu;
 
   &__item {
-    padding: 10px;
+    margin-bottom: 4px;
+    padding: 10px 15px;
     height: 44px;
     @include flex(flex-start, center);
     cursor: pointer;
+    color: $text2Color;
+    border-radius: 15px;
     transition: $fastTransition;
 
     & .icon {
-      margin-right: 10px;
+      margin-right: 8px;
     }
 
     & .arrow {
@@ -94,22 +97,34 @@
 
 
     &.active, &:hover {
-      background: $background2Color;
+      color: $additionalColor;
+      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.12);
     }
   }
 }
 
 .subcategories {
-  margin-left: 20px;
+  margin-left: 97px;
   @include flex();
+  flex-direction: column;
   flex-wrap: wrap;
-  column-gap: 85px;
-  row-gap: 60px;
+  row-gap: 23px;
+
+  & .subcategory-wrapper {
+    padding: 10px 10px 10px 15px;
+    @include flex();
+    cursor: pointer;
+    color: $title3Color;
+
+    &.active {
+      color: $text2Color;
+    }
+  }
 
   & .subcategory {
-    margin: 10px 0 17px;
-    font-weight: 800;
-    font-size: $subTitleSize;
+    width: 305px;
+    font-weight: 400;
+    font-size: $bigMediumSize;
   }
 }
 

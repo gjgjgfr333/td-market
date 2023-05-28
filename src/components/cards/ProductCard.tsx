@@ -2,10 +2,17 @@ import React from 'react';
 import './product-card.scss'
 import '../../styles/elements/buttons.scss'
 import {IProductCard} from "../../models/IProductCard";
+import {useNavigate} from "react-router-dom";
 
 const ProductCard = ({card}: {card: IProductCard }) => {
+    const navigate = useNavigate()
+    const onClickCard = () => {
+        navigate(`/card/${card._id}`)
+        console.log('card', card._id)
+    }
+
     return (
-        <div className={'card'}>
+        <div className={'card'} onClick={onClickCard}>
             <div className={'card__favorites'}>
                 <img src="/images/svg/favorite-button-add.svg" alt="Добавить в фавориты"/>
             </div>

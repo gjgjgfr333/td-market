@@ -19,6 +19,7 @@ import {useDispatch} from "react-redux";
 import {getAccessTokenShelter, isTokenExpired, removeAccessTokenShelter} from "./utils/tokens";
 import {shelterSlice} from "./store/reducers/shelter/ShelterSlice";
 import ShelterMain from "./pages/ShelterMain";
+import Good from "./pages/Good";
 
 
 function App() {
@@ -67,6 +68,7 @@ function App() {
                         <Route index path="goods" element={<ShelterGoods />} />
                         <Route index path="goods/create" element={<CreateGood />} />
                     </Route>
+                    <Route path="/card/:id" element={<Good />} />
                     <Route
                         path="/"
                         element={<MainPage />}

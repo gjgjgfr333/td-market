@@ -1,4 +1,5 @@
 export interface IProductCard {
+    _id: string;
     categories: {
         category: string,
         subcategory: string,

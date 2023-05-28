@@ -30,8 +30,8 @@ const NewCards = () => {
         <div>
             <TitleCards text={'Новинки'}/>
             <WrapperCard>
-                {newCards.map(card => (
-                    <ProductCard card={card}/>
+                {newCards.map((card, index) => (
+                    <ProductCard card={card} key={index}/>
                 )) }
             </WrapperCard>
         </div>
