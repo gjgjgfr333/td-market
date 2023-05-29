@@ -1,0 +1,51 @@
+@import "src/styles/constants";
+@import "src/styles/mixins";
+
+.good {
+  margin-top: 28px;
+
+  &__categories {
+    margin-bottom: 43px;
+    color: $text4Color;
+    font-size: $mediumLittleSize;
+  }
+}
+
+.good-wrapper {
+  @include flex(space-between, center);
+  margin-bottom: 176px;
+
+  & .good-additional-photos {
+    @include flex();
+    gap: 20px;
+    flex-direction: column;
+
+    &__item {
+      width: 100px;
+      height: 150px;
+      overflow: hidden;
+      border-radius: 5px;
+
+      & > img {
+        @extend %card-image;
+      }
+    }
+  }
+
+  & .main-photo {
+    width: 560px;
+    height: 637px;
+    max-height: 637px;
+    max-width: 560px;
+    position: relative;
+    overflow: hidden;
+
+    & > img {
+      @extend %card-image;
+    }
+  }
+
+  & .good-information {
+    align-self: flex-start;
+  }
+}

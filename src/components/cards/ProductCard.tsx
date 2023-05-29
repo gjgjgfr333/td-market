@@ -6,8 +6,13 @@ import {useNavigate} from "react-router-dom";
 
 const ProductCard = ({card}: {card: IProductCard }) => {
     const navigate = useNavigate()
+
     const onClickCard = () => {
-        navigate(`/card/${card._id}`)
+        navigate(`/card/${card._id}`, {
+            state: {
+                ...card
+            }
+        })
         console.log('card', card._id)
     }
 
