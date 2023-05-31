@@ -5,7 +5,7 @@ import {IDeliveryPoint2} from "../../../models/IDeliveryPoint";
 
 const initialState = {
     shelter: {
-        deliveryPoints: []
+
     } as unknown as IShelter,
     isAuth: false,
     isLoading: false,
@@ -16,6 +16,7 @@ const initialState = {
     isAuthenticated: false,
     isCreateGoodCard: true,
     accessToken: getAccessTokenShelter(),
+    deliveryPoints: [] as IDeliveryPoint2[]
 }
 
 export const shelterSlice = createSlice({
@@ -96,7 +97,7 @@ export const shelterSlice = createSlice({
         },
 
         setDeliveryPoints: (state, action: PayloadAction<IDeliveryPoint2[]>) => {
-         state.shelter.deliveryPoints = action.payload
+         state.deliveryPoints = action.payload
         },
 
         setCreateGoodCard: (state, action: PayloadAction<boolean>) => {

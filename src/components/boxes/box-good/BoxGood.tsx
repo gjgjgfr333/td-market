@@ -25,12 +25,13 @@ const BoxGood = () => {
     };
 
     const onSetCount = (operator: '+' | '-') => {
+        console.log('operator', operator)
         if (operator === '+') {
             if (count >= card.pricesAndQuantity.quantity) return
             setCount(count + 1)
         } else if (operator === '-') {
             if (count <= 1) return;
-            setCount(count + 1)
+            setCount(count - 1)
         }
     }
 
@@ -42,11 +43,10 @@ const BoxGood = () => {
             <div className={'good-wrapper'}>
                 <div className={'good-additional-photos'}>
                     {additionalPhotos.map((photo, index) => (
-                        <div className={'good-additional-photos__item'}>
+                        <div className={'good-additional-photos__item'} key={index}>
                             <img
                                 src={photo}
                                 alt="Дополнительная фотография"
-                                key={index}
                                 onClick={() => handleAdditionalPhotoClick(photo)}
                             />
                         </div>
@@ -57,27 +57,35 @@ const BoxGood = () => {
                     <img src={mainPhoto} alt={card.information.name}/>
                 </div>
                 <div className={'good-information'}>
-                    <h2>
+                    <h2 className={'good-information__title'}>
                         {card.information.name}
                     </h2>
-                    <div>
+                    <div className={'good-information__count'}>
                         Количество: {count}
                     </div>
-                    <div>
-                        <div>
-                            <span onClick={() => onSetCount('-')}>-</span>
-                            <span>{count}</span>
-                            <span onClick={() => onSetCount('+')}>+</span>
+                    <div className={'good-information__update-count'}>
+                        <div className={'good-information__update-button'}>
+                            <span className={'update update_minus'} onClick={() => onSetCount('-')}>
+                                <img src="/images/svg/little-minus.svg" alt="На один товар меньше заказать"/>
+                            </span>
+                            <span className={'count'}>{count}</span>
+                            <span className={'update update_plus'} onClick={() => onSetCount('+')}>
+                                <img src="/images/svg/little-plus.svg" alt="На один товар меньше заказать"/>
+                            </span>
                         </div>
-                        <div>
+                        <div className={'good-information__quantity'}>
                             В наличии: {card.pricesAndQuantity.quantity}
                         </div>
                     </div>
-                    <div>
-                        {card.pricesAndQuantity.quantity ? card.pricesAndQuantity.quantity : card.pricesAndQuantity.price} RUP
-                        {card.pricesAndQuantity.quantity && card.pricesAndQuantity.price} RUP
+                    <div className={'good-information__prices'}>
+                        <span className={'good-information__priceBeforeDiscount'}>
+                            {card.pricesAndQuantity.priceBeforeDiscount ? card.pricesAndQuantity.priceBeforeDiscount : card.pricesAndQuantity.price} RUP
+                        </span>
+                        <span className={'good-information__price'}>
+                            {card.pricesAndQuantity.quantity && card.pricesAndQuantity.price} RUP
+                        </span>
                     </div>
-                    <div>
+                    <div className={'good-information__buttons'}>
                         <button className={'button button_light'}>
                             Добавить в корзину
                         </button>
