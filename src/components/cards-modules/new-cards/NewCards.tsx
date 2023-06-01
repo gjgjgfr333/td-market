@@ -30,7 +30,7 @@ const NewCards = () => {
         <div>
             <TitleCards text={'Новинки'}/>
             <WrapperCard>
-                {newCards.map((card, index) => (
+                {newCards?.length > 0 && newCards.map((card, index) => (
                     <ProductCard card={card} key={index}/>
                 )) }
             </WrapperCard>

@@ -12,6 +12,7 @@ const Menu = () => {
     const [activeSubCategory, setActiveSubCategory] = useState(0)
     const [selectCategory, setSelectCategory] = useState<ISubcategories[] | null>(null);
     const [selectSubCategory, setSelectSubCategory] = useState<ISections[] | null>(null);
+    const [parentName, setParentName] = useState('')
 
     useEffect(() => {
         dispatch(fetchCategories())
@@ -30,7 +31,12 @@ const Menu = () => {
     const onSelectSubCategory = (subcat: ISubcategories, index: number) => {
         setActiveSubCategory(index)
         setSelectSubCategory(subcat.children)
+        setParentName(subcat.parentName)
     }
+
+    useEffect(() => {
+        console.log('selectSubCategory', selectSubCategory)
+    }, [selectSubCategory])
 
     return (
         <div>
@@ -59,25 +65,23 @@ const Menu = () => {
                     }
                 </div>
                 <div className={'subcategories'}>
-                    {/*{selectCategory && selectCategory.map((subcat, index) => (*/}
-                    {/*    <div key={index}>*/}
-                    {/*        <h3 className={'subcategory'}>{subcat.name}</h3>*/}
-                    {/*        <div className={'sections'}>*/}
-                    {/*            {subcat.children.map((section, index) => (*/}
-                    {/*                <a className={''} href={'/'} key={index}>{section.name}</a>*/}
-                    {/*            ))}*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*))}*/}
                     {selectCategory && selectCategory.map((subcat, index) => (
                         <div
                             className={`subcategory-wrapper ${index === activeSubCategory && 'active'}`}
                             key={index} onClick={() => onSelectSubCategory(subcat ,index)}
                         >
                             <h3 className={'subcategory'}>{subcat.name}</h3>
-                            {selectSubCategory && selectSubCategory?.length > 0 &&
+                            {subcat.children.length > 0 &&
                                 <img src={ index === activeSubCategory ? '/images/svg/arrow-right.svg' : '/images/svg/arrow-right-noactive.svg'}
                                      alt={'Посмотреть подкатегории'}/>}
+                        </div>
+                    ))}
+                </div>
+                <div className={'sections'}>
+                    <h4>{parentName}</h4>
+                    {selectSubCategory && selectSubCategory?.map((section, index) => (
+                        <div key={index}>
+                            {section.name}
                         </div>
                     ))}
                 </div>
