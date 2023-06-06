@@ -111,7 +111,7 @@
   row-gap: 23px;
 
   & .subcategory-wrapper {
-    padding: 10px 10px 10px 15px;
+    //padding: 0 10px 0 15px;
     @include flex();
     cursor: pointer;
     color: $title3Color;
@@ -129,11 +129,23 @@
 }
 
 .sections {
+  margin-left: 80px;
   @include flex();
-  gap: 9px;
+  gap: 22px;
   flex-direction: column;
 
-  & a {
-    font-size: $littleMediumSize;
+
+  //
+  //& a {
+  //  font-size: $littleMediumSize;
+  //}
+
+  &__parent-name {
+    font-size: $subTitleSize;
+    color: $additionalColor;
+  }
+
+  &__item {
+
   }
 }

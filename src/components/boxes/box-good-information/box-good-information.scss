@@ -1,0 +1,29 @@
+@import "src/styles/mixins";
+@import "src/styles/constants";
+
+.good-additional {
+  margin-bottom: 196px;
+
+  & > .good-tabs {
+    @include flex(space-evenly);
+    margin-bottom: 36px;
+    padding-bottom: 12px;
+    border-bottom: 1.5px solid $title3Color;
+    text-transform: uppercase;
+    color: $title3Color;
+    font-size: 16px;
+
+    .good-tabs__item {
+      cursor: pointer;
+    }
+
+    .good-tabs__item.active {
+      color: $additionalColor;
+    }
+  }
+
+  &__information {
+    width: 80%;
+    margin: auto;
+  }
+}

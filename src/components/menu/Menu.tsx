@@ -3,6 +3,7 @@ import './menu.scss'
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {fetchCategories} from "../../store/reducers/categories/CategoriesCreators";
 import {ISections, ISubcategories} from "../../models/ICategories";
+import {Link} from "react-router-dom";
 
 const Menu = () => {
     const [isPressed, setIsPressed] = useState(false)
@@ -31,7 +32,11 @@ const Menu = () => {
     const onSelectSubCategory = (subcat: ISubcategories, index: number) => {
         setActiveSubCategory(index)
         setSelectSubCategory(subcat.children)
-        setParentName(subcat.parentName)
+        console.log('subcat', subcat)
+        if (subcat.children.length > 0) {
+            setParentName(subcat.alternateName)
+        } else setParentName('')
+
     }
 
     useEffect(() => {
@@ -78,11 +83,11 @@ const Menu = () => {
                     ))}
                 </div>
                 <div className={'sections'}>
-                    <h4>{parentName}</h4>
+                    <Link to={'/'} className={'sections__parent-name'}>{parentName}</Link>
                     {selectSubCategory && selectSubCategory?.map((section, index) => (
-                        <div key={index}>
+                        <Link to={'/'} key={index} className={'sections__item'}>
                             {section.name}
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>

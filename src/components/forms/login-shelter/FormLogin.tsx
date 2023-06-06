@@ -23,7 +23,7 @@ const FormLogin = () => {
     const {changeIsUserModal} = userSlice.actions
 
     useEffect(() => {
-        isAuth && navigation('/shelter')
+        isAuth && navigation('/shelter/main')
     }, [isAuth, navigation])
 
     const onSetPassword = (e: ChangeEvent<HTMLInputElement>) => {

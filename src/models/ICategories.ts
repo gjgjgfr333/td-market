@@ -15,7 +15,7 @@ export interface ISubcategories {
     name: string,
     children: ISections[]
     _id: string,
-    parentName: string
+    alternateName: string
 }
 
 export interface ISections {

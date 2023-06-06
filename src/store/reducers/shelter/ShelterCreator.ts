@@ -122,3 +122,13 @@ export const createProductCard = (good: IProductCard, mainPhoto: File, additiona
         dispatch(shelterSlice.actions.setCreateGoodCard(false))
     }
 }
+
+export const getShelter = () => async (dispatch: AppDispatch) => {
+    try {
+        const response = await ShelterService.getShelter()
+        console.log('response', response)
+        dispatch(shelterSlice.actions.setShelter(response.data))
+    } catch (e) {
+        console.log('e', e)
+    }
+}

@@ -1,0 +1,9 @@
+@import "./src/styles/constants";
+
+.shelter-warning {
+  padding: 10px 8px;
+  color: $backgroundColor;
+  background-color: $errorColor;
+  opacity: 0.7;
+  border-radius: 15px;
+}

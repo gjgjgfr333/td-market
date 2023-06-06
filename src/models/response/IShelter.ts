@@ -12,7 +12,8 @@ export interface IShelter {
         entity: IEntity
     },
     shop: IShelterShop,
-    deliveryPoints: IDeliveryPoint2[]
+    deliveryPoints: IDeliveryPoint2[],
+    isVerified: boolean
 }
 
 export interface IMainShelter {

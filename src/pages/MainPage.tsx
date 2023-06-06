@@ -7,6 +7,7 @@ import Footer from "../components/footers/footer-user/Footer";
 import {useAppSelector} from "../hooks/redux";
 import {Navigate} from "react-router-dom";
 import NewCards from "../components/cards-modules/new-cards/NewCards";
+import HotCards from "../components/cards-modules/hot-cards/HotCards";
 
 const MainPage = () => {
     const accessToken = useAppSelector((state) => state.shelterReducer.accessToken);
@@ -21,8 +22,9 @@ const MainPage = () => {
             <Header/>
             <Container>
                 <Slider/>
-                <SpeciallyCards/>
+                <HotCards/>
                 <NewCards/>
+                <SpeciallyCards/>
             </Container>
             <Footer/>
         </div>

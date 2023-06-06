@@ -2,6 +2,7 @@ import {AxiosResponse} from "axios";
 import {$apiShelter} from "../http";
 import {IDeliveryPoint2} from "../models/IDeliveryPoint";
 import {IProductCard} from "../models/IProductCard";
+import {IShelter} from "../models/response/IShelter";
 
 export class ShelterService {
     static async getPointsIssue(): Promise<AxiosResponse<IDeliveryPoint2[]>> {
@@ -14,5 +15,9 @@ export class ShelterService {
                 "Content-Type": "multipart/form-data",
             }
         })
+    }
+
+    static async getShelter(): Promise<AxiosResponse<IShelter>> {
+        return $apiShelter.get<IShelter>(`shelters/`)
     }
 }

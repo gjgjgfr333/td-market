@@ -8,15 +8,15 @@ import WrapperCard from "../../wrappers/wrapper-card/WrapperCard";
 const NewCards = () => {
     const [newCards, setNewCards] = useState<IProductCard[]>([]);
 
-    useEffect(() => {
-        console.log('newCards', newCards)
-    }, [newCards])
+    // useEffect(() => {
+    //     console.log('newCards', newCards)
+    // }, [newCards])
 
     useEffect(() => {
         const fetchNewCards = async () => {
             try {
-                const response = await GoodsService.getNewGoods();
-                setNewCards(response.data);
+                const response = await GoodsService.getNewGoods(1, 10);
+                setNewCards(response.data.productCards);
             } catch (error) {
                 console.log('Ошибка при получении карточек товаров:', error);
             }
