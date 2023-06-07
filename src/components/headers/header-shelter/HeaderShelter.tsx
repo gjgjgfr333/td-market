@@ -70,7 +70,7 @@ const HeaderShelter = () => {
                                 </p>
                             </div>
                             <div className={'shelter-icon'} onMouseEnter={() => setIsActive(true)}>
-                                <img src={shelter.imageShop} alt=""/>
+                                <img src={shelter.imageShop} alt="Иконка продавца"/>
                             </div>
                         </div>
                         <div className={'shelter-tools__buttons'}>

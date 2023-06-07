@@ -54,17 +54,7 @@
   }
 
   .shelter-icon {
-    margin-left: auto;
-    @include square(60px);
-    border-radius: 50%;
-    overflow: hidden;
-    cursor: pointer;
-
-    & > img {
-      width: 100%;
-      object-fit: contain;
-
-    }
+    @include iconShop(60px);
   }
 
   &__buttons {

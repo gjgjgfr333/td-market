@@ -1,4 +1,5 @@
 @import "./src/styles/constants";
+@import "./src/styles/mixins";
 
 .shelter-warning {
   padding: 10px 8px;
@@ -6,4 +7,42 @@
   background-color: $errorColor;
   opacity: 0.7;
   border-radius: 15px;
+}
+
+.shelter {
+
+  &__information {
+    margin-top: 23px;
+
+  }
+  &__left {
+
+  }
+
+  &__subtitle {
+    font-size: $subTitleSize;
+    font-weight: 800;
+    margin-bottom: 14px;
+    margin-left: 3px;
+  }
+}
+
+.rate {
+  padding: 30px 36px;
+  border: 1.5px solid $text3CColor;
+  border-radius: 15px;
+
+  &__header {
+    display: flex;
+    gap: 18px;
+  }
+
+  &__icon {
+    @include iconShop(120px);
+  }
+
+  &__name {
+    padding-top: 17px;
+  }
+
 }
