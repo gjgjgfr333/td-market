@@ -1,7 +1,76 @@
 @import "./src/styles/constants";
+@import "./src/styles/mixins";
+
+
+.header-shelter {
+  padding-top: 24px;
+  height: 154px;
+  font-size: $bigMediumSize;
+  color: $backgroundColor;
+  background: $backgroundGradient;
+
+  &__content {
+    @include flex(flex-end, center, 12px)
+  }
+
+  &__button {
+    max-width: 110px;
+  }
+
+  &__wrapper {
+    position: relative;
+  }
+}
+
+.shelter-tools {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline-block;
+  padding: 8px 16px 28px 23px;
+  margin-left: auto;
+  background-color: $backgroundColor;
+  border-radius: 12px;
+  z-index: 999;
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.25);
+
+  &__header {
+    display: flex;
+    gap: 25px;
+    padding-left: 9px;
+    margin-bottom: 21px;
+  }
+
+  & .name-market {
+    font-weight: 800;
+    color: $text2Color;
+    font-size: $subTitleSize;
+    padding-top: 5px;
+  }
+
+  & .isIndividual-name {
+    color: $title3Color;
+    font-size: $mediumLittleSize;
+  }
+
+  .shelter-icon {
+    margin-left: auto;
+    @include square(60px);
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+
+    & > img {
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+}
+
+
 
 .links {
-  margin-top: 42px;
+  padding-top: 58px;
   display: flex;
   gap: 24px;
 

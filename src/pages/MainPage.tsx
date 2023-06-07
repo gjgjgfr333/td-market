@@ -14,7 +14,7 @@ const MainPage = () => {
 
     if (accessToken) {
         console.log('isAuthenticated 14', accessToken)
-        return <Navigate to="/shelter" />;
+        return <Navigate to="/shelter/main" />;
     }
 
     return (

@@ -1,12 +1,12 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IMainShelter, IShelter} from "../../../models/response/IShelter";
+import {IMainShelter, IShelterRes} from "../../../models/response/IShelter";
 import {getAccessTokenShelter} from "../../../utils/tokens";
 import {IDeliveryPoint2} from "../../../models/IDeliveryPoint";
 
 const initialState = {
     shelter: {
 
-    } as unknown as IShelter,
+    } as unknown as IShelterRes,
     isAuth: false,
     isLoading: false,
     activationCode: '',
@@ -65,7 +65,7 @@ export const shelterSlice = createSlice({
             state.isAuth = action.payload
         },
 
-        setShelter: (state, action: PayloadAction<IShelter>) => {
+        setShelter: (state, action: PayloadAction<IShelterRes>) => {
             state.shelter = action.payload
         },
 

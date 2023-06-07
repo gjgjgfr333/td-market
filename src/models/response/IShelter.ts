@@ -16,6 +16,23 @@ export interface IShelter {
     isVerified: boolean
 }
 
+export interface IShelterRes {
+    id?: string,
+    password?: string,
+    email: string,
+    name: string,
+    phone: string,
+    shelterData: {
+        personalData: IPersonalData,
+        closePerson: IClosePerson,
+        entity: IEntity
+    },
+    imageShop: string,
+    shop: IShelterShop,
+    deliveryPoints: IDeliveryPoint2[],
+    isVerified: boolean
+}
+
 export interface IMainShelter {
     email: string,
     name: string,

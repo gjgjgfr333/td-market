@@ -75,7 +75,7 @@ function App() {
                         loader={() => {
                             console.log('accessToken 34', accessToken)
                             if (accessToken) {
-                                return <Navigate to="/shelter" />;
+                                return <Navigate to="/shelter/main" />;
                             }
                             return null;
                         }}

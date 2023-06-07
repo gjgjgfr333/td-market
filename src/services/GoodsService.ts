@@ -1,4 +1,4 @@
-import {IProductCard} from "../models/IProductCard";
+import axios, {AxiosResponse} from "axios";
 import {API_URL} from "../http";
 import {IPaginationCards} from "../models/response/IPaginationCards";
 

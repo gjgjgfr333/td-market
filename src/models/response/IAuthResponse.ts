@@ -1,5 +1,5 @@
 import {IUser} from "./IUser";
-import {IShelter} from "./IShelter";
+import {IShelterRes} from "./IShelter";
 
 export interface IAuthResponse {
     accessToken: string,
@@ -10,5 +10,5 @@ export interface IAuthResponse {
 export interface IAuthShelterResponse {
     accessToken: string,
     refreshToken: string,
-    shelter: IShelter
+    shelter: IShelterRes
 }
