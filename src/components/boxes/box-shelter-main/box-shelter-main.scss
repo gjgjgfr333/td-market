@@ -10,29 +10,53 @@
 }
 
 .shelter {
+  margin-top: 23px;
+  display: flex;
+  justify-content: space-between;
 
-  &__information {
-    margin-top: 23px;
+  &__left {
+    max-width: 522px;
 
   }
-  &__left {
 
+  &__information {
+
+    margin-bottom: 26px;
+
+
+    & .shelter__information-title {
+      margin-bottom: 14px;
+    }
+  }
+
+  &__news {
+    & .shelter__news-title {
+      margin-bottom: 18px;
+    }
+  }
+
+  &__goods {
+    margin-bottom: 20px;
+
+    & .shelter__goods-title {
+      margin-bottom: 14px;
+    }
   }
 
   &__subtitle {
     font-size: $subTitleSize;
     font-weight: 800;
-    margin-bottom: 14px;
     margin-left: 3px;
   }
 }
 
 .rate {
-  padding: 30px 36px;
+  padding: 30px 36px 26px;
   border: 1.5px solid $text3CColor;
   border-radius: 15px;
 
   &__header {
+    margin-bottom: 17px;
     display: flex;
     gap: 18px;
   }
@@ -43,6 +67,95 @@
 
   &__name {
     padding-top: 17px;
+
+    & .name-market {
+      font-weight: 800;
+      font-size: $subTitleSize;
+      margin-bottom: 2px;
+    }
+
+    & .isIndividual-name {
+      color: $title3Color;
+      font-size: $mediumLittleSize;
+    }
   }
 
+  &__inf {
+    font-weight: 800;
+    font-size: $subTitleSize;
+
+    & > p {
+      line-height: 25px;
+    }
+  }
+
+  &__button {
+    margin-top: 17px;
+    max-width: 175px;
+  }
+}
+
+.news {
+  padding: 27px 30px 23px;
+  border: 1.5px solid $text3CColor;
+  border-radius: 15px;
+
+  &__time {
+    margin-bottom: 7px;
+  }
+}
+
+.shelter-goods {
+  display: flex;
+  gap: 20px;
+}
+
+.statistics {
+  min-width: 521px;
+  padding: 16px 26px 16px 32px;
+  border: 1.5px solid $text3CColor;
+  border-radius: 15px;
+
+  &__item {
+    color: $text2Color;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.good-add {
+  width: 197px;
+  height: 147px;
+  @include flex(center, center, 10px);
+  flex-direction: column;
+  border-radius: 15px;
+  border: 1.5px solid $additionalColor;
+  cursor: pointer;
+
+  &__img {
+    @include square(60px);
+    background-color: $additionalColor;
+    border-radius: 50%;
+    @include flex(center, center)
+  }
+
+  &__text {
+    color: $additionalColor;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: $mediumMediumSize;
+    max-width: 96px;
+    text-align: center;
+    line-height: 18px;
+  }
+}
+
+.orders-header {
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+
+  &__button {
+    max-width: 110px;
+  }
 }

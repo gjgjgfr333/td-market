@@ -52,6 +52,7 @@ const BoxShelterGoods = () => {
 
     const onCreateGood = (e: any) => {
         e.preventDefault()
+        console.log('hey bro')
         navigate('create')
     }
 

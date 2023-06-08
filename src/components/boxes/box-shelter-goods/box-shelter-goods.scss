@@ -9,8 +9,10 @@
   }
 
   &__button {
+    position: relative;
     margin-left: auto;
     width: 157px;
     margin-bottom: 0;
+    z-index: 1111;
   }
 }
