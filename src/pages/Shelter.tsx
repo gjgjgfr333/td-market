@@ -1,10 +1,33 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import BoxShelter from '../components/boxes/box-shelter/BoxShelter';
 import HeaderShelter from "../components/headers/header-shelter/HeaderShelter";
-import {Outlet} from "react-router-dom";
+import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import FooterShelter from "../components/footers/footer-shelter/FooterShelter";
+import {useAppDispatch, useAppSelector} from "../hooks/redux";
+import {isObjectEmpty} from "../utils/isObjectEmpty";
+import {getShelter} from "../store/reducers/shelter/ShelterCreator";
 
 const Shelter = () => {
+    const location = useLocation()
+    const navigation = useNavigate()
+    const dispatch = useAppDispatch()
+    const {shelter} = useAppSelector(state => state.shelterReducer)
+
+    useEffect(() => {
+        console.log('shelter', shelter)
+    }, [shelter])
+
+    useEffect(() => {
+        if ((localStorage.getItem('access_token_shelter') !== null) && isObjectEmpty(shelter)) {
+            dispatch(getShelter())
+        }
+    }, [dispatch, shelter])
+
+    useEffect(() => {
+        if (location.pathname === '/shelter/' || location.pathname === '/shelter') {
+            navigation('/shelter/main')
+        }
+    }, [location, navigation])
 
     return (
         <main>

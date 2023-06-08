@@ -20,6 +20,7 @@ import {getAccessTokenShelter, isTokenExpired, removeAccessTokenShelter} from ".
 import {shelterSlice} from "./store/reducers/shelter/ShelterSlice";
 import ShelterMain from "./pages/ShelterMain";
 import Good from "./pages/Good";
+import ShelterOrders from "./pages/ShelterOrders";
 
 
 function App() {
@@ -65,6 +66,7 @@ function App() {
                         }}
                     >
                         <Route index path="main" element={<ShelterMain />} />
+                        <Route index path="orders" element={<ShelterOrders />} />
                         <Route index path="goods" element={<ShelterGoods />} />
                         <Route index path="goods/create" element={<CreateGood />} />
                     </Route>
