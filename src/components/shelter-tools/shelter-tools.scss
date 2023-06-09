@@ -1,0 +1,129 @@
+@import "./src/styles/constants";
+@import "./src/styles/mixins";
+
+.shelter-tools {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline-block;
+  padding: 8px 16px 28px 23px;
+  margin-left: auto;
+  background-color: transparent;
+  border-radius: 12px;
+  z-index: 999;
+  transition: background-color 0.4s, box-shadow 0.3s;
+
+  &__header {
+    display: flex;
+    justify-content: flex-end;
+    gap: 25px;
+    padding-left: 9px;
+    margin-bottom: 21px;
+  }
+
+  & .name-market {
+    font-weight: 800;
+    color: transparent;
+    font-size: $subTitleSize;
+    padding-top: 5px;
+  }
+
+  & .isIndividual-name {
+    color: transparent;
+    font-size: $mediumLittleSize;
+  }
+
+  .shelter-icon {
+    @include iconShop(60px);
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: transparent;
+
+
+    & > .shelter-link {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: $littleMediumSize;
+      cursor: default;
+      z-index: -1;
+
+      & > img {
+        height: 0;
+      }
+    }
+  }
+}
+
+.shelter-tools.active-tools {
+  background-color: $backgroundColor;
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.25);
+
+  & .name-market {
+    color: $text2Color;
+  }
+
+  & .isIndividual-name {
+    color: $title3Color;
+
+  }
+
+  & .shelter-tools__buttons {
+    color: $text4Color;
+
+    & .shelter-link {
+      z-index: auto;
+      cursor: pointer;
+    }
+
+    & img {
+      height: auto;
+    }
+  }
+}
+
+.shelter-tools.notifications {
+  min-width: 635px;
+  z-index: 999999;
+
+  & .shelter-tools__header {
+    margin-bottom: 12px;
+  }
+
+}
+
+.notifications {
+  color: $text4Color;
+
+  &__header {
+    top: 23px;
+    left: 28px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    & > img {
+      @include square(13.5px);
+      cursor: pointer;
+    }
+
+    & > .shelter-link {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: $littleMediumSize;
+
+    }
+  }
+
+  &__tabs {
+    display: flex;
+  }
+}
