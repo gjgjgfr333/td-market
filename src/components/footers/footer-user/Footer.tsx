@@ -30,14 +30,14 @@ const Footer = () => {
                     <div className={'footer__column'}>
                         <h3 className={'footer__title'}>Мы в соцсетях</h3>
                         <div className={'footer__icons'}>
-                            <a href={'/'} target={"_blank"}>
+                            <a href={'/'} target={"_blank"} rel="noreferrer">
                                 <img src="/images/svg/telegram.svg" alt="Telegram"/>
                             </a>
-                            <a href={'/'} target={"_blank"}>
-                                <img src="/images/svg/instagram.svg" alt="Telegram"/>
+                            <a href={'/'} target={"_blank"} rel="noreferrer">
+                                <img src="/images/svg/instagram.svg" alt="Instagram"/>
                             </a>
-                            <a href={'/'} target={"_blank"}>
-                                <img src="/images/svg/telegram.svg" alt="Telegram"/>
+                            <a href={'/'} target={"_blank"} rel="noreferrer">
+                                <img src="/images/svg/wk.svg" alt="Wk"/>
                             </a>
                         </div>
                         <p className={'footer__text'}>Информация, предоставленная на сайте, не является публичной офертой. Все права защищены.</p>
