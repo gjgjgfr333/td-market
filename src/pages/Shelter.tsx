@@ -12,16 +12,17 @@ const Shelter = () => {
     const navigation = useNavigate()
     const dispatch = useAppDispatch()
     const {shelter} = useAppSelector(state => state.shelterReducer)
-
-    useEffect(() => {
-        console.log('shelter', shelter)
-    }, [shelter])
+    const accessToken = useAppSelector((state) => state.shelterReducer.accessToken);
 
     useEffect(() => {
         if ((localStorage.getItem('access_token_shelter') !== null) && isObjectEmpty(shelter)) {
             dispatch(getShelter())
         }
     }, [dispatch, shelter])
+
+    useEffect(() => {
+        if (!accessToken) navigation('/')
+    }, [accessToken, navigation])
 
     useEffect(() => {
         if (location.pathname === '/shelter/' || location.pathname === '/shelter') {

@@ -58,14 +58,25 @@ function App() {
                         path="/shelter/"
                         element={<Shelter />}
                         loader={() => {
+                            console.log('!accessToken', !accessToken)
                             if (!accessToken) {
-                                console.log('!accessToken', !accessToken)
                                 return <Navigate to="/login" />;
                             }
                             return null;
                         }}
                     >
-                        <Route index path="main" element={<ShelterMain />} />
+                        <Route
+                            index
+                            path="main"
+                            element={<ShelterMain />}
+                            loader={() => {
+                                console.log('!accessToken', !accessToken)
+                                if (!accessToken) {
+                                    return <Navigate to="/login" />;
+                                }
+                                return null;
+                            }}
+                        />
                         <Route index path="orders" element={<ShelterOrders />} />
                         <Route index path="goods" element={<ShelterGoods />} />
                         <Route index path="goods/create" element={<CreateGood />} />
