@@ -6,7 +6,8 @@ import {categoriesSlice} from "./CategoriesSlice";
 export const fetchCategories = () => async (dispatch: AppDispatch) => {
     try {
         dispatch(categoriesSlice.actions.categoriesFetching())
-        const response = await axios.get<ICategory[]>('https://api.td-market.md/categories');
+        const endpoint = process.env.REACT_APP_API_ENDPOINT;
+        const response = await axios.get<ICategory[]>(endpoint as string);
         dispatch(categoriesSlice.actions.categoriesFetchingSuccess(response.data))
     } catch (e: any) {
         console.log('e', e)
