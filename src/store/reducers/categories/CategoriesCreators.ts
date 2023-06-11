@@ -6,7 +6,7 @@ import {categoriesSlice} from "./CategoriesSlice";
 export const fetchCategories = () => async (dispatch: AppDispatch) => {
     try {
         dispatch(categoriesSlice.actions.categoriesFetching())
-        const response = await axios.get<ICategory[]>('https://localhost:5000/categories')
+        const response = await axios.get<ICategory[]>('https://td-market.md/categories')
         dispatch(categoriesSlice.actions.categoriesFetchingSuccess(response.data))
     } catch (e: any) {
         console.log('e', e)
