@@ -21,13 +21,14 @@ import {shelterSlice} from "./store/reducers/shelter/ShelterSlice";
 import ShelterMain from "./pages/ShelterMain";
 import Good from "./pages/Good";
 import ShelterOrders from "./pages/ShelterOrders";
+import {fetchCategories} from "./store/reducers/categories/CategoriesCreators";
 
 
 function App() {
     const accessToken = useAppSelector((state) => state.shelterReducer.accessToken);
     const dispatch = useDispatch();
     const {setLogoutSuccess} = shelterSlice.actions
-
+    const {categories} = useAppSelector(state => state.categoriesReducer)
     useEffect(() => {
         const token = getAccessTokenShelter();
         if (!token || isTokenExpired(token)) {
@@ -36,65 +37,74 @@ function App() {
         }
     }, [dispatch, setLogoutSuccess]);
 
+    useEffect(() => {
+        // @ts-ignore
+        dispatch(fetchCategories())
+    }, [dispatch])
+
+    useEffect(() => {
+        console.log('categories', categories)
+    }, [categories])
+
     return (
         <div className="App">
-            <BrowserRouter>
-                <Routes>
+            {/*<BrowserRouter>*/}
+            {/*    <Routes>*/}
 
-                    <Route path="/registration" element={<RegistrShelter />} />
-                    <Route path="/login" element={<LoginShelter />} />
-                    <Route
-                        path="/registration-next"
-                        element={<RegistrData />}
-                        loader={() => {
-                            if (!accessToken) {
-                                return <Navigate to="/login" />;
-                            }
-                            return null;
-                        }}
-                    />
-                    <Route path="/registration-shop" element={<RegistrShop />} />
-                    <Route
-                        path="/shelter/"
-                        element={<Shelter />}
-                        loader={() => {
-                            console.log('!accessToken', !accessToken)
-                            if (!accessToken) {
-                                return <Navigate to="/login" />;
-                            }
-                            return null;
-                        }}
-                    >
-                        <Route
-                            index
-                            path="main"
-                            element={<ShelterMain />}
-                            loader={() => {
-                                console.log('!accessToken', !accessToken)
-                                if (!accessToken) {
-                                    return <Navigate to="/login" />;
-                                }
-                                return null;
-                            }}
-                        />
-                        <Route index path="orders" element={<ShelterOrders />} />
-                        <Route index path="goods" element={<ShelterGoods />} />
-                        <Route index path="goods/create" element={<CreateGood />} />
-                    </Route>
-                    <Route path="/card/:id" element={<Good />} />
-                    <Route
-                        path="/"
-                        element={<MainPage />}
-                        loader={() => {
-                            console.log('accessToken 34', accessToken)
-                            if (accessToken) {
-                                return <Navigate to="/shelter/main" />;
-                            }
-                            return null;
-                        }}
-                    />
-                </Routes>
-            </BrowserRouter>
+            {/*        <Route path="/registration" element={<RegistrShelter />} />*/}
+            {/*        <Route path="/login" element={<LoginShelter />} />*/}
+            {/*        <Route*/}
+            {/*            path="/registration-next"*/}
+            {/*            element={<RegistrData />}*/}
+            {/*            loader={() => {*/}
+            {/*                if (!accessToken) {*/}
+            {/*                    return <Navigate to="/login" />;*/}
+            {/*                }*/}
+            {/*                return null;*/}
+            {/*            }}*/}
+            {/*        />*/}
+            {/*        <Route path="/registration-shop" element={<RegistrShop />} />*/}
+            {/*        <Route*/}
+            {/*            path="/shelter/"*/}
+            {/*            element={<Shelter />}*/}
+            {/*            loader={() => {*/}
+            {/*                console.log('!accessToken', !accessToken)*/}
+            {/*                if (!accessToken) {*/}
+            {/*                    return <Navigate to="/login" />;*/}
+            {/*                }*/}
+            {/*                return null;*/}
+            {/*            }}*/}
+            {/*        >*/}
+            {/*            <Route*/}
+            {/*                index*/}
+            {/*                path="main"*/}
+            {/*                element={<ShelterMain />}*/}
+            {/*                loader={() => {*/}
+            {/*                    console.log('!accessToken', !accessToken)*/}
+            {/*                    if (!accessToken) {*/}
+            {/*                        return <Navigate to="/login" />;*/}
+            {/*                    }*/}
+            {/*                    return null;*/}
+            {/*                }}*/}
+            {/*            />*/}
+            {/*            <Route index path="orders" element={<ShelterOrders />} />*/}
+            {/*            <Route index path="goods" element={<ShelterGoods />} />*/}
+            {/*            <Route index path="goods/create" element={<CreateGood />} />*/}
+            {/*        </Route>*/}
+            {/*        <Route path="/card/:id" element={<Good />} />*/}
+            {/*        <Route*/}
+            {/*            path="/"*/}
+            {/*            element={<MainPage />}*/}
+            {/*            loader={() => {*/}
+            {/*                console.log('accessToken 34', accessToken)*/}
+            {/*                if (accessToken) {*/}
+            {/*                    return <Navigate to="/shelter/main" />;*/}
+            {/*                }*/}
+            {/*                return null;*/}
+            {/*            }}*/}
+            {/*        />*/}
+            {/*    </Routes>*/}
+            {/*</BrowserRouter>*/}
         </div>
     );
 }
