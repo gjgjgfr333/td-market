@@ -2,7 +2,7 @@ import axios from "axios";
 import {IAuthResponse, IAuthShelterResponse} from "../models/response/IAuthResponse";
 import {getAccessTokenShelter} from "../utils/tokens";
 
-export const API_URL = 'http://localhost:5000/'
+export const API_URL = process.env.REACT_APP_API_ENDPOINT
 
 const $api = axios.create({
     withCredentials: true,
