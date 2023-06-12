@@ -6,7 +6,7 @@ import {IDeliveryPoint2} from "../../../models/IDeliveryPoint";
 const initialState = {
     shelter: {
 
-    } as unknown as IShelterRes,
+    } as IShelterRes,
     isAuth: false,
     isLoading: false,
     activationCode: '',
@@ -66,6 +66,7 @@ export const shelterSlice = createSlice({
         },
 
         setShelter: (state, action: PayloadAction<IShelterRes>) => {
+            console.log('action.payload', action.payload)
             state.shelter = action.payload
         },
 

@@ -60,7 +60,7 @@ export const loginShelter = (email: string, password: string) => async (dispatch
         const response = await AuthShelterService.login(email, password)
         console.log('response', response)
         dispatch(shelterSlice.actions.setAuth(true))
-        dispatch(shelterSlice.actions.setShelter(response.data.shelter))
+        dispatch(shelterSlice.actions.setShelter(response.data))
         const accessToken = getAccessTokenFromCookieShelter();
         console.log('accessToken', accessToken)
         if (accessToken) {
@@ -126,7 +126,7 @@ export const createProductCard = (good: IProductCard, mainPhoto: File, additiona
 export const getShelter = () => async (dispatch: AppDispatch) => {
     try {
         const response = await ShelterService.getShelter()
-        console.log('response', response)
+        console.log('response.data', response.data)
         dispatch(shelterSlice.actions.setShelter(response.data))
     } catch (e) {
         console.log('e', e)
