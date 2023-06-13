@@ -36,7 +36,7 @@ export const $apiShelter = axios.create({
 })
 
 $apiShelter.interceptors.request.use((config) => {
-    config.headers.Authorization = `Bearer ${getAccessTokenShelter()?.substring(1)}`
+    config.headers.Authorization = `Bearer ${getAccessTokenShelter()}`
     return config
 })
 

@@ -13,7 +13,7 @@ const BoxShelterMain = () => {
 
     return (
         <div>
-            {!shelter.isVerified && (
+            {!shelter?.isVerified && (
                 <div className={'shelter-warning'}>
                     В данный момент ваши документы проходят проверку, она продлится не более 30 минут. После ее успешного окончания вы сможете начать торговать. Пока что можете подготовить свой товар к продаже во вкладке "Мои товары".
                 </div>
@@ -26,14 +26,14 @@ const BoxShelterMain = () => {
                         <div className={'rate'}>
                             <div className={'rate__header'}>
                                 <div className={'rate__icon'}>
-                                    <img src={shelter.imageShop} alt="Иконка продавца"/>
+                                    <img src={shelter?.imageShop} alt="Иконка продавца"/>
                                 </div>
                                 <div className={'rate__name'}>
                                     <p className={'name-market'}>
-                                        {shelter.shop?.nameMarket}
+                                        {shelter?.shop?.nameMarket}
                                     </p>
                                     <p className={'isIndividual-name'}>
-                                        {shelter.name}
+                                        {shelter?.name}
                                     </p>
                                 </div>
                             </div>

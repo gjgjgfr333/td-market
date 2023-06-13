@@ -54,15 +54,14 @@ export const registrationShelter = (data: IShelter, photo: File, imageShop: File
 
 export const loginShelter = (email: string, password: string) => async (dispatch: AppDispatch) => {
     try {
-        console.log('hey bruh')
-
         dispatch(shelterSlice.actions.loginFetching())
         const response = await AuthShelterService.login(email, password)
-        console.log('response', response)
         dispatch(shelterSlice.actions.setAuth(true))
-        dispatch(shelterSlice.actions.setShelter(response.data))
-        const accessToken = getAccessTokenFromCookieShelter();
+        dispatch(shelterSlice.actions.setShelter(response.data.shelter))
+        // const accessToken = getAccessTokenFromCookieShelter();
+        const accessToken = response.data.token
         console.log('accessToken 75', accessToken)
+
         if (accessToken) {
             setAccessTokenShelter(accessToken);
             dispatch(shelterSlice.actions.setLoginSuccess(accessToken));

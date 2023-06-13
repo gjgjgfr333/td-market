@@ -45,7 +45,7 @@ const ShelterTools = () => {
                             {shelter?.shop?.nameMarket}
                         </p>
                         <p className={'isIndividual-name'}>
-                            {(shelter?.shelterData?.entity.isIndividual ? 'ИП ' : 'Ю.л ') + shelter.name}
+                            {(shelter?.shelterData?.entity.isIndividual ? 'ИП ' : 'Ю.л ') + shelter?.name}
                         </p>
                     </div>
                     <div className={'shelter-icon'} onMouseEnter={() => setIsActive(true)}>

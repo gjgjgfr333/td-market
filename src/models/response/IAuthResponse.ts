@@ -12,3 +12,8 @@ export interface IAuthShelterResponse {
     refreshToken: string,
     shelter: IShelterRes
 }
+
+export interface IAuthShelter {
+    shelter: IShelterRes,
+    token: string
+}
