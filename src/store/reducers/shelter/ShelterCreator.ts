@@ -62,7 +62,7 @@ export const loginShelter = (email: string, password: string) => async (dispatch
         dispatch(shelterSlice.actions.setAuth(true))
         dispatch(shelterSlice.actions.setShelter(response.data))
         const accessToken = getAccessTokenFromCookieShelter();
-        console.log('accessToken', accessToken)
+        console.log('accessToken 75', accessToken)
         if (accessToken) {
             setAccessTokenShelter(accessToken);
             dispatch(shelterSlice.actions.setLoginSuccess(accessToken));
