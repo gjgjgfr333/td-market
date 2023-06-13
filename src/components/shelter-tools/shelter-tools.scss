@@ -90,6 +90,8 @@
 .shelter-tools.notifications {
   min-width: 635px;
   z-index: 999999;
+  //height: 1009px;
+  min-height: 90vh;
 
   & .shelter-tools__header {
     margin-bottom: 12px;
@@ -125,5 +127,60 @@
 
   &__tabs {
     display: flex;
+
+    & .notifications-item {
+      width: 202px;
+      padding-left: 12px;
+      padding-bottom: 6px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1.5px solid $additionalColor;
+      border-radius: 15px 15px 0 0;
+      cursor: pointer;
+      font-size: $littleMediumSize;
+      color: $text4Color;
+      transition: all .5s linear;
+
+      & div {
+        padding-right: 33px;
+        @include square(24px);
+
+        & path {
+          stroke: $text4Color
+        }
+      }
+
+      &__text {
+        max-width: 128px;
+      }
+    }
+
+    & .notifications-item:hover {
+      color: $title3Color;
+
+      & div {
+
+        & path {
+          stroke: $title3Color
+        }
+      }
+
+    }
+
+    & .notifications-item.active {
+      color: $additionalColor;
+      border-width: 1.5px 1.5px 0 1.5px;
+      border-style: solid;
+      border-color: #643ABE;
+      border-bottom: none;
+
+      & div {
+
+        & path {
+          stroke: $additionalColor
+        }
+      }
+
+    }
   }
 }

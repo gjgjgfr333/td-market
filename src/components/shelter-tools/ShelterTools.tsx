@@ -3,11 +3,15 @@ import './shelter-tools.scss'
 import {Link} from "react-router-dom";
 import {useAppSelector} from "../../hooks/redux";
 import Cover from "../cover/Cover";
+import NotificationSvg from "../svg/NotificationSvg";
+import TechnicalSupportSvg from "../svg/TechnicalSupportSvg";
+import CommunicationSvg from "../svg/CommunicationSvg";
 
 const ShelterTools = () => {
     const {shelter} = useAppSelector(state => state.shelterReducer)
     const [isActive, setIsActive] = useState(false)
     const [isCover, setIsCover] = useState(false)
+    const [activeNotification, setActiveNotification] = useState(0)
 
     const onMouseLeave = () => {
         if (!isCover) setIsActive(false)
@@ -72,25 +76,43 @@ const ShelterTools = () => {
                 </div>}
                 {isCover &&
                     <div className={'notifications__tabs'}>
-                        <div className={'notifications-item'}>
-                            <span>
-                                Уведомления от td-market
+                        <div
+                            className={`notifications-item ${activeNotification === 0 && 'active'}`}
+                            onClick={() => setActiveNotification(0)}
+                        >
+                            <div>
+                                <NotificationSvg/>
+                            </div>
+                            <span className={'notifications-item__text'}>
+                                Уведомления<br/>от td-market
                             </span>
                         </div>
-                        <div className={'notifications-item'}>
-                            <span>
-                                Общение с покупателем
+                        <div
+                            className={`notifications-item ${activeNotification === 1 && 'active'}`}
+                            onClick={() => setActiveNotification(1)}
+                        >
+                            <div>
+                                <TechnicalSupportSvg/>
+                            </div>
+                            <span className={'notifications-item__text'}>
+                                Общение<br/>с покупателем
                             </span>
                         </div>
-                        <div className={'notifications-item'}>
-                            <span>
-                                Общение с тех.поддержкой
+                        <div
+                            className={`notifications-item ${activeNotification === 2 && 'active'}`}
+                            onClick={() => setActiveNotification(2)}
+                        >
+                            <div>
+                                <CommunicationSvg/>
+                            </div>
+                            <span className={'notifications-item__text'}>
+                                Общение<br/>с тех.поддержкой
                             </span>
                         </div>
                     </div>
                 }
             </div>
-            {isCover && <Cover callback={() => setIsCover(false)}/>}
+            {isCover && <Cover callback={onClose}/>}
 
         </>
     );
