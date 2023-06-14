@@ -66,7 +66,6 @@ export const shelterSlice = createSlice({
         },
 
         setShelter: (state, action: PayloadAction<IShelterRes>) => {
-            console.log('action.payload', action.payload)
             state.shelter = action.payload
         },
 
