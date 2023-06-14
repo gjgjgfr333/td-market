@@ -1,13 +1,16 @@
 import React, {useState} from 'react';
 import './shelter-tools.scss'
-import {Link} from "react-router-dom";
-import {useAppSelector} from "../../hooks/redux";
+import {Link, useNavigate} from "react-router-dom";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import Cover from "../cover/Cover";
 import NotificationSvg from "../svg/NotificationSvg";
 import TechnicalSupportSvg from "../svg/TechnicalSupportSvg";
 import CommunicationSvg from "../svg/CommunicationSvg";
+import {shelterSlice} from "../../store/reducers/shelter/ShelterSlice";
 
 const ShelterTools = () => {
+    const navigation = useNavigate()
+    const dispatch = useAppDispatch()
     const {shelter} = useAppSelector(state => state.shelterReducer)
     const [isActive, setIsActive] = useState(false)
     const [isCover, setIsCover] = useState(false)
@@ -24,6 +27,11 @@ const ShelterTools = () => {
 
     const onClickNotifications = () => {
         setIsCover(true)
+    }
+
+    const onLogout = () => {
+        dispatch(shelterSlice.actions.removeAccessToken())
+        navigation('/')
     }
 
     return (
@@ -69,10 +77,10 @@ const ShelterTools = () => {
                         <img src="/images/svg/key.svg" alt="Смена пароля"/>
                         <span>Смена пароля</span>
                     </Link>
-                    <Link className={'shelter-link'} to={'/'}>
+                    <div className={'shelter-link'} onClick={onLogout}>
                         <img src="/images/svg/logout.svg" alt="Выйти"/>
                         <span>Выйти</span>
-                    </Link>
+                    </div>
                 </div>}
                 {isCover &&
                     <div className={'notifications__tabs'}>

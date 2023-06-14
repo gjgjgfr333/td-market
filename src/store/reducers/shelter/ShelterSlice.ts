@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IMainShelter, IShelterRes} from "../../../models/response/IShelter";
-import {getAccessTokenShelter} from "../../../utils/tokens";
+import {getAccessTokenShelter, removeAccessTokenShelter} from "../../../utils/tokens";
 import {IDeliveryPoint2} from "../../../models/IDeliveryPoint";
 
 const initialState = {
@@ -103,6 +103,11 @@ export const shelterSlice = createSlice({
         setCreateGoodCard: (state, action: PayloadAction<boolean>) => {
             state.isCreateGoodCard = action.payload
         },
+
+        removeAccessToken: (state) => {
+            state.accessToken = null
+            removeAccessTokenShelter()
+        }
     }
 })
 
