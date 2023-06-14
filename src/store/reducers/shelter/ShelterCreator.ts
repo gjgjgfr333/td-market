@@ -6,6 +6,7 @@ import {AuthShelterService} from "../../../services/AuthShelterService";
 import {getAccessTokenFromCookieShelter, setAccessTokenShelter} from "../../../utils/tokens";
 import {ShelterService} from "../../../services/ShelterService";
 import {IProductCard} from "../../../models/IProductCard";
+import {userSlice} from "../user/UserSlice";
 
 export const sendCodeShelter = (email: string) => async (dispatch: AppDispatch) => {
     try {
@@ -100,7 +101,6 @@ export const getPointIssues = () => async (dispatch: AppDispatch) => {
 
 export const createProductCard = (good: IProductCard, mainPhoto: File, additionalPhotos: File[]) => async (dispatch: AppDispatch) => {
     try {
-        console.log('good', good)
         const formData = new FormData();
         formData.append('mainPhoto', mainPhoto);
         additionalPhotos.forEach((photo) => {
@@ -130,5 +130,18 @@ export const getShelter = () => async (dispatch: AppDispatch) => {
         dispatch(shelterSlice.actions.setShelter(response.data))
     } catch (e) {
         console.log('e', e)
+    }
+}
+
+export const checkShelter = (email: string, phone: string) => async (dispatch: AppDispatch) => {
+    try {
+        dispatch(shelterSlice.actions.loginFetching())
+        const response = await AuthShelterService.checkShelter(email, phone)
+        console.log('response checkEmailShelter', response)
+        dispatch(shelterSlice.actions.loginSuccess())
+        return response.data
+    } catch (e:any) {
+        console.log('e checkEmailShelter', e)
+        dispatch(userSlice.actions.loginFetchingError(e.message))
     }
 }

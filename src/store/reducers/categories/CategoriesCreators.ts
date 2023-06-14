@@ -2,12 +2,12 @@ import {AppDispatch} from "../../store";
 import axios from "axios";
 import {ICategory} from "../../../models/ICategories";
 import {categoriesSlice} from "./CategoriesSlice";
+import {API_URL} from "../../../http";
 
 export const fetchCategories = () => async (dispatch: AppDispatch) => {
     try {
         dispatch(categoriesSlice.actions.categoriesFetching())
-        const endpoint = process.env.REACT_APP_API_ENDPOINT;
-        const response = await axios.get<ICategory[]>(`${endpoint}/categories`);
+        const response = await axios.get<ICategory[]>(`${API_URL}/categories`);
         dispatch(categoriesSlice.actions.categoriesFetchingSuccess(response.data))
     } catch (e: any) {
         console.log('e', e)

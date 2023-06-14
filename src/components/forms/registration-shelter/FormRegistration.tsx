@@ -4,7 +4,7 @@ import './form-registration.scss'
 import validator from "validator";
 import {useAppDispatch} from "../../../hooks/redux";
 import ModalLogin from "../../modals/modal-login/ModalLogin";
-import {sendCodeShelter} from "../../../store/reducers/shelter/ShelterCreator";
+import {checkShelter, sendCodeShelter} from "../../../store/reducers/shelter/ShelterCreator";
 import {shelterSlice} from "../../../store/reducers/shelter/ShelterSlice";
 
 const FormRegistration = () => {
@@ -18,6 +18,7 @@ const FormRegistration = () => {
     const [isErrorPhone, setIsErrorPhone] = useState(false)
     const [mail, setMail] = useState('')
     const [isErrorMail, setIsErrorMail] = useState(false)
+    const [isExistingShelter, setIsExistingShelter] = useState(false)
     const [isCover, setIsCover] = useState(false)
 
     const onSetPassword = (e: ChangeEvent<HTMLInputElement>) => {
@@ -35,7 +36,7 @@ const FormRegistration = () => {
         setIsErrorMail(false)
     }
 
-    const onContinueRegistry = (e: any) => {
+    const onContinueRegistry = async (e: any) => {
         e.preventDefault()
         const errorPhone = !validator.isMobilePhone(phone)
         const errorMail = !validator.isEmail(mail)
@@ -52,6 +53,15 @@ const FormRegistration = () => {
             setIsErrorPassword(true)
         }
         if (errorPhone || errorMail || !name || !password) return
+        const isExistEmailShelter = await dispatch(checkShelter(mail, phone))
+        if (isExistEmailShelter?.email) {
+            setIsExistingShelter(true)
+            return
+        } else if (isExistEmailShelter?.phone) {
+            setIsExistingShelter(true)
+            return
+        }
+        setIsExistingShelter(false)
         setIsCover(true)
         dispatch(setFirstData({
             password,
@@ -101,6 +111,7 @@ const FormRegistration = () => {
                            value={mail}
                            onChange={onSetMail}
                     />
+                    {isExistingShelter && <p>Уже есть</p>}
                 </div>
                 <div className={'reg-field'}>
                     <InputPassword password={password} onSetPassword={onSetPassword} placeholder={'Придумайте пароль'} error={isErrorPassword}/>
@@ -108,7 +119,7 @@ const FormRegistration = () => {
                 <button onClick={onContinueRegistry} className={'button button_dark reg__button'}>ПРОДОЛЖИТЬ</button>
                 <p className={'contract'}>
                     Нажимая на кнопку “Продолжить”,
-                    вы соглашаетесь c <a href={'/'} target={'_blank'}>Договором Оферты</a> и <a href={'/'} target={'_blank'}>Политикой Конфиденциальности</a>.
+                    вы соглашаетесь c <a href={'/'} target={'_blank'} rel="noreferrer">Договором Оферты</a> и <a href={'/'} target={'_blank'} rel="noreferrer">Политикой Конфиденциальности</a>.
                 </p>
             </form>
             {isCover && <ModalLogin observableModal={1} isShelter={true}/>}
