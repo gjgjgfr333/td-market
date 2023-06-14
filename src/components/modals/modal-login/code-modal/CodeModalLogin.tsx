@@ -77,7 +77,7 @@ const CodeModalLogin = ({setCurrentModal, isShelter, forgotPassword}: ICodeModal
                     value={code}
                     onChange={onChangeCode}
                 />
-                {isError && <p className={'warningLogin'}>
+                {isError && <p className={'warning-input'}>
                     Вы ввели неверный код авторизации. Попробуйте ввести полученный код еще раз.
                 </p>}
             </div>

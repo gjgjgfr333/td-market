@@ -15,10 +15,9 @@ const FormRegistration = () => {
     const [password, setPassword] = useState('')
     const [isErrorPassword, setIsErrorPassword] = useState(false)
     const [phone, setPhone] = useState('')
-    const [isErrorPhone, setIsErrorPhone] = useState(false)
+    const [errorPhone, setErrorPhone] = useState('')
     const [mail, setMail] = useState('')
-    const [isErrorMail, setIsErrorMail] = useState(false)
-    const [isExistingShelter, setIsExistingShelter] = useState(false)
+    const [errorMail, setErrorMail] = useState('')
     const [isCover, setIsCover] = useState(false)
 
     const onSetPassword = (e: ChangeEvent<HTMLInputElement>) => {
@@ -28,12 +27,12 @@ const FormRegistration = () => {
     const onSetNumber = (e: ChangeEvent<HTMLInputElement>) => {
         if (/[a-zа-яё]/i.test(e.target.value)) return
         setPhone(e.target.value)
-        setIsErrorPhone(false)
+        setErrorPhone('')
     }
 
     const onSetMail = (e: ChangeEvent<HTMLInputElement>) => {
         setMail(e.target.value)
-        setIsErrorMail(false)
+        setErrorMail('')
     }
 
     const onContinueRegistry = async (e: any) => {
@@ -41,10 +40,10 @@ const FormRegistration = () => {
         const errorPhone = !validator.isMobilePhone(phone)
         const errorMail = !validator.isEmail(mail)
         if (errorPhone) {
-         setIsErrorPhone(true)
+         setErrorPhone('Вы ввели некорректный номер телефона')
         }
         if (errorMail) {
-            setIsErrorMail(true)
+            setErrorMail('Вы ввели некорректный email')
         }
         if (!name) {
             setIsErrorName(true)
@@ -53,15 +52,16 @@ const FormRegistration = () => {
             setIsErrorPassword(true)
         }
         if (errorPhone || errorMail || !name || !password) return
-        const isExistEmailShelter = await dispatch(checkShelter(mail, phone))
-        if (isExistEmailShelter?.email) {
-            setIsExistingShelter(true)
+        const isExistShelter = await dispatch(checkShelter(mail, phone))
+        if (isExistShelter?.email) {
+            setErrorMail('Аккаунт с таким email уже существует')
             return
-        } else if (isExistEmailShelter?.phone) {
-            setIsExistingShelter(true)
+        } else if (isExistShelter?.phone) {
+            setErrorPhone('Аккаунт с таким номер телефона уже существует')
             return
         }
-        setIsExistingShelter(false)
+        setErrorPhone('')
+        setErrorMail('')
         setIsCover(true)
         dispatch(setFirstData({
             password,
@@ -95,23 +95,24 @@ const FormRegistration = () => {
                     />
                 </div>
                 <div className={'reg-field'}>
-                    <label htmlFor="Phone" className={'label'}>Номер телефона</label>
-                    <input id={'Phone'} className={`modalInput modalInput_light ${isErrorPhone && 'error'}`}
+                    <label htmlFor="Phone" className={`label ${errorPhone && 'error'}`}>Номер телефона</label>
+                    <input id={'Phone'} className={`modalInput modalInput_light ${errorPhone && 'error'}`}
                            type="tel"
                            placeholder={'+373(__)_-___-__'}
                            value={phone}
                            onChange={onSetNumber}
                     />
+                    <p className={'warning-input warning-input_bottom'}>{errorPhone}</p>
                 </div>
                 <div className={'reg-field'}>
-                    <label htmlFor="Mail" className={'label'}>E-mail</label>
-                    <input id={'Mail'} className={`modalInput modalInput_light ${isErrorMail && 'error'}`}
+                    <label htmlFor="Mail" className={`label ${errorMail && 'error'}`}>E-mail</label>
+                    <input id={'Mail'} className={`modalInput modalInput_light ${errorMail && 'error'}`}
                            type="email"
                            placeholder={'E-mail'}
                            value={mail}
                            onChange={onSetMail}
                     />
-                    {isExistingShelter && <p>Уже есть</p>}
+                    <p className={'warning-input warning-input_bottom'}>{errorMail}</p>
                 </div>
                 <div className={'reg-field'}>
                     <InputPassword password={password} onSetPassword={onSetPassword} placeholder={'Придумайте пароль'} error={isErrorPassword}/>

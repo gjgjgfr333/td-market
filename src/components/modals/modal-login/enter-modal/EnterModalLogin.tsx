@@ -40,7 +40,7 @@ const EnterModalLogin = ({closeUserModal} : {closeUserModal: () => void}) => {
         <div className={'enterModal'}>
             <h3 className={'userAuthModal__title'}>Введите пароль</h3>
             <div className={'userAuthModal__form enterModal__form'}>
-                {error && <p className={'warningLogin enterModal__warningLogin'}>
+                {error && <p className={'warning-input enterModal__warningLogin'}>
                     Вы ввели неправильный пароль
                 </p>}
                 <input

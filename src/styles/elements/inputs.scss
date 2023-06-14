@@ -44,16 +44,25 @@
   }
 }
 
-.warningLogin {
+.warning-input {
   position: absolute;
-  font-size: $veryLittleSize;
+  font-size: $mediumLittleSize;
   color: $errorColor;
+
+  &_bottom {
+    left: 6px;
+    bottom: -16px;
+  }
 }
 
 .label {
   font-size: 11.8px;
   margin-left: 8px;
   color: $text4Color;
+
+  &.error {
+    color: $errorColor;
+  }
 }
 
 .input-file {

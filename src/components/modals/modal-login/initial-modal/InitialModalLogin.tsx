@@ -48,7 +48,7 @@ const InitialModalLogin = ({setCurrentModal}: {setCurrentModal: Dispatch<SetStat
             <h3 className={'userAuthModal__title'}>Войти или создать аккаунт</h3>
             <div className={'modalLogin__email'}>
                 {isEmailError &&
-                    <p className={'warningLogin'}>Вы ввели несуществующий E-mail</p>}
+                    <p className={'warning-input warning-input_bottom'}>Вы ввели несуществующий E-mail</p>}
                 <input
                     value={email}
                     onChange={changeEmail}
@@ -61,7 +61,7 @@ const InitialModalLogin = ({setCurrentModal}: {setCurrentModal: Dispatch<SetStat
             <button className={'button button_dark'} onClick={onLogin}>ВОЙТИ</button>
             <button className={'button button_light'} onClick={onRegistry}>ЗАРЕГИСТРИРОВАТЬСЯ</button>
             <div className={'modalLogin__rules'}>
-                {warningAgree && <p className={'warningLogin'}>Вам необходимо согласиться с условиями</p>}
+                {warningAgree && <p className={'warning-input'}>Вам необходимо согласиться с условиями</p>}
                 <div className={'modalLogin__row'}>
                     <input type={'checkbox'} className={'modalLogin__checkBox'} onChange={onAgreeRules}/>
                     <p className={'modalLogin__conditions'}>

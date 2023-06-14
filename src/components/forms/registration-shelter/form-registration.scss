@@ -11,6 +11,7 @@
   }
 
   & .reg-field {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 3px;

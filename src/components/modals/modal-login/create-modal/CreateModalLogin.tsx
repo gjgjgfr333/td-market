@@ -89,7 +89,7 @@ const CreateModalLogin = ({closeUserModal, forgotPassword = false} : ICreateModa
                     onClick={() => onSwitchVisibility(1 )}
                     alt={''}
                 />
-                {error && <p className={'warningLogin creatModal__warningLogin'}>Пароли не совпадают. Проверьте правильность ввода.</p>}
+                {error && <p className={'warning-input creatModal__warningLogin'}>Пароли не совпадают. Проверьте правильность ввода.</p>}
             </div>
             {!forgotPassword ?
                 <button className={'button button_dark'} onClick={onFinalRegistry}>ЗАВЕРШИТЬ РЕГИСТРАЦИЮ</button>
