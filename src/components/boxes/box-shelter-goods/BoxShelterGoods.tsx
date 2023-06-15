@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './box-shelter-goods.scss'
 import '../../../styles/elements/buttons.scss'
 import '../../../styles/elements/selects.scss'
 import Select from "react-select";
 import {useNavigate} from "react-router-dom";
+import {IProductCard} from "../../../models/IProductCard";
+import {ShelterService} from "../../../services/ShelterService";
 
 const goodsOptions = [
     {
@@ -49,12 +51,29 @@ const filterOptions = [
 
 const BoxShelterGoods = () => {
     const navigate = useNavigate()
+    const [cardsShelter, setCardsShelter] = useState<IProductCard[]>([]);
 
     const onCreateGood = (e: any) => {
         e.preventDefault()
-        console.log('hey bro')
         navigate('create')
     }
+
+    useEffect(() => {
+        const fetchShelterCards = async () => {
+            try {
+                const response = await ShelterService.getCardsOfShelter();
+                setCardsShelter(response.data);
+            } catch (error) {
+                console.log('Ошибка при получении карточек товаров:', error);
+            }
+        };
+
+        fetchShelterCards();
+    }, [])
+
+    useEffect(() => {
+        console.log('cardsShelter', cardsShelter)
+    }, [cardsShelter])
 
     return (
         <div className={'goods'}>
@@ -78,6 +97,11 @@ const BoxShelterGoods = () => {
                     />
                 </div>
                 <button className={'button button_dark goods__button'} onClick={onCreateGood}>Добавить товар</button>
+            </div>
+            <div className={'goods-wrapper'}>
+                {cardsShelter.map(() => (
+                    <p></p>
+                ))}
             </div>
         </div>
     );

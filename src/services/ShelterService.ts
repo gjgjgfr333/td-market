@@ -20,4 +20,8 @@ export class ShelterService {
     static async getShelter(): Promise<AxiosResponse<IShelterRes>> {
         return $apiShelter.get<IShelterRes>(`shelters/`)
     }
+
+    static getCardsOfShelter(): Promise<AxiosResponse<IProductCard[]>> {
+        return $apiShelter.get(`shelters/cards`)
+    }
 }
