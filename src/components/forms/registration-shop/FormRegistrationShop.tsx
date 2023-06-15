@@ -10,6 +10,7 @@ import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
 import {registrationShelter} from "../../../store/reducers/shelter/ShelterCreator";
 import {IShelterShop} from "../../../models/response/IShelter";
 import {useNavigate} from "react-router-dom";
+import {shelterSlice} from "../../../store/reducers/shelter/ShelterSlice";
 
 const FormRegistrationShop = () => {
     const dispatch = useAppDispatch()
@@ -28,7 +29,10 @@ const FormRegistrationShop = () => {
 
     useEffect(() => {
         console.log('hey, to isRegistered', isRegistered)
-        isRegistered && navigate('/shelter')
+        if (isRegistered) {
+            navigate('/shelter')
+            dispatch(shelterSlice.actions.setIsRegistered(false))
+        }
     }, [isRegistered, navigate])
 
     const onSubmit: SubmitHandler<IShelterShop> = (data) => {
@@ -82,6 +86,7 @@ const FormRegistrationShop = () => {
                             }
                         }, 'image/png');
                     }
+
                 })
                 .catch((error) => {
                     console.error(error);

@@ -51,7 +51,7 @@ export interface IClosePerson {
     name: string,
     family: string,
     patronymic: string,
-    phone: string
+    phoneClose: string
 }
 
 export interface IEntity {

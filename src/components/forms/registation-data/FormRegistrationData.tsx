@@ -19,7 +19,7 @@ const FormRegistrationData = () => {
         name: '',
         family: '',
         patronymic: '',
-        phone: '',
+        phoneClose: '',
     })
     const [personalData, setPersonalData] = useState<IPersonalData>({
         name: '',
@@ -34,7 +34,7 @@ const FormRegistrationData = () => {
         bic: '',
         check: ''
     })
-    
+
 
     useEffect(() => {
         console.log('isRegistry', isRegistry)
@@ -121,7 +121,7 @@ const FormRegistrationData = () => {
     }
 
     const onSetPhone = (e: ChangeEvent<HTMLInputElement>) => {
-        setClosePerson({...closePerson, phone: e.target.value})
+        setClosePerson({...closePerson, phoneClose: e.target.value})
     }
 
     const onSetCode = (e: ChangeEvent<HTMLInputElement>) => {
@@ -234,7 +234,7 @@ const FormRegistrationData = () => {
                         <input id={'Phone'} className={`modalInput modalInput_light`}
                                type="tel"
                                placeholder={'+373'}
-                               value={closePerson.phone}
+                               value={closePerson.phoneClose}
                                onChange={onSetPhone}
                         />
                     </div>
