@@ -6,6 +6,7 @@ import Select from "react-select";
 import {useNavigate} from "react-router-dom";
 import {IProductCard} from "../../../models/IProductCard";
 import {ShelterService} from "../../../services/ShelterService";
+import {useAppSelector} from "../../../hooks/redux";
 
 const goodsOptions = [
     {
@@ -51,6 +52,7 @@ const filterOptions = [
 
 const BoxShelterGoods = () => {
     const navigate = useNavigate()
+    const {isHoverTools} = useAppSelector(state => state.shelterReducer)
     const [cardsShelter, setCardsShelter] = useState<IProductCard[]>([]);
 
     const onCreateGood = (e: any) => {
@@ -70,10 +72,6 @@ const BoxShelterGoods = () => {
 
         fetchShelterCards();
     }, [])
-
-    useEffect(() => {
-        console.log('cardsShelter', cardsShelter)
-    }, [cardsShelter])
 
     return (
         <div className={'goods'}>
@@ -96,7 +94,13 @@ const BoxShelterGoods = () => {
                         classNamePrefix={'select'}
                     />
                 </div>
-                <button className={'button button_dark goods__button'} onClick={onCreateGood}>Добавить товар</button>
+                <button
+                    className={'button button_dark goods__button'}
+                    onClick={onCreateGood}
+                    style={{zIndex: isHoverTools ? 1 : 1111}}
+                >
+                    Добавить товар
+                </button>
             </div>
             <div className={'goods-wrapper'}>
                 {cardsShelter.map(() => (

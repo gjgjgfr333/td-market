@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import './сreate-good-selects.scss'
 import Select from "react-select";
 import {useAppDispatch, useAppSelector} from "../../../../hooks/redux";
@@ -30,39 +30,42 @@ const CreateGoodSelects = ({
     const [isTypeDisabled, setIsTypeDisabled] = useState(true);
     const [types, setTypes] = useState<Array<ISections>>([]);
 
-
-
-    useEffect(() => {
-        console.log('categories', categories)
-    }, [categories])
-
     useEffect(() => {
         if (categories.length < 1) {
             dispatch(fetchCategories());
         }
     }, [categories, dispatch]);
 
-    const loadCategories = (
-        inputValue: string,
-        callback: (options: any[]) => void,
-        selectedCategory: {name: string, children: Array<any>} | null
-    ) => {
-        const filteredCategories = categories.filter(category =>
-            category.name.toLowerCase().includes(inputValue.toLowerCase())
-        );
-        console.log('hey bro')
-        const options = filteredCategories.map(category => ({
-            value: category.name,
-            label: category.name
-        }));
+    useEffect(() => {
+        console.log('selectedType', selectedType)
+    }, [selectedType])
 
-        callback(options);
+    // const loadCategories = (
+    //     inputValue: string,
+    //     callback: (options: any[]) => void,
+    //     selectedCategory: {name: string, children: Array<any>} | null
+    // ) => {
+    //     const filteredCategories = categories.filter(category =>
+    //         category.name.toLowerCase().includes(inputValue.toLowerCase())
+    //     );
+    //     const options = filteredCategories.map(category => ({
+    //         value: category.name,
+    //         label: category.name
+    //     }));
+    //
+    //     callback(options);
+    //
+    //     if (selectedCategory && !filteredCategories.find(c => c.name === selectedCategory.name)) {
+    //         // Если выбранная категория больше не проходит фильтр, сбросьте ее.
+    //         setSelectedCategory(null);
+    //     }
+    // };
 
-        if (selectedCategory && !filteredCategories.find(c => c.name === selectedCategory.name)) {
-            // Если выбранная категория больше не проходит фильтр, сбросьте ее.
-            setSelectedCategory(null);
-        }
-    };
+    const subcategory = useMemo(() => {
+        return (subcategories && subcategories.length > 0) ?
+            subcategories.map((subcategory: { name: any; }) => ({ value: subcategory.name, label: subcategory.name }))
+            : []
+    }, [subcategories])
 
     const onChangeCategory = (e: any) => {
         const {value} = e
@@ -89,6 +92,9 @@ const CreateGoodSelects = ({
                 setSelectedType(null)
             }
             setSelectedSubCategory(option);
+            if (option.children.length === 0) {
+                setSelectedType({name: '', _id: 'missing'})
+            }
             setTypes(option.children)
         }
     };
@@ -123,10 +129,10 @@ const CreateGoodSelects = ({
                     placeholder={'Выбрать категорию'}
                     className={'select-input form-select__select'}
                     classNamePrefix={'select'}
-                    options={categories.map((category: { name: any; }) => ({ value: category.name, label: category.name }))}
+                    options={categories.map((category: { name: string; }) => ({ value: category.name, label: category.name }))}
                     value={selectedCategory ? { value: selectedCategory.name, label: selectedCategory.name } : null}
                     onChange={onChangeCategory}
-                    isDisabled={categories.length > 1}
+                    isDisabled={categories.length < 1}
                 />
             </div>
             <div className={'form-select'}>
@@ -136,7 +142,7 @@ const CreateGoodSelects = ({
                     className={'select-input form-select__select'}
                     classNamePrefix={'select'}
                     isDisabled={isSubcategoryDisabled}
-                    options={subcategories.map((subcategory: { name: any; }) => ({ value: subcategory.name, label: subcategory.name }))}
+                    options={subcategory}
                     value={selectedSubCategory ? { value: selectedSubCategory.name, label: selectedSubCategory.name } : null}
                     onChange={onChangeSubcategory}
                 />

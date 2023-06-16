@@ -7,21 +7,21 @@ import NotificationSvg from "../svg/NotificationSvg";
 import TechnicalSupportSvg from "../svg/TechnicalSupportSvg";
 import CommunicationSvg from "../svg/CommunicationSvg";
 import {shelterSlice} from "../../store/reducers/shelter/ShelterSlice";
+import {API_URL} from "../../http";
 
 const ShelterTools = () => {
     const navigation = useNavigate()
     const dispatch = useAppDispatch()
-    const {shelter} = useAppSelector(state => state.shelterReducer)
-    const [isActive, setIsActive] = useState(false)
+    const {shelter, isHoverTools} = useAppSelector(state => state.shelterReducer)
     const [isCover, setIsCover] = useState(false)
     const [activeNotification, setActiveNotification] = useState(0)
 
     const onMouseLeave = () => {
-        if (!isCover) setIsActive(false)
+        if (!isCover) dispatch(shelterSlice.actions.setIsHoverTools(false))
     }
 
     const onClose = () => {
-        setIsActive(false)
+        dispatch(shelterSlice.actions.setIsHoverTools(false))
         setIsCover(false)
     }
 
@@ -36,7 +36,7 @@ const ShelterTools = () => {
 
     return (
         <>
-            <div className={`shelter-tools ${isActive && 'active-tools'} ${isCover && 'notifications'}`} onMouseLeave={onMouseLeave}>
+            <div className={`shelter-tools ${isHoverTools && 'active-tools'} ${isCover && 'notifications'}`} onMouseLeave={onMouseLeave}>
                 <div className={'shelter-tools__header'}>
                     {
                         isCover &&
@@ -56,8 +56,11 @@ const ShelterTools = () => {
                             {(shelter?.shelterData?.entity.isIndividual ? 'ИП ' : 'Ю.л ') + shelter?.name}
                         </p>
                     </div>
-                    <div className={'shelter-icon'} onMouseEnter={() => setIsActive(true)}>
-                        <img src={shelter?.imageShop} alt="Иконка продавца"/>
+                    <div
+                        className={'shelter-icon'}
+                        onMouseEnter={() => dispatch(shelterSlice.actions.setIsHoverTools(true))}
+                    >
+                        <img src={`${API_URL}${shelter?.imageShop}`} alt="Иконка продавца"/>
                     </div>
                 </div>
                 {!isCover && <div className={'shelter-tools__buttons'}>

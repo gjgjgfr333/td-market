@@ -16,6 +16,7 @@ const initialState = {
     isAuthenticated: false,
     isCreateGoodCard: true,
     accessToken: getAccessTokenShelter(),
+    isHoverTools: false,
     deliveryPoints: [] as IDeliveryPoint2[]
 }
 
@@ -107,6 +108,10 @@ export const shelterSlice = createSlice({
         removeAccessToken: (state) => {
             state.accessToken = null
             removeAccessTokenShelter()
+        },
+
+        setIsHoverTools: (state, action: PayloadAction<boolean>) => {
+            state.isHoverTools = action.payload
         }
     }
 })
