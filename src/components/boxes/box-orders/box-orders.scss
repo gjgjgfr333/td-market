@@ -1,0 +1,25 @@
+@import "../../../styles/constants";
+
+.orders {
+  &__select {
+    margin-bottom: 48px;
+  }
+
+  & .select-input__orders {
+    width: 220px;
+  }
+
+  &__titles {
+    display: flex;
+    gap: 25px;
+  }
+
+  &__title {
+    font-size: $mediumMediumSize;
+    color: $text4Color;
+
+    &_first {
+      margin-right: 225px;
+    }
+  }
+}
