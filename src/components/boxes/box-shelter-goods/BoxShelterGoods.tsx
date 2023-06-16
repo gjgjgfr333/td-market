@@ -103,8 +103,8 @@ const BoxShelterGoods = () => {
                 </button>
             </div>
             <div className={'goods-wrapper'}>
-                {cardsShelter.map(() => (
-                    <p></p>
+                {cardsShelter.map((_, index) => (
+                    <p key={index}></p>
                 ))}
             </div>
         </div>
