@@ -3,6 +3,7 @@ import './box-good.scss'
 import '../../../styles/elements/buttons.scss'
 import {Link, useLocation} from "react-router-dom";
 import {IProductCard} from "../../../models/IProductCard";
+import {API_URL} from "../../../http";
 
 const BoxGood = () => {
     const location = useLocation();
@@ -45,7 +46,7 @@ const BoxGood = () => {
                     {additionalPhotos.map((photo, index) => (
                         <div className={'good-additional-photos__item'} key={index}>
                             <img
-                                src={photo}
+                                src={`${API_URL}${photo}`}
                                 alt="Дополнительная фотография"
                                 onClick={() => handleAdditionalPhotoClick(photo)}
                             />
@@ -54,7 +55,7 @@ const BoxGood = () => {
 
                 </div>
                 <div className={'main-photo'}>
-                    <img src={mainPhoto} alt={card.information.name}/>
+                    <img src={`${API_URL}${mainPhoto}`} alt={card.information.name}/>
                 </div>
                 <div className={'good-information'}>
                     <h2 className={'good-information__title'}>
