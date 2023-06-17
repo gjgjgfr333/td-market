@@ -2,7 +2,7 @@ import TitleCards from "../../title-cards/TitleCards";
 import React, {useEffect, useState} from "react";
 import {GoodsService} from "../../../services/GoodsService";
 import {IProductCard} from "../../../models/IProductCard";
-import ProductCard from "../../cards/ProductCard";
+import ProductCard from "../../cards/product-card/ProductCard";
 import WrapperCard from "../../wrappers/wrapper-card/WrapperCard";
 
 const NewCards = () => {

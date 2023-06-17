@@ -1,8 +1,9 @@
 import React from 'react';
 import './product-card.scss'
-import '../../styles/elements/buttons.scss'
-import {IProductCard} from "../../models/IProductCard";
+import '../../../styles/elements/buttons.scss'
+import {IProductCard} from "../../../models/IProductCard";
 import {useNavigate} from "react-router-dom";
+import {API_URL} from "../../../http";
 
 const ProductCard = ({card}: {card: IProductCard }) => {
     const navigate = useNavigate()
@@ -22,7 +23,7 @@ const ProductCard = ({card}: {card: IProductCard }) => {
                 <img src="/images/svg/favorite-button-add.svg" alt="Добавить в фавориты"/>
             </div>
             <div className={'card-image'}>
-                <img src={card.mainPhoto} alt={card.information.name}/>
+                <img src={`${API_URL}${card.mainPhoto}`} alt={card.information.name}/>
             </div>
             <div className={'card__price'}>
                 <span className={'price'}>
@@ -33,9 +34,9 @@ const ProductCard = ({card}: {card: IProductCard }) => {
                     <span className={'discount'}>{card.pricesAndQuantity.priceBeforeDiscount} RUP</span>
                 }
             </div>
-            <div className={'card-name'}>
+            <h4 className={'card-name'}>
                 {card.information.name}
-            </div>
+            </h4>
             <button className={'button button_dark'}>
                 В корзину
             </button>

@@ -7,6 +7,7 @@ import {useNavigate} from "react-router-dom";
 import {IProductCard} from "../../../models/IProductCard";
 import {ShelterService} from "../../../services/ShelterService";
 import {useAppSelector} from "../../../hooks/redux";
+import ShelterCard from "../../cards/shelter-card/ShelterCard";
 
 const goodsOptions = [
     {
@@ -61,6 +62,10 @@ const BoxShelterGoods = () => {
     }
 
     useEffect(() => {
+        console.log('cardsShelter', cardsShelter)
+    }, [cardsShelter])
+
+    useEffect(() => {
         const fetchShelterCards = async () => {
             try {
                 const response = await ShelterService.getCardsOfShelter();
@@ -103,8 +108,8 @@ const BoxShelterGoods = () => {
                 </button>
             </div>
             <div className={'goods-wrapper'}>
-                {cardsShelter.map((_, index) => (
-                    <p key={index}></p>
+                {cardsShelter.map((card) => (
+                    <ShelterCard card={card} key={card._id}/>
                 ))}
             </div>
         </div>

@@ -3,7 +3,7 @@ import TitleCards from "../../title-cards/TitleCards";
 import WrapperCard from "../../wrappers/wrapper-card/WrapperCard";
 import {IProductCard} from "../../../models/IProductCard";
 import {GoodsService} from "../../../services/GoodsService";
-import ProductCard from "../../cards/ProductCard";
+import ProductCard from "../../cards/product-card/ProductCard";
 
 const HotCards = () => {
     const [hotCards, setHotCards] = useState<IProductCard[]>([]);
