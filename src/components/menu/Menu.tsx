@@ -39,10 +39,6 @@ const Menu = () => {
 
     }
 
-    useEffect(() => {
-        console.log('selectSubCategory', selectSubCategory)
-    }, [selectSubCategory])
-
     return (
         <div>
             <div className={'hamburger-container'}>
