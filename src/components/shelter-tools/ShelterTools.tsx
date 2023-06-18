@@ -56,12 +56,12 @@ const ShelterTools = () => {
                             {(shelter?.shelterData?.entity.isIndividual ? 'ИП ' : 'Ю.л ') + shelter?.name}
                         </p>
                     </div>
-                    <div
+                    {shelter.imageShop && <div
                         className={'shelter-icon'}
                         onMouseEnter={() => dispatch(shelterSlice.actions.setIsHoverTools(true))}
                     >
                         <img src={`${API_URL}${shelter?.imageShop}`} alt="Иконка продавца"/>
-                    </div>
+                    </div>}
                 </div>
                 {!isCover && <div className={'shelter-tools__buttons'}>
                     <div className={'shelter-link'} onClick={onClickNotifications}>

@@ -36,7 +36,7 @@ export const registrationShelter = (data: IShelter, photo: File, imageShop: File
             }
         });
         const response = await AuthShelterService.registrationShelter(formData)
-        console.log('response', response)
+        // console.log('response', response)
         dispatch(shelterSlice.actions.setAuth(true))
         dispatch(shelterSlice.actions.setShelter(response.data.shelter))
         dispatch(shelterSlice.actions.setIsRegistered(true))
@@ -61,7 +61,7 @@ export const loginShelter = (email: string, password: string) => async (dispatch
         dispatch(shelterSlice.actions.setShelter(response.data.shelter))
         // const accessToken = getAccessTokenFromCookieShelter();
         const accessToken = response.data.token
-        console.log('accessToken 75', accessToken)
+        // console.log('accessToken 75', accessToken)
 
         if (accessToken) {
             setAccessTokenShelter(accessToken);
@@ -125,7 +125,7 @@ export const createProductCard = (good: IProductCard, mainPhoto: File, additiona
 export const getShelter = () => async (dispatch: AppDispatch) => {
     try {
         const response = await ShelterService.getShelter()
-        console.log('response.data', response.data)
+        // console.log('response.data', response.data)
         dispatch(shelterSlice.actions.setShelter(response.data))
     } catch (e) {
         console.log('e', e)
@@ -136,7 +136,7 @@ export const checkShelter = (email: string, phone: string) => async (dispatch: A
     try {
         dispatch(shelterSlice.actions.loginFetching())
         const response = await AuthShelterService.checkShelter(email, phone)
-        console.log('response checkEmailShelter', response)
+        // console.log('response checkEmailShelter', response)
         dispatch(shelterSlice.actions.loginSuccess())
         return response.data
     } catch (e:any) {

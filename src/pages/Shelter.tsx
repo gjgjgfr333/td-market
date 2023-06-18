@@ -27,7 +27,7 @@ const Shelter = () => {
     }, [shelter])
 
     useEffect(() => {
-        console.log('accessToken Shelter', accessToken)
+        // console.log('accessToken Shelter', accessToken)
         if (!accessToken) navigation('/')
     }, [accessToken, navigation])
 
