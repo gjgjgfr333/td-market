@@ -61,9 +61,9 @@ const BoxShelterGoods = () => {
         navigate('create')
     }
 
-    useEffect(() => {
-        console.log('cardsShelter', cardsShelter)
-    }, [cardsShelter])
+    // useEffect(() => {
+    //     console.log('cardsShelter', cardsShelter)
+    // }, [cardsShelter])
 
     useEffect(() => {
         const fetchShelterCards = async () => {
