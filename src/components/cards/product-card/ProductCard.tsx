@@ -4,9 +4,14 @@ import '../../../styles/elements/buttons.scss'
 import {IProductCard} from "../../../models/IProductCard";
 import {useNavigate} from "react-router-dom";
 import {API_URL} from "../../../http";
+import {UserService} from "../../../services/UserService";
 
 const ProductCard = ({card}: {card: IProductCard }) => {
     const navigate = useNavigate()
+
+    // useEffect(() => {
+    //     console.log('card', card)
+    // }, [card])
 
     const onClickCard = () => {
         navigate(`/card/${card._id}`, {
@@ -14,12 +19,20 @@ const ProductCard = ({card}: {card: IProductCard }) => {
                 ...card
             }
         })
-        console.log('card', card._id)
+        // console.log('card', card._id)
+    }
+
+    const onAddFavorites = async (event: React.MouseEvent<HTMLDivElement>) => {
+        console.log('hey brus')
+        event.stopPropagation();
+        const response = await UserService.addToFavorites(card._id)
+        // dispatch()
+        console.log('onAddFavorites', response)
     }
 
     return (
         <div className={'card'} onClick={onClickCard}>
-            <div className={'card__favorites'}>
+            <div className={'card__favorites'} onClick={onAddFavorites}>
                 <img src="/images/svg/favorite-button-add.svg" alt="Добавить в фавориты"/>
             </div>
             <div className={'card-image'}>

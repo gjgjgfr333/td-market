@@ -3,8 +3,17 @@ export function getAccessTokenShelter(): string | null {
     return localStorage.getItem('access_token_shelter');
 }
 
+export function getAccessTokenUser(): string | null {
+    return localStorage.getItem('access_token_user');
+}
+
+
 export function setAccessTokenShelter(token: string): void {
     localStorage.setItem('access_token_shelter', token);
+}
+
+export function setAccessTokenUser(token: string): void {
+    localStorage.setItem('access_token_user', token);
 }
 
 export function removeAccessTokenShelter(): void {

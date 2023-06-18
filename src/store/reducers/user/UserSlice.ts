@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IUser} from "../../../models/response/IUser";
+import {getAccessTokenUser} from "../../../utils/tokens";
 
 const initialState = {
     user: {} as IUser,
@@ -8,6 +9,7 @@ const initialState = {
     isLoading: false,
     activationCode: '',
     error: '',
+    accessToken: getAccessTokenUser(),
 }
 
 export const userSlice = createSlice({

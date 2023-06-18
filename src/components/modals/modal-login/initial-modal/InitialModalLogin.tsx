@@ -59,7 +59,7 @@ const InitialModalLogin = ({setCurrentModal}: {setCurrentModal: Dispatch<SetStat
                 />
             </div>
             <button className={'button button_dark'} onClick={onLogin}>ВОЙТИ</button>
-            <button className={'button button_light'} onClick={onRegistry}>ЗАРЕГИСТРИРОВАТЬСЯ</button>
+            <button className={'button button_light modalLogin__registry'} onClick={onRegistry}>ЗАРЕГИСТРИРОВАТЬСЯ</button>
             <div className={'modalLogin__rules'}>
                 {warningAgree && <p className={'warning-input'}>Вам необходимо согласиться с условиями</p>}
                 <div className={'modalLogin__row'}>

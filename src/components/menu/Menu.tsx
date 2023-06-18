@@ -4,6 +4,7 @@ import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {fetchCategories} from "../../store/reducers/categories/CategoriesCreators";
 import {ISections, ISubcategories} from "../../models/ICategories";
 import {Link} from "react-router-dom";
+import ButtonBurger from "../buttons/button-burger/ButtonBurger";
 
 const Menu = () => {
     const [isPressed, setIsPressed] = useState(false)
@@ -41,13 +42,16 @@ const Menu = () => {
 
     return (
         <div>
-            <div className={'hamburger-container'}>
-                <div className={`hamburger ${isPressed && 'active'}`} onClick={() => setIsPressed(!isPressed)}>
-                    <div className={`hamburger__item line-1 ${isPressed && 'active'}`}/>
-                    <div className={'hamburger__item line-2'}/>
-                    <div className={'hamburger__item line-3'}/>
-                </div>
+            <div className={'header-burger'}>
+                <ButtonBurger isPressed={isPressed} setIsPressed={setIsPressed}/>
             </div>
+            {/*<div className={'hamburger-container'}>*/}
+            {/*    <div className={`hamburger ${isPressed && 'active'}`} onClick={() => setIsPressed(!isPressed)}>*/}
+            {/*        <div className={`hamburger__item line-1 ${isPressed && 'active'}`}/>*/}
+            {/*        <div className={'hamburger__item line-2'}/>*/}
+            {/*        <div className={'hamburger__item line-3'}/>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
             <div className={`menu ${isPressed && 'active'}`}>
                 <div className={'main-categories'}>
                     {

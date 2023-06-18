@@ -5,6 +5,7 @@
 
   &__email {
     position: relative;
+    margin-bottom: 17px;
   }
 
   &__email .warning-input {
@@ -31,6 +32,10 @@
   &__link {
     color: $linkColor;
     text-decoration: underline;
+  }
+
+  &__registry {
+    margin-bottom: 20px;
   }
 
   &__rules {

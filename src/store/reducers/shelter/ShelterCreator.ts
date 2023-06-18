@@ -3,7 +3,7 @@ import {AuthService} from "../../../services/AuthService";
 import {shelterSlice} from "./ShelterSlice";
 import {IShelter} from "../../../models/response/IShelter";
 import {AuthShelterService} from "../../../services/AuthShelterService";
-import {getAccessTokenFromCookieShelter, setAccessTokenShelter} from "../../../utils/tokens";
+import {setAccessTokenShelter} from "../../../utils/tokens";
 import {ShelterService} from "../../../services/ShelterService";
 import {IProductCard} from "../../../models/IProductCard";
 import {userSlice} from "../user/UserSlice";
@@ -40,12 +40,12 @@ export const registrationShelter = (data: IShelter, photo: File, imageShop: File
         dispatch(shelterSlice.actions.setAuth(true))
         dispatch(shelterSlice.actions.setShelter(response.data.shelter))
         dispatch(shelterSlice.actions.setIsRegistered(true))
-        const accessToken = getAccessTokenFromCookieShelter();
+        const accessToken = response.data.token;
         if (accessToken) {
             setAccessTokenShelter(accessToken);
             dispatch(shelterSlice.actions.setLoginSuccess(accessToken));
         }
-        dispatch(shelterSlice.actions.loginSuccess())
+        // dispatch(shelterSlice.actions.loginSuccess())
     } catch (e: any) {
         console.log('e', e)
         dispatch(shelterSlice.actions.loginFetchingError(e.message))

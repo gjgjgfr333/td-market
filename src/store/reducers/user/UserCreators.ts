@@ -3,16 +3,21 @@ import {AppDispatch} from "../../store";
 import {userSlice} from "./UserSlice";
 import {AuthService} from "../../../services/AuthService";
 import {IUser} from "../../../models/response/IUser";
+import {setAccessTokenUser} from "../../../utils/tokens";
 
 export const loginUser = (email: string, password: string) => async (dispatch: AppDispatch) => {
     try {
         dispatch(userSlice.actions.loginFetching())
         const response = await AuthService.login(email, password)
         console.log('response', response)
-        localStorage.setItem('token', response.data.accessToken)
         dispatch(userSlice.actions.setAuth(true))
-        dispatch(userSlice.actions.setUser(response.data.user))
-        dispatch(userSlice.actions.loginSuccess())
+        const accessToken = response.data.token;
+        if (accessToken) {
+            setAccessTokenUser(accessToken);
+            dispatch(userSlice.actions.loginSuccess())
+        } else {
+            dispatch(userSlice.actions.loginFetchingError('Не получилось'))
+        }
     } catch (e: any) {
         console.log('e', e)
         dispatch(userSlice.actions.loginFetchingError(e.message))
@@ -23,10 +28,17 @@ export const registrationUser = (user: IUser, password: string) => async (dispat
     try {
         dispatch(userSlice.actions.loginFetching())
         const response = await AuthService.registration(user, password)
-        localStorage.setItem('token', response.data.accessToken)
+        // localStorage.setItem('token', response.data.accessToken)
         dispatch(userSlice.actions.setAuth(true))
         dispatch(userSlice.actions.setUser(response.data.user))
-        dispatch(userSlice.actions.loginSuccess())
+        const accessToken = response.data.token;
+        if (accessToken) {
+            setAccessTokenUser(accessToken);
+            dispatch(userSlice.actions.loginSuccess())
+        } else {
+            dispatch(userSlice.actions.loginFetchingError('Не получилось'))
+        }
+
     } catch (e: any) {
         console.log('e', e)
         dispatch(userSlice.actions.loginFetchingError(e.message))
@@ -64,6 +76,7 @@ export const sendCode = (email: string) => async (dispatch: AppDispatch) => {
     try {
         dispatch(userSlice.actions.loginFetching())
         const response = await AuthService.sendCode(email)
+        console.log('response', response)
         dispatch(userSlice.actions.setActivationCode(response.data))
         dispatch(userSlice.actions.loginSuccess())
     } catch (e: any) {

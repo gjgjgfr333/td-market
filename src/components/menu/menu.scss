@@ -1,7 +1,9 @@
 @import "./src/styles/constants";
 @import "./src/styles/mixins";
 
-
+.header-burger {
+  margin-right: 22px;
+}
 
 .menu {
   position: fixed;

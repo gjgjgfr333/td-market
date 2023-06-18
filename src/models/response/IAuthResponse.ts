@@ -2,8 +2,7 @@ import {IUser} from "./IUser";
 import {IShelterRes} from "./IShelter";
 
 export interface IAuthResponse {
-    accessToken: string,
-    refreshToken: string,
+    token: string,
     user: IUser
 }
 

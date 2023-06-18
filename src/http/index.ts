@@ -1,6 +1,6 @@
 import axios from "axios";
 import {IAuthResponse, IAuthShelterResponse} from "../models/response/IAuthResponse";
-import {getAccessTokenShelter} from "../utils/tokens";
+import {getAccessTokenShelter, getAccessTokenUser} from "../utils/tokens";
 
 export const API_URL = process.env.REACT_APP_API_ENDPOINT
 
@@ -10,7 +10,7 @@ const $api = axios.create({
 })
 
 $api.interceptors.request.use((config) => {
-    config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
+    config.headers.Authorization = `Bearer ${getAccessTokenUser()}`
     return config
 })
 
@@ -22,7 +22,7 @@ $api.interceptors.response.use((config) => {
         originalRequest._isRetry = true
         try {
             const response = await axios.get<IAuthResponse>(`${API_URL}/auth/refresh`, {withCredentials: true})
-            localStorage.setItem('token', response.data.accessToken)
+            localStorage.setItem('access_token_shelter', response.data.token)
             return $api.request(originalRequest)
         } catch (e) {
             console.log('НЕ АВТОРИЗОВАН')

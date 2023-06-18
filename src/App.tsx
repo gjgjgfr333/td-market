@@ -21,6 +21,7 @@ import {shelterSlice} from "./store/reducers/shelter/ShelterSlice";
 import ShelterMain from "./pages/ShelterMain";
 import Good from "./pages/Good";
 import ShelterOrders from "./pages/ShelterOrders";
+import Favorites from "./pages/Favorites";
 
 
 function App() {
@@ -82,6 +83,7 @@ function App() {
                         <Route index path="goods/create" element={<CreateGood />} />
                     </Route>
                     <Route path="/card/:id" element={<Good />} />
+                    <Route path="/favorites" element={<Favorites />} />
                     <Route
                         path="/"
                         element={<MainPage />}
