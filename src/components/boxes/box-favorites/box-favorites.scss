@@ -1,0 +1,44 @@
+@import "src/styles/mixins";
+@import "src/styles/constants";
+
+.favorites {
+  &__header {
+    margin-top: 20px;
+    margin-bottom: 25px;
+    @include flex(space-between, flex-end)
+  }
+
+  &__select-input {
+    width: 238px;
+  }
+}
+
+.favorites_empty {
+  margin: 222px auto 222px;
+  max-width: 361px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: $title2Color;
+
+  &__title {
+    font-size: 36px;
+    font-weight: 800;
+
+  }
+
+  &__inf {
+    margin-bottom: 35px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: $bigMediumSize;
+  }
+
+  &__button {
+    max-width: 205px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+}

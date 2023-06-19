@@ -1,6 +1,7 @@
 import {AxiosResponse} from "axios";
 import {IUser} from "../models/response/IUser";
 import $api from "../http";
+import {IProductCard} from "../models/IProductCard";
 
 export class UserService {
     static async fetchUser(): Promise<AxiosResponse<IUser[]>> {
@@ -11,7 +12,7 @@ export class UserService {
         return $api.get<boolean>(`users/favorites/${goodId}`)
     }
 
-    static getFavorites(): Promise<AxiosResponse<boolean>> {
-        return $api.get<boolean>(`users/favorites/`)
+    static getFavorites(): Promise<AxiosResponse<IProductCard[]>> {
+        return $api.get<IProductCard[]>(`users/favorites-get/`)
     }
 }

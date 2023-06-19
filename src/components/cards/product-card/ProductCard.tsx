@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './product-card.scss'
 import '../../../styles/elements/buttons.scss'
 import {IProductCard} from "../../../models/IProductCard";
@@ -6,12 +6,18 @@ import {useNavigate} from "react-router-dom";
 import {API_URL} from "../../../http";
 import {UserService} from "../../../services/UserService";
 
-const ProductCard = ({card}: {card: IProductCard }) => {
-    const navigate = useNavigate()
+interface IProductCardProps {
+    card: IProductCard,
+    isFavoriteCard?: boolean
+}
 
-    // useEffect(() => {
-    //     console.log('card', card)
-    // }, [card])
+const ProductCard = ({card, isFavoriteCard = false}: IProductCardProps) => {
+    const navigate = useNavigate()
+    const [isFavorite, setIsFavorite] = useState(isFavoriteCard)
+
+    useEffect(() => {
+        console.log('isFavorite', isFavorite)
+    }, [isFavorite])
 
     const onClickCard = () => {
         navigate(`/card/${card._id}`, {
@@ -23,17 +29,26 @@ const ProductCard = ({card}: {card: IProductCard }) => {
     }
 
     const onAddFavorites = async (event: React.MouseEvent<HTMLDivElement>) => {
-        console.log('hey brus')
         event.stopPropagation();
         const response = await UserService.addToFavorites(card._id)
-        // dispatch()
-        console.log('onAddFavorites', response)
+        if (response) setIsFavorite(true)
     }
 
     return (
         <div className={'card'} onClick={onClickCard}>
             <div className={'card__favorites'} onClick={onAddFavorites}>
-                <img src="/images/svg/favorite-button-add.svg" alt="Добавить в фавориты"/>
+                {!isFavorite ?
+                    <img
+                        src="/images/svg/favorite-button-add.svg"
+                        alt="Добавить в фавориты"
+                    />
+                    :
+                    <img
+                        src="/images/svg/favorite-button.svg"
+                        alt="Добавлено в фавориты"
+                    />
+                }
+
             </div>
             <div className={'card-image'}>
                 <img src={`${API_URL}${card.mainPhoto}`} alt={card.information.name}/>
