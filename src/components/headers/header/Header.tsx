@@ -34,9 +34,9 @@ const Header = () => {
                     <Menu/>
                     <div className={'logo'}/>
                     <Search/>
-                    <div className={'link-icon'}>
+                    <Link to={'/favorites'} className={'link-icon'}>
                         <FavoritesSvg/>
-                    </div>
+                    </Link>
                     <div onClick={openUserModal} className={'link-icon'}>
                         <UserSvg/>
                     </div>

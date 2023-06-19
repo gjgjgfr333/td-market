@@ -17,7 +17,6 @@ const Shelter = () => {
     useEffect(() => {
         // console.log('shelter isObjectEmpty', shelter)
         if ((localStorage.getItem('access_token_shelter') !== null) && isObjectEmpty(shelter)) {
-            console.log('hey bro 19')
             dispatch(getShelter())
         }
     }, [dispatch, shelter])

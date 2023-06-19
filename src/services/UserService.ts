@@ -10,4 +10,8 @@ export class UserService {
     static addToFavorites(goodId: string): Promise<AxiosResponse<boolean>> {
         return $api.get<boolean>(`users/favorites/${goodId}`)
     }
+
+    static getFavorites(): Promise<AxiosResponse<boolean>> {
+        return $api.get<boolean>(`users/favorites/`)
+    }
 }
