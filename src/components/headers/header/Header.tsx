@@ -11,6 +11,7 @@ import {userSlice} from "../../../store/reducers/user/UserSlice";
 import {Link} from "react-router-dom";
 import FavoritesSvg from "../../svg/FavoritesSvg";
 import ShoppingSvg from "../../svg/ShoppingSvg";
+import {getAccessTokenUser} from "../../../utils/tokens";
 
 const Header = () => {
     const {isUserModal} = useAppSelector(state => state.userReducer)
@@ -37,12 +38,15 @@ const Header = () => {
                     <Link to={'/favorites'} className={'link-icon'}>
                         <FavoritesSvg/>
                     </Link>
-                    <div onClick={openUserModal} className={'link-icon'}>
-                        <UserSvg/>
-                    </div>
                     <div className={'link-icon'}>
                         <ShoppingSvg/>
                     </div>
+                    {!getAccessTokenUser() && <div onClick={openUserModal} className={'link-icon'}>
+                        <UserSvg/>
+                    </div>}
+                    {getAccessTokenUser() && <div onClick={openUserModal} className={'link-icon'}>
+                        <UserSvg/>
+                    </div>}
                     {isUserModal && <ModalLogin/>}
                 </div>
                 <div className={'header__row-3'}>

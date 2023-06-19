@@ -62,7 +62,7 @@ const ProductCard = ({card, isFavoriteCard = false}: IProductCardProps) => {
                     <span className={'discount'}>{card.pricesAndQuantity.priceBeforeDiscount} RUP</span>
                 }
             </div>
-            <h4 className={'card-name'}>
+            <h4 className={'card-name'} title={card.information.name}>
                 {card.information.name}
             </h4>
             <button className={'button button_dark'}>

@@ -20,6 +20,7 @@
   }
 
   &__price {
+    height: 20px;
     margin-left: 11px;
     display: flex;
     align-items: center;
@@ -38,9 +39,15 @@
   }
 
   & > .card-name {
+    height: 50px;
     margin-left: 11px;
     margin-bottom: 13px;
-    font-size: $bigMediumSize
+    font-size: $bigMediumSize;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__favorites {

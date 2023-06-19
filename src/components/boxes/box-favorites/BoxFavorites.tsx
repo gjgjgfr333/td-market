@@ -24,10 +24,6 @@ const BoxFavorites = () => {
         fetchFavoriteCards();
     }, []);
 
-    useEffect(() => {
-        console.log('favoriteCards',favoriteCards)
-    }, [favoriteCards])
-
     if (favoriteCards.length > 0) {
         return (
             <div className={'favorites'}>

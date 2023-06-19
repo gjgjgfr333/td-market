@@ -5,6 +5,8 @@ import BoxFavorites from "../components/boxes/box-favorites/BoxFavorites";
 import {useNavigate} from "react-router-dom";
 import Footer from "../components/footers/footer-user/Footer";
 import {getAccessTokenUser} from "../utils/tokens";
+import HotCards from "../components/cards-modules/hot-cards/HotCards";
+import NewCards from "../components/cards-modules/new-cards/NewCards";
 
 const Favorites = () => {
     const navigation = useNavigate()
@@ -18,6 +20,8 @@ const Favorites = () => {
             <Header/>
             <Container>
                 <BoxFavorites/>
+                <HotCards/>
+                <NewCards/>
             </Container>
             <Footer/>
         </div>
