@@ -1,3 +1,16 @@
+@import "src/styles/constants";
+@import "src/styles/mixins";
+
 .category {
   margin-top: 20px;
+
+  &__header {
+    margin-bottom: 25px;
+    @include flex(space-between, center);
+  }
+
+  &__categories {
+    color: $text4Color;
+    font-size: $mediumLittleSize;
+  }
 }

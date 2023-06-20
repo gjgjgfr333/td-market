@@ -21,5 +21,12 @@ export class GoodsService {
         })
     }
 
-
+    static async getCategoryGoods(category: string, page: number, limit: number): Promise<AxiosResponse<IPaginationCards>> {
+        return axios.get<IPaginationCards>(`${API_URL}product-cards/category${category}`, {
+            params: {
+                page,
+                limit
+            }
+        })
+    }
 }

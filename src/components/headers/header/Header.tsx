@@ -51,7 +51,7 @@ const Header = () => {
                 </div>
                 <div className={'header__row-3'}>
                     {categories.map((category) => (
-                        <Link key={category.name} to={'/'}>{category.name}</Link>
+                        <Link key={category.name} to={`/category/${category._id}`}>{category.name}</Link>
                     ))}
                 </div>
             </Container>
