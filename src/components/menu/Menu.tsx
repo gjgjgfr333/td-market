@@ -5,6 +5,7 @@ import {fetchCategories} from "../../store/reducers/categories/CategoriesCreator
 import {ISections, ISubcategories} from "../../models/ICategories";
 import {Link} from "react-router-dom";
 import ButtonBurger from "../buttons/button-burger/ButtonBurger";
+import {API_URL} from "../../http";
 
 const Menu = () => {
     const [isPressed, setIsPressed] = useState(false)
@@ -56,16 +57,17 @@ const Menu = () => {
                 <div className={'main-categories'}>
                     {
                         categories.map((categ, index) => (
-                            <div
+                            <Link
+                                to={`/category/${categ._id}`}
                                 onClick={() => onSelectCategory(index)}
                                 className={`main-categories__item ${index === activeCategory && 'active'}`}
                                 key={index}
                             >
-                                <img className={'icon'} src={categ.icon} alt=""/>
+                                <img className={'icon'} src={`${API_URL}${categ.icon}`} alt=""/>
                                 <div>
                                     {categ.name}
                                 </div>
-                            </div>
+                            </Link>
                         ))
                     }
                 </div>
