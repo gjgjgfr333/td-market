@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import ReactMarkdown from 'react-markdown'
 import './box-good-information.scss'
 import {IProductCard} from "../../../models/IProductCard";
 
@@ -40,7 +41,7 @@ const BoxGoodInformation = ({card} : {card: IProductCard}) => {
             </div>
             {activeTab === 0 &&
                 <div className={'good-additional__information'}>
-                    {card.information.description}
+                    <ReactMarkdown children={card.information.description}/>,
                 </div>
             }
         </div>
