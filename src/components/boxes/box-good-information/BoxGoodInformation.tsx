@@ -1,13 +1,9 @@
-import React, {useMemo, useState} from 'react';
+import React, {useState} from 'react';
 import './box-good-information.scss'
-import {useLocation} from "react-router-dom";
 import {IProductCard} from "../../../models/IProductCard";
 
-const BoxGoodInformation = () => {
-    const location = useLocation();
-    const card: IProductCard = useMemo(() => {
-        return location.state
-    }, [location.state])
+const BoxGoodInformation = ({card} : {card: IProductCard}) => {
+
     const [activeTab, setActiveTab] = useState(0);
 
     const handleTabClick = (index: number) => {

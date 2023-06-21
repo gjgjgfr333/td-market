@@ -22,7 +22,16 @@ const BoxCategory = () => {
                     />
                 </div>
             </div>
-            <CategoryCards/>
+            <div className={'category__main'}>
+                <div className={'category__aside'}>
+                    <h3>Цена, руб</h3>
+                    <button className={'button button_light category__button'}>Очистить всё</button>
+                </div>
+                <div className={'category__container'}>
+                    <CategoryCards/>
+                </div>
+            </div>
+
         </div>
     );
 };

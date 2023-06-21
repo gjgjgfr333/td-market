@@ -2,14 +2,13 @@ import React, {useEffect, useState} from 'react';
 import {IProductCard} from "../../../models/IProductCard";
 import {GoodsService} from "../../../services/GoodsService";
 import {useParams} from "react-router-dom";
+import ProductCard from "../../cards/product-card/ProductCard";
+import WrapperCard from "../../wrappers/wrapper-card/WrapperCard";
 
 const CategoryCards = () => {
     const { id } = useParams();
     const [categoryCards, setCategoryCards] = useState<IProductCard[]>([]);
 
-    useEffect(() => {
-        console.log('categoryCards', categoryCards)
-    }, [categoryCards])
 
     useEffect(() => {
         const fetchCategoryCards = async () => {
@@ -27,9 +26,11 @@ const CategoryCards = () => {
     }, [id]);
 
     return (
-        <div>
-
-        </div>
+        <WrapperCard>
+            {categoryCards?.length > 0 && categoryCards.map((card, index) => (
+                <ProductCard card={card} key={index}/>
+            )) }
+        </WrapperCard>
     );
 };
 

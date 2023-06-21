@@ -12,7 +12,6 @@ const HotCards = () => {
         const fetchHotCards = async () => {
             try {
                 const response = await GoodsService.getHotGoods(1, 10);
-                console.log('response hotCards', response)
                 setHotCards(response.data.productCards);
             } catch (error) {
                 console.log('Ошибка при получении карточек товаров:', error);

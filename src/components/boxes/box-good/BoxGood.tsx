@@ -1,15 +1,11 @@
 import React, {useMemo, useState} from 'react';
 import './box-good.scss'
 import '../../../styles/elements/buttons.scss'
-import {Link, useLocation} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {IProductCard} from "../../../models/IProductCard";
 import {API_URL} from "../../../http";
 
-const BoxGood = () => {
-    const location = useLocation();
-    const card: IProductCard = useMemo(() => {
-        return location.state
-    }, [location.state])
+const BoxGood = ({card} : {card: IProductCard}) => {
 
     const additionalPhotos = useMemo(() => {
         const newPhotos = [...card.additionalPhotos];

@@ -13,4 +13,27 @@
     color: $text4Color;
     font-size: $mediumLittleSize;
   }
+
+  &__main {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__aside {
+    padding: 30px;
+    width: 40%;
+
+    & h3 {
+      margin-bottom: 50px;
+    }
+  }
+
+  &__button {
+    max-width: 181px;
+  }
+
+  &__container {
+    max-width: 828px;
+  }
+
 }
