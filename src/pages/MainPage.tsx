@@ -8,14 +8,17 @@ import {useAppSelector} from "../hooks/redux";
 import {Navigate} from "react-router-dom";
 import NewCards from "../components/cards-modules/new-cards/NewCards";
 import HotCards from "../components/cards-modules/hot-cards/HotCards";
+import CategoryCards from "../components/cards-modules/category-cards/CategoryCards";
 
 const MainPage = () => {
     const accessToken = useAppSelector((state) => state.shelterReducer.accessToken);
+    const {categories} = useAppSelector(state => state.categoriesReducer)
 
     if (accessToken) {
         console.log('isAuthenticated 14', accessToken)
         return <Navigate to="/shelter/main" />;
     }
+
 
     return (
         <div>
@@ -25,6 +28,9 @@ const MainPage = () => {
                 <HotCards/>
                 <NewCards/>
                 <SpeciallyCards/>
+                {categories.filter(category => category.productCards.length > 0).map(category => (
+                    <CategoryCards id={category._id} key={category._id} title={category.name}/>
+                ))}
             </Container>
             <Footer/>
         </div>

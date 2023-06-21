@@ -33,7 +33,7 @@ const Header = () => {
                 </div>
                 <div className={'header__row-2'}>
                     <Menu/>
-                    <div className={'logo'}/>
+                    <Link to={'/'} className={'logo'}/>
                     <Search/>
                     <Link to={'/favorites'} className={'link-icon'}>
                         <FavoritesSvg/>

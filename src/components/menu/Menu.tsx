@@ -30,6 +30,7 @@ const Menu = () => {
 
     const onSelectCategory = (index: number) => {
         setActiveCategory(index)
+        setSelectSubCategory(null)
     }
 
     const onSelectSubCategory = (subcat: ISubcategories, index: number) => {
@@ -53,7 +54,7 @@ const Menu = () => {
                         categories.map((categ, index) => (
                             <Link
                                 to={`/category/${categ._id}`}
-                                onClick={() => onSelectCategory(index)}
+                                onMouseEnter={() => onSelectCategory(index)}
                                 className={`main-categories__item ${index === activeCategory && 'active'}`}
                                 key={index}
                             >
@@ -69,7 +70,7 @@ const Menu = () => {
                     {selectCategory && selectCategory.map((subcat, index) => (
                         <div
                             className={`subcategory-wrapper ${index === activeSubCategory && 'active'}`}
-                            key={index} onClick={() => onSelectSubCategory(subcat ,index)}
+                            key={index} onMouseEnter={() => onSelectSubCategory(subcat ,index)}
                         >
                             <h3 className={'subcategory'}>{subcat.name}</h3>
                             {subcat.children.length > 0 &&

@@ -4,17 +4,23 @@ import {GoodsService} from "../../../services/GoodsService";
 import {useParams} from "react-router-dom";
 import ProductCard from "../../cards/product-card/ProductCard";
 import WrapperCard from "../../wrappers/wrapper-card/WrapperCard";
+import TitleCards from "../../title-cards/TitleCards";
 
-const CategoryCards = () => {
-    const { id } = useParams();
+interface CategoryCardsProps {
+    id?: string; // Сделаем `id` необязательным в пропсах
+    title?: string; // Сделаем `id` необязательным в пропсах
+}
+
+const CategoryCards = ({ id, title }: CategoryCardsProps) => {
+    const { id: paramsId } = useParams();
     const [categoryCards, setCategoryCards] = useState<IProductCard[]>([]);
-
 
     useEffect(() => {
         const fetchCategoryCards = async () => {
             try {
-                if (id) { // Проверяем, что id не является undefined
-                    const response = await GoodsService.getCategoryGoods(id, 1, 10);
+                const categoryId = id || paramsId; // Проверяем пропс `id`, иначе используем `paramsId`
+                if (categoryId) {
+                    const response = await GoodsService.getCategoryGoods(categoryId, 1, 10);
                     setCategoryCards(response.data.productCards);
                 }
             } catch (error) {
@@ -23,14 +29,17 @@ const CategoryCards = () => {
         };
 
         fetchCategoryCards();
-    }, [id]);
+    }, [id, paramsId]);
 
     return (
-        <WrapperCard>
-            {categoryCards?.length > 0 && categoryCards.map((card, index) => (
-                <ProductCard card={card} key={index}/>
-            )) }
-        </WrapperCard>
+        <div>
+            {title && <TitleCards text={title}/>}
+            <WrapperCard>
+                {categoryCards.length > 0 &&
+                    categoryCards.map((card, index) => <ProductCard card={card} key={index} />)}
+            </WrapperCard>
+        </div>
+
     );
 };
 
