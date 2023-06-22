@@ -12,7 +12,7 @@
 }
 
 .good-wrapper {
-  @include flex(space-between, center);
+  @include flex(space-between, center, 5px);
   margin-bottom: 176px;
   height: 100%;
 
@@ -21,12 +21,21 @@
     gap: 20px;
     flex-direction: column;
 
-    &__item {
-      width: 100px;
+    &__slider {
+      max-height: 500px;
+    }
+
+    &__slider-item {
       height: 150px;
+    }
+
+    &__item {
+      height: 150px;
+      width: 100px;
       overflow: hidden;
       border-radius: 5px;
       cursor: pointer;
+      background-color:  #BAB5B5;
 
       & > img {
         @extend %card-image;
@@ -41,6 +50,7 @@
     max-width: 560px;
     position: relative;
     overflow: hidden;
+    background-color:  #BAB5B5;
 
     & > img {
       @extend %card-image;

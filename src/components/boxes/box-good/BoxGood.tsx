@@ -4,9 +4,13 @@ import '../../../styles/elements/buttons.scss'
 import {Link} from "react-router-dom";
 import {IProductCard} from "../../../models/IProductCard";
 import {API_URL} from "../../../http";
+import {Swiper, SwiperSlide} from "swiper/react";
+import { Navigation } from "swiper";
+import 'swiper/scss';
+import "swiper/scss/navigation";
 
 const BoxGood = ({card} : {card: IProductCard}) => {
-
+    // const swiper = useSwiper();
     const additionalPhotos = useMemo(() => {
         const newPhotos = [...card.additionalPhotos];
         const middleIndex = Math.floor(newPhotos.length / 2);
@@ -32,6 +36,18 @@ const BoxGood = ({card} : {card: IProductCard}) => {
         }
     }
 
+    // const handleSlidePrev = () => {
+    //     if (swiper) {
+    //         swiper.slidePrev();
+    //     }
+    // };
+    //
+    // const handleSlideNext = () => {
+    //     if (swiper) {
+    //         swiper.slideNext();
+    //     }
+    // };
+
     return (
         <div className={'good'}>
             <div className={'good__categories'}>
@@ -39,16 +55,29 @@ const BoxGood = ({card} : {card: IProductCard}) => {
             </div>
             <div className={'good-wrapper'}>
                 <div className={'good-additional-photos'}>
-                    {additionalPhotos.map((photo, index) => (
-                        <div className={'good-additional-photos__item'} key={index}>
-                            <img
-                                src={`${API_URL}${photo}`}
-                                alt="Дополнительная фотография"
-                                onClick={() => handleAdditionalPhotoClick(photo)}
-                            />
-                        </div>
-                    ))}
-
+                    {/*<div className="custom-navigation">*/}
+                    {/*    <button className={'custom-navigation__up'} onClick={handleSlidePrev}>Previous</button>*/}
+                    {/*    <button className={'custom-navigation__down'} onClick={handleSlideNext}>Next</button>*/}
+                    {/*</div>*/}
+                    <Swiper
+                        direction={'vertical'}
+                        slidesPerView={3}
+                        spaceBetween={20}
+                        modules={[Navigation]}
+                        className={'good-additional-photos__slider'}
+                    >
+                        {additionalPhotos.map((photo, index) => (
+                            <SwiperSlide className={'good-additional-photos__slider-item'}>
+                                <div className={'good-additional-photos__item'} key={index}>
+                                    <img
+                                        src={`${API_URL}${photo}`}
+                                        alt="Дополнительная фотография"
+                                        onClick={() => handleAdditionalPhotoClick(photo)}
+                                    />
+                                </div>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
                 </div>
                 <div className={'main-photo'}>
                     <img src={`${API_URL}${mainPhoto}`} alt={card.information.name}/>

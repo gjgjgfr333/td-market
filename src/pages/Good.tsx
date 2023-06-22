@@ -7,6 +7,8 @@ import BoxGoodInformation from "../components/boxes/box-good-information/BoxGood
 import {useLocation, useParams} from "react-router-dom";
 import {IProductCard} from "../models/IProductCard";
 import {GoodsService} from "../services/GoodsService";
+import HotCards from "../components/cards-modules/hot-cards/HotCards";
+import NewCards from "../components/cards-modules/new-cards/NewCards";
 
 const Good = () => {
     const location = useLocation();
@@ -38,6 +40,8 @@ const Good = () => {
                     :
                     <div>Loading...</div>
                 }
+                <HotCards/>
+                <NewCards/>
             </Container>
             <Footer/>
         </div>
