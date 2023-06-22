@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './header.scss'
 import Container from "../../container/Container";
 import Geolocation from "../../geolocation/Geolocation";
@@ -12,12 +12,22 @@ import {Link} from "react-router-dom";
 import FavoritesSvg from "../../svg/FavoritesSvg";
 import ShoppingSvg from "../../svg/ShoppingSvg";
 import {getAccessTokenUser} from "../../../utils/tokens";
+import {isObjectEmpty} from "../../../utils/isObjectEmpty";
+import {getUser} from "../../../store/reducers/user/UserCreators";
+import UserTools from "../../tools/user-tools/UserTools";
 
 const Header = () => {
-    const {isUserModal} = useAppSelector(state => state.userReducer)
+    const dispatch = useAppDispatch()
+    const {isUserModal, user} = useAppSelector(state => state.userReducer)
     const {changeIsUserModal} = userSlice.actions
     const {categories} = useAppSelector(state => state.categoriesReducer)
-    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        if ((localStorage.getItem('access_token_user') !== null) && isObjectEmpty(user)) {
+
+            dispatch(getUser())
+        }
+    }, [dispatch, user])
 
     const openUserModal = () => dispatch(changeIsUserModal(true))
 
@@ -44,9 +54,7 @@ const Header = () => {
                     {!getAccessTokenUser() && <div onClick={openUserModal} className={'link-icon'}>
                         <UserSvg/>
                     </div>}
-                    {getAccessTokenUser() && <div onClick={openUserModal} className={'link-icon'}>
-                        <UserSvg/>
-                    </div>}
+                    {getAccessTokenUser() && !isObjectEmpty(user) && <UserTools/>}
                     {isUserModal && <ModalLogin/>}
                 </div>
                 <div className={'header__row-3'}>

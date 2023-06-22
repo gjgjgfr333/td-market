@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IUser} from "../../../models/response/IUser";
-import {getAccessTokenUser} from "../../../utils/tokens";
+import {getAccessTokenUser, removeAccessTokenShelter} from "../../../utils/tokens";
 
 const initialState = {
     user: {} as IUser,
@@ -9,6 +9,7 @@ const initialState = {
     isLoading: false,
     activationCode: '',
     error: '',
+    isHoverTools: false,
     accessToken: getAccessTokenUser(),
 }
 
@@ -56,7 +57,14 @@ export const userSlice = createSlice({
         },
         setActivationCode: (state, action: PayloadAction<string>) => {
             state.activationCode = action.payload
-        }
+        },
+        setIsHoverTools: (state, action: PayloadAction<boolean>) => {
+            state.isHoverTools = action.payload
+        },
+        removeAccessToken: (state) => {
+            state.accessToken = null
+            removeAccessTokenShelter()
+        },
     }
 })
 

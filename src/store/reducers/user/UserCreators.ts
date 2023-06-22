@@ -4,6 +4,7 @@ import {userSlice} from "./UserSlice";
 import {AuthService} from "../../../services/AuthService";
 import {IUser} from "../../../models/response/IUser";
 import {setAccessTokenUser} from "../../../utils/tokens";
+import {UserService} from "../../../services/UserService";
 
 export const loginUser = (email: string, password: string) => async (dispatch: AppDispatch) => {
     try {
@@ -96,3 +97,15 @@ export const checkEmail = (email: string) => async (dispatch: AppDispatch) => {
         dispatch(userSlice.actions.loginFetchingError(e.message))
     }
 }
+
+export const getUser = () => async (dispatch: AppDispatch) => {
+    try {
+        const response = await UserService.getUser()
+        console.log('response', response)
+        dispatch(userSlice.actions.setUser(response.data))
+    } catch (e: any) {
+        console.log('e getUser', e)
+        dispatch(userSlice.actions.loginFetchingError(e.message))
+    }
+}
+

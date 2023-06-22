@@ -15,4 +15,8 @@ export class UserService {
     static getFavorites(): Promise<AxiosResponse<IProductCard[]>> {
         return $api.get<IProductCard[]>(`users/favorites-get/`)
     }
+
+    static async getUser(): Promise<AxiosResponse<IUser>> {
+        return $api.get<IUser>(`users/get-user`)
+    }
 }

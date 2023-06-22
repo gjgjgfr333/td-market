@@ -5,7 +5,7 @@ import {Link, useNavigate} from "react-router-dom";
 import Container from "../../container/Container";
 
 import { useLocation } from 'react-router-dom';
-import ShelterTools from "../../shelter-tools/ShelterTools";
+import ShelterTools from "../../tools/shelter-tools/ShelterTools";
 
 const HeaderShelter = () => {
     const navigation = useNavigate()

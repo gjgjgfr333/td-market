@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import './shelter-tools.scss'
 import {Link, useNavigate} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../../hooks/redux";
-import Cover from "../cover/Cover";
-import NotificationSvg from "../svg/NotificationSvg";
-import TechnicalSupportSvg from "../svg/TechnicalSupportSvg";
-import CommunicationSvg from "../svg/CommunicationSvg";
-import {shelterSlice} from "../../store/reducers/shelter/ShelterSlice";
-import {API_URL} from "../../http";
+import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
+import Cover from "../../cover/Cover";
+import NotificationSvg from "../../svg/NotificationSvg";
+import TechnicalSupportSvg from "../../svg/TechnicalSupportSvg";
+import CommunicationSvg from "../../svg/CommunicationSvg";
+import {shelterSlice} from "../../../store/reducers/shelter/ShelterSlice";
+import {API_URL} from "../../../http";
 
 const ShelterTools = () => {
     const navigation = useNavigate()
