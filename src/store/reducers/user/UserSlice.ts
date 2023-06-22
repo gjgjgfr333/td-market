@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IUser} from "../../../models/response/IUser";
-import {getAccessTokenUser, removeAccessTokenShelter} from "../../../utils/tokens";
+import {getAccessTokenUser, removeAccessTokenUser} from "../../../utils/tokens";
 
 const initialState = {
     user: {} as IUser,
@@ -63,7 +63,7 @@ export const userSlice = createSlice({
         },
         removeAccessToken: (state) => {
             state.accessToken = null
-            removeAccessTokenShelter()
+            removeAccessTokenUser()
         },
     }
 })

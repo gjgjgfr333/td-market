@@ -20,6 +20,10 @@ export function removeAccessTokenShelter(): void {
     localStorage.removeItem('access_token_shelter');
 }
 
+export function removeAccessTokenUser(): void {
+    localStorage.removeItem('access_token_user');
+}
+
 export const getAccessTokenFromCookieShelter = (): string | null => {
     const name = "access_token_shelter";
     console.log('document.cookie', document.cookie)
