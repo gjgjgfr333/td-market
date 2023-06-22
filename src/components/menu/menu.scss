@@ -6,12 +6,13 @@
 }
 
 .menu {
-  position: fixed;
+  position: absolute;
+  overflow: scroll;
+  top: 99px;
   @include flex();
   height: 100vh;
   width: 100vw;
-  top: 162px;
-  left: -100vw;
+  left: -103vw;
   padding-top: 32px;
   color: $menuColor;
   background-color: $backgroundColor;
@@ -19,7 +20,7 @@
   z-index: 999;
 
   &.active {
-    left: 0;
+    left: -2.5vw;
   }
 }
 
@@ -57,6 +58,7 @@
 
 .subcategories {
   margin-left: 97px;
+  margin-bottom: 20px;
   @include flex();
   flex-direction: column;
   flex-wrap: wrap;

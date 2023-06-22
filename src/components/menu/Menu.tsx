@@ -23,6 +23,16 @@ const Menu = () => {
     }, [dispatch])
 
     useEffect(() => {
+        if (isPressed) {
+            // Установите стиль overflow: hidden для элемента body при активации меню
+            document.documentElement.style.overflow = 'hidden';
+        } else {
+            // Восстановите стиль overflow: auto для элемента body при деактивации меню
+            document.documentElement.style.overflow = 'auto';
+        }
+    }, [isPressed]);
+
+    useEffect(() => {
         if (categories.length > 0) {
             setSelectCategory(categories[activeCategory].children)
         }
@@ -55,6 +65,7 @@ const Menu = () => {
                             <Link
                                 to={`/category/${categ._id}`}
                                 onMouseEnter={() => onSelectCategory(index)}
+                                onClick={() => setIsPressed(false)}
                                 className={`main-categories__item ${index === activeCategory && 'active'}`}
                                 key={index}
                             >
@@ -70,9 +81,15 @@ const Menu = () => {
                     {selectCategory && selectCategory.map((subcat, index) => (
                         <div
                             className={`subcategory-wrapper ${index === activeSubCategory && 'active'}`}
-                            key={index} onMouseEnter={() => onSelectSubCategory(subcat ,index)}
+                            key={index}
+                            onMouseEnter={() => onSelectSubCategory(subcat ,index)}
                         >
-                            <h3 className={'subcategory'}>{subcat.name}</h3>
+                            <Link to={`/category/${subcat._id}`}
+                                  className={'subcategory'}
+                                  onClick={() => setIsPressed(false)}
+                            >
+                                {subcat.name}
+                            </Link>
                             {subcat.children.length > 0 &&
                                 <img src={ index === activeSubCategory ? '/images/svg/arrow-right.svg' : '/images/svg/arrow-right-noactive.svg'}
                                      alt={'Посмотреть подкатегории'}/>}
@@ -82,7 +99,11 @@ const Menu = () => {
                 <div className={'sections'}>
                     <Link to={'/'} className={'sections__parent-name'}>{parentName}</Link>
                     {selectSubCategory && selectSubCategory?.map((section, index) => (
-                        <Link to={'/'} key={index} className={'sections__item'}>
+                        <Link to={`/category/${section._id}`}
+                              key={index}
+                              className={'sections__item'}
+                              onClick={() => setIsPressed(false)}
+                        >
                             {section.name}
                         </Link>
                     ))}

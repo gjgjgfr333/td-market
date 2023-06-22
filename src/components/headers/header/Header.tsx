@@ -54,7 +54,11 @@ const Header = () => {
                     {!getAccessTokenUser() && <div onClick={openUserModal} className={'link-icon'}>
                         <UserSvg/>
                     </div>}
-                    {getAccessTokenUser() && !isObjectEmpty(user) && <UserTools/>}
+                    {getAccessTokenUser() && !isObjectEmpty(user) &&
+                        <div className={'link-icon'}>
+                            <UserTools/>
+                        </div>
+                    }
                     {isUserModal && <ModalLogin/>}
                 </div>
                 <div className={'header__row-3'}>
