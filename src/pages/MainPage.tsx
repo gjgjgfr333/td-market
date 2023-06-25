@@ -31,6 +31,10 @@ const MainPage = () => {
                 {categories.filter(category => category.productCards.length > 0).map(category => (
                     <CategoryCards id={category._id} key={category._id} title={category.name}/>
                 ))}
+
+                {/*{*/}
+                {/*   categories.length > 0 && <CategoryCards id={categories[0]._id} key={categories[0]._id} title={categories[0].name}/>*/}
+                {/*}*/}
             </Container>
             <Footer/>
         </div>

@@ -26,5 +26,11 @@ export interface IProductCard {
         height: number,
         weight: number,
     },
-    deliveryPoints: string[]
+    deliveryPoints: string[],
+    sizeQuantity: ISizes[]
+}
+
+export interface ISizes {
+    size: string,
+    quantity: string
 }

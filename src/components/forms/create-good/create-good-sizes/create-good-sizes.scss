@@ -1,0 +1,18 @@
+@import "../../../../styles/constants";
+
+.checkboxes-size {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+
+  & .checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    &__label {
+      font-size: $bigMediumSize;
+      color: $text4Color;
+    }
+  }
+}

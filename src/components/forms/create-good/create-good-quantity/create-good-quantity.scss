@@ -1,0 +1,17 @@
+@import "../../../../styles/constants";
+
+.quantities {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+
+  & > .quantity {
+    max-width: 305px;
+  }
+
+  &__size {
+    margin-left: 8px;
+    margin-bottom: 8px;
+    font-size: $littleMediumSize;
+  }
+}

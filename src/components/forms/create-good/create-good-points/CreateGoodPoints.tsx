@@ -51,7 +51,7 @@ const CreateGoodPoints = () => {
                         render={({ field }) => (
                             <input
                                 id={`${point._id}`}
-                                className="delivery-point__checkbox"
+                                className="create-good__checkbox"
                                 type="checkbox"
                                 onChange={(e) => {
                                     field.onChange(e.target.checked);

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import './create-good-price.scss'
 import { useFormContext } from 'react-hook-form';
 
-const CreateGoodPrice = () => {
+const CreateGoodPrice = ({isClothes}: {isClothes: boolean | null}) => {
     const { register, watch } = useFormContext();
 
     const price = watch('price');
@@ -37,7 +37,7 @@ const CreateGoodPrice = () => {
                         {...register('priceDiscount')}
                     />
                 </div>
-                <div className="description__block">
+                {!isClothes && <div className="description__block">
                     <label className="label" htmlFor="quantityInStock">
                         Количество на складе (единиц в наличии)
                     </label>
@@ -46,7 +46,7 @@ const CreateGoodPrice = () => {
                         className="modalInput description__input good-price__input"
                         {...register('quantityInStock')}
                     />
-                </div>
+                </div>}
             </div>
         </>
     );

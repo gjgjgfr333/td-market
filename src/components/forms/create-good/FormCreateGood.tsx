@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import './form-create-good.scss'
 import '../../../styles/elements/selects.scss'
 import '../../../styles/elements/buttons.scss'
@@ -12,9 +12,12 @@ import CreateGoodPoints from "./create-good-points/CreateGoodPoints";
 import {ICategory, ISections, ISubcategories} from "../../../models/ICategories";
 import {useForm, FormProvider} from "react-hook-form";
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
-import {IProductCard} from "../../../models/IProductCard";
+import {IProductCard, ISizes} from "../../../models/IProductCard";
 import {createProductCard} from "../../../store/reducers/shelter/ShelterCreator";
 import {useNavigate} from "react-router-dom";
+import {SIZES_CLOTHES, SIZES_CLOTHES_ID, SIZES_ID, SIZES_SHOE} from "../../../constants";
+import CreateGoodSizes from "./create-good-sizes/CreateGoodSizes";
+import CreateGoodQuantity from "./create-good-quantity/CreateGoodQuantity";
 
 const FormCreateGood = () => {
     const navigation = useNavigate()
@@ -28,6 +31,8 @@ const FormCreateGood = () => {
     const [description, setDescription] = useState('')
     const [generalImage, setGeneralImage] = useState<File | null>(null)
     const [additionalImages, setAdditionalImages] = useState<File[]>([])
+    const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
+    const [quantitySizes, setQuantitySizes] = useState<ISizes[]>([]);
     const [submitButton, setSubmitButton] = useState('');
 
     const onSubmit = async (data: any) => {
@@ -36,6 +41,7 @@ const FormCreateGood = () => {
             || !parentSelectedCategory
             || !parentSelectedSubCategory
             || !parentSelectedType
+            || quantitySizes.length === 0
         ) return;
 
         try {
@@ -68,7 +74,8 @@ const FormCreateGood = () => {
                     width: Number(data.width),
                     weight: Number(data.weight)
                 },
-                deliveryPoints: points
+                deliveryPoints: points,
+                sizeQuantity: quantitySizes
             } as IProductCard
             dispatch(createProductCard(good, generalImage, additionalImages))
             if (isCreateGoodCard) {
@@ -83,6 +90,9 @@ const FormCreateGood = () => {
         }
     };
 
+    const isSizes = useMemo(() => {
+        return parentSelectedCategory && SIZES_ID.includes(parentSelectedCategory?._id)
+    }, [parentSelectedCategory])
 
     return (
         <FormProvider {...methods}>
@@ -98,6 +108,22 @@ const FormCreateGood = () => {
                 />
                 <hr className={'create__divider'}/>
                 <CreateGoodDescription description={description} setDescription={setDescription}/>
+                {
+                    parentSelectedCategory && isSizes && (
+                        <>
+                            <hr className={'create__divider'}/>
+                            <CreateGoodSizes
+                                options={
+                                SIZES_CLOTHES_ID.includes(parentSelectedCategory?._id) ?
+                                    SIZES_CLOTHES
+                                    : SIZES_SHOE
+                                }
+                                selectedOptions={selectedSizes}
+                                setSelectedOptions={setSelectedSizes}
+                            />
+                        </>
+                    )
+                }
                 <hr className={'create__divider'}/>
                 <CreateGoodPhotos
                     generalImage={generalImage}
@@ -108,7 +134,13 @@ const FormCreateGood = () => {
                 <hr className={'create__divider'}/>
                 <CreateGoodAdditional/>
                 <hr className={'create__divider'}/>
-                <CreateGoodPrice/>
+                <CreateGoodPrice isClothes={isSizes}/>
+                {parentSelectedCategory && isSizes && (
+                    <>
+                        <hr className={'create__divider'}/>
+                        <CreateGoodQuantity sizes={selectedSizes} inputValues={quantitySizes} setInputValues={setQuantitySizes}/>
+                    </>
+                )}
                 <hr className={'create__divider'}/>
                 <CreateGoodDimensions/>
                 <hr className={'create__divider'}/>

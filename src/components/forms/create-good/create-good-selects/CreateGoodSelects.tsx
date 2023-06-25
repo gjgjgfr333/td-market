@@ -94,6 +94,7 @@ const CreateGoodSelects = ({
             setSelectedSubCategory(option);
             if (option.children.length === 0) {
                 setSelectedType({name: '', _id: 'missing'})
+                setIsTypeDisabled(true)
             }
             setTypes(option.children)
         }
@@ -116,7 +117,7 @@ const CreateGoodSelects = ({
     }, [selectedCategory, isSubcategoryDisabled])
 
     useEffect(() => {
-        if (selectedSubCategory) {
+        if (selectedSubCategory && selectedSubCategory.children.length) {
             setIsTypeDisabled(false)
         }
     }, [selectedSubCategory, isTypeDisabled])
