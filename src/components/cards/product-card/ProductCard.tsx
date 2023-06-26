@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import './product-card.scss'
 import '../../../styles/elements/buttons.scss'
 import {IProductCard} from "../../../models/IProductCard";
@@ -14,10 +14,6 @@ interface IProductCardProps {
 const ProductCard = ({card, isFavoriteCard = false}: IProductCardProps) => {
     const navigate = useNavigate()
     const [isFavorite, setIsFavorite] = useState(isFavoriteCard)
-
-    useEffect(() => {
-        console.log('isFavorite', isFavorite)
-    }, [isFavorite])
 
     const onClickCard = () => {
         navigate(`/card/${card._id}`, {

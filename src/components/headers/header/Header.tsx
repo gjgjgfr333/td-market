@@ -24,7 +24,7 @@ const Header = () => {
 
     useEffect(() => {
         if ((localStorage.getItem('access_token_user') !== null) && isObjectEmpty(user)) {
-
+            console.log('localStorage.getItem(\'access_token_user\')', localStorage.getItem('access_token_user'))
             dispatch(getUser())
         }
     }, [dispatch, user])

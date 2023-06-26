@@ -3,7 +3,7 @@ import {AppDispatch} from "../../store";
 import {userSlice} from "./UserSlice";
 import {AuthService} from "../../../services/AuthService";
 import {IUser} from "../../../models/response/IUser";
-import {setAccessTokenUser} from "../../../utils/tokens";
+import {removeAccessTokenShelter, setAccessTokenUser} from "../../../utils/tokens";
 import {UserService} from "../../../services/UserService";
 
 export const loginUser = (email: string, password: string) => async (dispatch: AppDispatch) => {
@@ -16,6 +16,7 @@ export const loginUser = (email: string, password: string) => async (dispatch: A
         if (accessToken) {
             setAccessTokenUser(accessToken);
             dispatch(userSlice.actions.loginSuccess())
+            removeAccessTokenShelter()
         } else {
             dispatch(userSlice.actions.loginFetchingError('Не получилось'))
         }

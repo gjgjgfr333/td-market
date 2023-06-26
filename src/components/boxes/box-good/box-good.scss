@@ -70,6 +70,41 @@
       top: 0;
     }
 
+    &__subtitle {
+      margin-left: 4px;
+      margin-bottom: 12px;
+      font-size: $littleMediumSize;
+      color: $text2Color;
+    }
+
+    &__sizes {
+      margin-bottom: 20px;
+    }
+
+    & .sizes {
+      margin-bottom: 8px;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    & .size-item {
+      @include flex(center, center);
+      min-width: 48px;
+      height: 60px;
+      padding: 17px 13px;
+      border: 1px solid $title3Color;
+      border-radius: 10px;
+      font-size: $bigMediumSize;
+      color: $text2Color;
+      cursor: pointer;
+    }
+
+    & .size-item.active {
+      border: 1px solid $linkColor;
+    }
+
+
     &__count {
       margin-bottom: 12px;
       font-size: $littleMediumSize;

@@ -3,7 +3,7 @@ import {AuthService} from "../../../services/AuthService";
 import {shelterSlice} from "./ShelterSlice";
 import {IShelter} from "../../../models/response/IShelter";
 import {AuthShelterService} from "../../../services/AuthShelterService";
-import {setAccessTokenShelter} from "../../../utils/tokens";
+import {removeAccessTokenUser, setAccessTokenShelter} from "../../../utils/tokens";
 import {ShelterService} from "../../../services/ShelterService";
 import {IProductCard} from "../../../models/IProductCard";
 import {userSlice} from "../user/UserSlice";
@@ -67,6 +67,7 @@ export const loginShelter = (email: string, password: string) => async (dispatch
             setAccessTokenShelter(accessToken);
             dispatch(shelterSlice.actions.setLoginSuccess(accessToken));
         }
+        removeAccessTokenUser()
         dispatch(shelterSlice.actions.loginSuccess())
     } catch (e: any) {
         console.log('e', e)
