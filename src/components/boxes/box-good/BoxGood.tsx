@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import './box-good.scss'
 import '../../../styles/elements/buttons.scss'
 import {Link} from "react-router-dom";
@@ -27,7 +27,6 @@ const BoxGood = ({card} : {card: IProductCard}) => {
     };
 
     const onSetCount = (operator: '+' | '-') => {
-        console.log('operator', operator)
         if (operator === '+') {
             if (count >= card.pricesAndQuantity.quantity) return
             setCount(count + 1)
@@ -37,10 +36,6 @@ const BoxGood = ({card} : {card: IProductCard}) => {
         }
     }
 
-
-    useEffect(() => {
-        console.log('card', card)
-    }, [card])
     // const handleSlidePrev = () => {
     //     if (swiper) {
     //         swiper.slidePrev();
@@ -52,6 +47,10 @@ const BoxGood = ({card} : {card: IProductCard}) => {
     //         swiper.slideNext();
     //     }
     // };
+
+    const addToCart = async () => {
+
+    }
 
     return (
         <div className={'good'}>
@@ -133,7 +132,7 @@ const BoxGood = ({card} : {card: IProductCard}) => {
                         </span>
                     </div>
                     <div className={'good-information__buttons'}>
-                        <button className={'button button_light'}>
+                        <button className={'button button_light'} onClick={addToCart}>
                             Добавить в корзину
                         </button>
                         <button className={'button button_dark'}>

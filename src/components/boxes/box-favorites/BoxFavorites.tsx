@@ -40,7 +40,7 @@ const BoxFavorites = () => {
                         />
                     </div>
                 </div>
-            <WrapperCard>
+            <WrapperCard limit={6}>
                 {favoriteCards.map(card => (
                     <ProductCard card={card} key={card._id} isFavoriteCard={true}/>
                 ))}

@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {IProductCard} from "../../../models/IProductCard";
 import {GoodsService} from "../../../services/GoodsService";
 import {useParams} from "react-router-dom";
@@ -16,7 +16,7 @@ const CategoryCards = ({ id, title }: CategoryCardsProps) => {
     const { id: paramsId } = useParams();
     const [categoryCards, setCategoryCards] = useState<IProductCard[]>([]);
     const [page, setPage] = useState(1);
-    const limit = 10
+    const limit = 12
 
     const fetchCategoryCards = async () => {
         try {
@@ -29,12 +29,6 @@ const CategoryCards = ({ id, title }: CategoryCardsProps) => {
             console.log('Ошибка при получении карточек товаров:', error);
         }
     };
-
-    useEffect(() => {
-        console.log('fetchCategoryCards, id', id);
-        console.log('fetchCategoryCards, paramsId', paramsId);
-        console.log('fetchCategoryCards, page', page);
-    }, [id, paramsId, page]);
 
     const handleButtonClick = () => {
         setPage(prevPage => {
@@ -49,11 +43,10 @@ const CategoryCards = ({ id, title }: CategoryCardsProps) => {
     return (
         <div>
             {title && <TitleCards text={title}/>}
-            <WrapperCard cardsLength={categoryCards.length} handleButtonClick={handleButtonClick}>
+            <WrapperCard cardsLength={categoryCards.length} handleButtonClick={handleButtonClick} limit={limit}>
                 {categoryCards.length > 0 &&
                     categoryCards.map((card, index) => <ProductCard card={card} key={index} />)}
             </WrapperCard>
-            {/*{categoryCards.length && categoryCards.length % 10 === 0 && <button onClick={handleButtonClick}>Увеличить значение</button>}*/}
         </div>
     );
 };
