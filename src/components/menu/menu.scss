@@ -3,6 +3,10 @@
 
 .header-burger {
   margin-right: 22px;
+
+  @media screen and (max-width: 580px) {
+    display: none;
+  }
 }
 
 .menu {
@@ -18,6 +22,8 @@
   background-color: $backgroundColor;
   transition: $slowTransition;
   z-index: 999;
+
+
 
   &.active {
     left: -2.5vw;

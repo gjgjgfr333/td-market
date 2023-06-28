@@ -45,7 +45,7 @@ const Header = () => {
                     <Menu/>
                     <Link to={'/'} className={'logo'}/>
                     <Search/>
-                    <Link to={'/favorites'} className={'link-icon'}>
+                    <Link to={'/favorites'} className={'link-icon link-icon_favorite'}>
                         <FavoritesSvg/>
                     </Link>
                     <div className={'link-icon'}>

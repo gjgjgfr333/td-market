@@ -1,0 +1,23 @@
+@import "../../styles/constants";
+@import "../../styles/mixins";
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  background: $backgroundColor;
+  box-shadow: -8px -5px 19px 0px rgba(0, 0, 0, 0.15);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 999;
+
+  @media screen and (min-width: 580px) {
+    display: none;
+  }
+
+  &__link {
+    @include flex(center, center);
+    height: 56px;
+    width: 100%;
+  }
+}

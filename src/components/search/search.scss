@@ -4,24 +4,52 @@
   height: 44px;
   display: flex;
   flex-grow: .67;
+
+  .search-input {
+    padding: 8px 16px;
+    position: relative;
+    height: 100%;
+    max-width: 628px;
+    width: 100%;
+    border-radius: 15px;
+    border: none;
+    font-size: 20px;
+    color: $text4Color;
+  }
+
+  .search-button {
+    width: 105px;
+    height: 100%;
+    border-radius: 15px;
+    border: none;
+    background: $buttonColor;
+    cursor: pointer;
+  }
+
+  @media screen and (max-width: 690px) {
+    display: none;
+  }
+
+  &_mobile {
+    margin-top: 8px;
+    width: 100%;
+
+    .search-input {
+      border: 1px solid $text3CColor;
+    }
+
+    .search-button {
+      display: none;
+    }
+
+    @media screen and (min-width: 690px) {
+      display: none;
+    }
+
+    @media screen and (max-width: 690px) {
+      display: flex;
+    }
+  }
 }
 
-.search-input {
-  position: relative;
-  height: 100%;
-  max-width: 628px;
-  width: 100%;
-  padding: 0;
-  border-radius: 15px;
-  border: none;
-  font-size: 20px;
-}
 
-.search-button {
-  width: 105px;
-  height: 100%;
-  border-radius: 15px;
-  border: none;
-  background: $buttonColor;
-  cursor: pointer;
-}

@@ -29,6 +29,10 @@
   &__row-3 {
     display: flex;
     gap: 21px;
+
+    @media screen and (max-width: 1000px) {
+      display: none;
+    }
   }
 }
 
@@ -38,6 +42,18 @@
   height: 48px;
   background: #FFFFFF;
   border-radius: 15px;
+
+  @media screen and (max-width: 1000px) {
+    width: 170px;
+  }
+
+  @media screen and (max-width: 800px) {
+    width: 140px;
+  }
+
+  @media screen and (max-width: 690px) {
+    width: 235px;
+  }
 }
 
 .link-icon {
@@ -46,6 +62,16 @@
   position: relative;
   margin-left: 34px;
   cursor: pointer;
+
+  @media screen and (max-width: 580px) {
+    display: none;
+  }
+
+  &_favorite {
+    @media screen and (max-width: 690px) {
+      margin-left: auto;
+    }
+  }
 }
 
 
