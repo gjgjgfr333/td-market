@@ -2,12 +2,13 @@ import React, {useMemo, useState} from 'react';
 import './box-good.scss'
 import '../../../styles/elements/buttons.scss'
 import {Link} from "react-router-dom";
-import {IProductCard} from "../../../models/IProductCard";
+import {IProductCard, ISizes} from "../../../models/IProductCard";
 import {API_URL} from "../../../http";
 import {Swiper, SwiperSlide} from "swiper/react";
 import { Navigation } from "swiper";
 import 'swiper/scss';
 import "swiper/scss/navigation";
+import {UserService} from "../../../services/UserService";
 
 const BoxGood = ({card} : {card: IProductCard}) => {
     // const swiper = useSwiper();
@@ -21,6 +22,7 @@ const BoxGood = ({card} : {card: IProductCard}) => {
     const [mainPhoto, setMainPhoto] = useState(card.mainPhoto);
     const [count, setCount] = useState(1)
     const [activeSize, setActiveSize] = useState(card.sizeQuantity[0])
+    const [quantity, setQuantity] = useState(card.sizeQuantity[0]?.quantity || card.pricesAndQuantity.quantity)
 
     const handleAdditionalPhotoClick = (photo: string) => {
         setMainPhoto(photo);
@@ -28,7 +30,7 @@ const BoxGood = ({card} : {card: IProductCard}) => {
 
     const onSetCount = (operator: '+' | '-') => {
         if (operator === '+') {
-            if (count >= card.pricesAndQuantity.quantity) return
+            if (count >= quantity) return
             setCount(count + 1)
         } else if (operator === '-') {
             if (count <= 1) return;
@@ -48,8 +50,21 @@ const BoxGood = ({card} : {card: IProductCard}) => {
     //     }
     // };
 
-    const addToCart = async () => {
+    const onSetSize = (size: ISizes) => {
+        setActiveSize(size)
+        setQuantity(size.quantity)
+    }
 
+    const addToCart = async () => {
+        if (count >= quantity) return
+        const response = await UserService.addToCart({
+            productId: card._id,
+            quantity: count,
+            totalPrice: card.pricesAndQuantity.price ? card.pricesAndQuantity.price : card.pricesAndQuantity.priceBeforeDiscount,
+            isFavorite: false,
+            size: activeSize.size
+        })
+        // if (response) setIsFavorite(true)
     }
 
     return (
@@ -96,7 +111,7 @@ const BoxGood = ({card} : {card: IProductCard}) => {
                             {card.sizeQuantity.map((size, index) => (
                                 <div
                                     className={`size-item ${size.size === activeSize.size && 'active'}`}
-                                    key={index} onClick={() => setActiveSize(size)}
+                                    key={index} onClick={() => onSetSize(size)}
                                 >
                                     <span>
                                         {size.size}
@@ -120,7 +135,7 @@ const BoxGood = ({card} : {card: IProductCard}) => {
                             </span>
                         </div>
                         <div className={'good-information__quantity'}>
-                            В наличии: {card.pricesAndQuantity.quantity}
+                            В наличии: {quantity}
                         </div>
                     </div>
                     <div className={'good-information__prices'}>

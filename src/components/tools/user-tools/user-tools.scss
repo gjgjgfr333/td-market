@@ -15,6 +15,10 @@
   z-index: 999;
   transition: background-color 0.4s, box-shadow 0.3s, width 1s;
 
+  @media screen and (max-width: 100px){
+    right: -20px;
+  }
+
   &__header {
     display: flex;
     justify-content: flex-end;

@@ -4,7 +4,7 @@
 .header-burger {
   margin-right: 22px;
 
-  @media screen and (max-width: 580px) {
+  @media screen and (max-width: 650px) {
     display: none;
   }
 }
@@ -23,7 +23,9 @@
   transition: $slowTransition;
   z-index: 999;
 
-
+  @media screen and (max-width: 1000px) {
+    top: 75px;
+  }
 
   &.active {
     left: -2.5vw;
@@ -35,6 +37,10 @@
   width: 305px;
   margin-left: 40px;
   padding-right: 10px;
+
+  @media screen and (max-width: 1080px) {
+    margin-left: 10px;
+  }
 
   &__item {
     margin-bottom: 4px;
@@ -70,6 +76,14 @@
   flex-wrap: wrap;
   row-gap: 23px;
 
+  @media screen and (max-width: 1080px) {
+    margin-left: 25px;
+  }
+
+  @media screen and (max-width: 935px) {
+    margin-left: 5px;
+  }
+
   & .subcategory-wrapper {
     //padding: 0 10px 0 15px;
     @include flex();
@@ -90,10 +104,19 @@
 
 .sections {
   margin-left: 80px;
+  max-width: 215px;
   @include flex();
   gap: 22px;
   flex-direction: column;
 
+  @media screen and (max-width: 1080px) {
+    margin-left: 30px;
+  }
+
+  @media screen and (max-width: 935px) {
+    margin-left: 5px;
+    max-width: 175px;
+  }
 
   //
   //& a {

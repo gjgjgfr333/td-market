@@ -30,10 +30,10 @@ const UserTools = () => {
                     onMouseEnter={() => dispatch(userSlice.actions.setIsHoverTools(true))}
                 >
                     <span>
-                        {`${user.firstName.toUpperCase()[0]}`}
+                        {`${user.firstName?.toUpperCase()[0]}`}
                     </span>
                     <span>
-                        {`${user.secondName.toUpperCase()[0]}`}
+                        {`${user.secondName?.toUpperCase()[0]}`}
                     </span>
                 </div>
 

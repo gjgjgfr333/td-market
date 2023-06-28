@@ -4,9 +4,10 @@ import {Link} from "react-router-dom";
 
 
 const MobileNavbar = () => {
-    const [activeLink, setActiveLink] = useState(localStorage.getItem('activeLink') || '/');
+    const [activeLink, setActiveLink] = useState(localStorage.getItem('activeLink') || 'home');
 
     useEffect(() => {
+        console.log('hey', activeLink)
         localStorage.setItem('activeLink', activeLink);
     }, [activeLink]);
 
