@@ -74,7 +74,7 @@ const BoxGood = ({card} : {card: IProductCard}) => {
             </div>
             <div className={'good-wrapper'}>
                 <div className={'good-additional-photos'}>
-                    {/*<div className="custom-navigation">*/}
+                    {/*<div className="custom-navigation fdfgdfg">*/}
                     {/*    <button className={'custom-navigation__up'} onClick={handleSlidePrev}>Previous</button>*/}
                     {/*    <button className={'custom-navigation__down'} onClick={handleSlideNext}>Next</button>*/}
                     {/*</div>*/}
