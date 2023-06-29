@@ -9,7 +9,7 @@ import CreateGoodAdditional from "./create-good-additional/CreateGoodAdditional"
 import CreateGoodPrice from "./create-good-price/CreateGoodPrice";
 import CreateGoodDimensions from "./create-good-dimensions/CreateGoodDimensions";
 import CreateGoodPoints from "./create-good-points/CreateGoodPoints";
-import {ICategory, ISections, ISubcategories} from "../../../models/ICategories";
+import {ICategory, ISection, ISubcategory} from "../../../models/ICategories";
 import {useForm, FormProvider} from "react-hook-form";
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
 import {IProductCard, ISizes} from "../../../models/IProductCard";
@@ -26,8 +26,8 @@ const FormCreateGood = () => {
     const {isCreateGoodCard} = useAppSelector(state => state.shelterReducer)
 
     const [parentSelectedCategory, setParentSelectedCategory] = useState<ICategory | null>(null);
-    const [parentSelectedSubCategory, setParentSelectedSubCategory] = useState<ISubcategories | null>(null);
-    const [parentSelectedType, setParentSelectedType] = useState<ISections | null>(null);
+    const [parentSelectedSubCategory, setParentSelectedSubCategory] = useState<ISubcategory | null>(null);
+    const [parentSelectedType, setParentSelectedType] = useState<ISection | null>(null);
     const [description, setDescription] = useState('')
     const [generalImage, setGeneralImage] = useState<File | null>(null)
     const [additionalImages, setAdditionalImages] = useState<File[]>([])

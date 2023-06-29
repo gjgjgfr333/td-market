@@ -7,19 +7,19 @@ export interface ICategories {
 export interface ICategory {
     name: string,
     icon?: string,
-    children: ISubcategories[],
+    children: ISubcategory[],
     productCards: string[],
     _id: string
 }
 
-export interface ISubcategories {
+export interface ISubcategory {
     name: string,
-    children: ISections[]
+    children: ISection[]
     _id: string,
     alternateName: string
 }
 
-export interface ISections {
+export interface ISection {
     name: string,
     _id: string
 }

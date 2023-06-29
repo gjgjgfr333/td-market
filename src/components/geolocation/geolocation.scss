@@ -7,6 +7,23 @@
   gap: 5px;
   cursor: pointer;
 
+  @media screen and (max-width: 650px) {
+    display: none;
+  }
+
+  &_mobile {
+    margin-left: auto;
+    display: block;
+    @media screen and (min-width: 650px) {
+      display: none;
+
+    }
+
+    & .geolocation__city {
+      display: none;
+    }
+  }
+
   &__select {
     position: fixed;
     top: calc(50% - 146.5px);

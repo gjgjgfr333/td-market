@@ -64,6 +64,7 @@ const Header = () => {
                             <UserTools/>
                         </div>
                     }
+                    <Geolocation mobile={true}/>
                     {isUserModal && <ModalLogin/>}
                 </div>
                 <div className={'header__row-3'}>

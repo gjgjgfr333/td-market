@@ -2,16 +2,16 @@ import React, {useEffect, useMemo, useState} from 'react';
 import './сreate-good-selects.scss'
 import Select from "react-select";
 import {useAppDispatch, useAppSelector} from "../../../../hooks/redux";
-import {ICategory, ISections, ISubcategories} from "../../../../models/ICategories";
+import {ICategory, ISection, ISubcategory} from "../../../../models/ICategories";
 import {fetchCategories} from "../../../../store/reducers/categories/CategoriesCreators";
 
 interface IProps {
     selectedCategory: ICategory | null;
     setSelectedCategory: (category: ICategory | null) => void;
-    selectedSubCategory: ISubcategories | null;
-    setSelectedSubCategory: (subcategory: ISubcategories | null) => void;
-    selectedType: ISections | null;
-    setSelectedType: (type: ISections | null) => void;
+    selectedSubCategory: ISubcategory | null;
+    setSelectedSubCategory: (subcategory: ISubcategory | null) => void;
+    selectedType: ISection | null;
+    setSelectedType: (type: ISection | null) => void;
 }
 
 
@@ -26,9 +26,9 @@ const CreateGoodSelects = ({
     const dispatch = useAppDispatch();
     const {categories} = useAppSelector(state => state.categoriesReducer);
     const [isSubcategoryDisabled, setIsSubcategoryDisabled] = useState(true);
-    const [subcategories, setSubcategories] = useState<Array<ISubcategories>>([]);
+    const [subcategories, setSubcategories] = useState<Array<ISubcategory>>([]);
     const [isTypeDisabled, setIsTypeDisabled] = useState(true);
-    const [types, setTypes] = useState<Array<ISections>>([]);
+    const [types, setTypes] = useState<Array<ISection>>([]);
 
     useEffect(() => {
         if (categories.length < 1) {

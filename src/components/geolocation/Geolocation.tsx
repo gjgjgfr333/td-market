@@ -5,7 +5,7 @@ import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {locationSlice} from "../../store/reducers/LocationSlice";
 import Cover from "../cover/Cover";
 
-const Geolocation = () => {
+const Geolocation = ({mobile = false}: {mobile?: boolean}) => {
     const {cities, city} = useAppSelector(state => state.locationReducer)
     const {changeCity} = locationSlice.actions
     const dispatch = useAppDispatch()
@@ -22,9 +22,9 @@ const Geolocation = () => {
 
     return (
         <>
-            <div className={'geolocation'} onClick={onActive}>
-                <GeolocationSvg/>
-                <div>
+            <div className={`geolocation ${mobile && 'geolocation_mobile'}`} onClick={onActive}>
+                <GeolocationSvg mobile={true}/>
+                <div className={'geolocation__city'}>
                     {city}
                 </div>
 

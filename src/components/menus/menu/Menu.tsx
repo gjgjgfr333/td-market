@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './menu.scss'
 import {useAppSelector} from "../../../hooks/redux";
-import {ISections, ISubcategories} from "../../../models/ICategories";
+import {ISection, ISubcategory} from "../../../models/ICategories";
 import {Link} from "react-router-dom";
 import ButtonBurger from "../../buttons/button-burger/ButtonBurger";
 import {API_URL} from "../../../http";
@@ -12,8 +12,8 @@ const Menu = () => {
     const {categories} = useAppSelector(state => state.categoriesReducer)
     const [activeCategory, setActiveCategory] = useState(0)
     const [activeSubCategory, setActiveSubCategory] = useState(0)
-    const [selectCategory, setSelectCategory] = useState<ISubcategories[] | null>(null);
-    const [selectSubCategory, setSelectSubCategory] = useState<ISections[] | null>(null);
+    const [selectCategory, setSelectCategory] = useState<ISubcategory[] | null>(null);
+    const [selectSubCategory, setSelectSubCategory] = useState<ISection[] | null>(null);
     const [parentName, setParentName] = useState('')
 
     useEffect(() => {
@@ -37,7 +37,7 @@ const Menu = () => {
         setSelectSubCategory(null)
     }
 
-    const onSelectSubCategory = (subcat: ISubcategories, index: number) => {
+    const onSelectSubCategory = (subcat: ISubcategory, index: number) => {
         setActiveSubCategory(index)
         setSelectSubCategory(subcat.children)
         if (subcat.children.length > 0) {
