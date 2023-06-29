@@ -1,0 +1,26 @@
+@import "../../../styles/constants";
+
+.mobile-menu {
+  position: fixed;
+  height: calc(100vh - 56px);
+  left: -100vw;
+  width: 100vw;
+  top: 0;
+  padding: 20px;
+  background-color: $backgroundColor;
+  z-index: 998;
+  transition: $slowTransition;
+  overflow: scroll;
+
+  &.active {
+    left: 0;
+  }
+
+  &__search {
+    margin-bottom: 24px;
+  }
+
+  & .arrow-right {
+    margin-left: auto;
+  }
+}

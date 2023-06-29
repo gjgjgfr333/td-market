@@ -1,26 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import './menu.scss'
-import {useAppDispatch, useAppSelector} from "../../hooks/redux";
-import {fetchCategories} from "../../store/reducers/categories/CategoriesCreators";
-import {ISections, ISubcategories} from "../../models/ICategories";
+import {useAppSelector} from "../../../hooks/redux";
+import {ISections, ISubcategories} from "../../../models/ICategories";
 import {Link} from "react-router-dom";
-import ButtonBurger from "../buttons/button-burger/ButtonBurger";
-import {API_URL} from "../../http";
+import ButtonBurger from "../../buttons/button-burger/ButtonBurger";
+import {API_URL} from "../../../http";
 
 const Menu = () => {
 
     const [isPressed, setIsPressed] = useState(false)
-    const dispatch = useAppDispatch()
     const {categories} = useAppSelector(state => state.categoriesReducer)
     const [activeCategory, setActiveCategory] = useState(0)
     const [activeSubCategory, setActiveSubCategory] = useState(0)
     const [selectCategory, setSelectCategory] = useState<ISubcategories[] | null>(null);
     const [selectSubCategory, setSelectSubCategory] = useState<ISections[] | null>(null);
     const [parentName, setParentName] = useState('')
-
-    useEffect(() => {
-        dispatch(fetchCategories())
-    }, [dispatch])
 
     useEffect(() => {
         if (isPressed) {
@@ -46,7 +40,6 @@ const Menu = () => {
     const onSelectSubCategory = (subcat: ISubcategories, index: number) => {
         setActiveSubCategory(index)
         setSelectSubCategory(subcat.children)
-        console.log('subcat', subcat)
         if (subcat.children.length > 0) {
             setParentName(subcat.alternateName)
         } else setParentName('')

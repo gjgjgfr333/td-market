@@ -1,5 +1,5 @@
-@import "./src/styles/constants";
-@import "./src/styles/mixins";
+@import "../../../styles/constants";
+@import "../../../styles/mixins";
 
 .header-burger {
   margin-right: 22px;
@@ -27,6 +27,10 @@
     top: 75px;
   }
 
+  @media screen and (max-width: 850px) {
+    font-size: $mediumMediumSize;
+  }
+
   &.active {
     left: -2.5vw;
   }
@@ -40,6 +44,10 @@
 
   @media screen and (max-width: 1080px) {
     margin-left: 10px;
+  }
+
+  @media screen and (max-width: 850px) {
+    width: 205px;
   }
 
   &__item {
@@ -99,6 +107,18 @@
     width: 305px;
     font-weight: 400;
     font-size: $bigMediumSize;
+
+    @media screen and (max-width: 850px) {
+      width: 250px;
+    }
+
+    @media screen and (max-width: 680px) {
+      width: 210px;
+    }
+  }
+
+  @media screen and (max-width: 850px) {
+    font-size: $mediumMediumSize;
   }
 }
 
@@ -118,6 +138,10 @@
     max-width: 175px;
   }
 
+  @media screen and (max-width: 680px) {
+    width: 140px;
+  }
+
   //
   //& a {
   //  font-size: $littleMediumSize;
@@ -126,6 +150,10 @@
   &__parent-name {
     font-size: $subTitleSize;
     color: $additionalColor;
+
+    @media screen and (max-width: 850px) {
+      font-size: $mediumMediumSize;
+    }
   }
 
   &__item {

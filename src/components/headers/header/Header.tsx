@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import './header.scss'
 import Container from "../../container/Container";
 import Geolocation from "../../geolocation/Geolocation";
-import Menu from "../../menu/Menu";
+import Menu from "../../menus/menu/Menu";
 import Search from "../../search/Search";
 import UserSvg from "../../svg/UserSvg";
 import ModalLogin from "../../modals/modal-login/ModalLogin";
@@ -15,6 +15,7 @@ import {getAccessTokenUser} from "../../../utils/tokens";
 import {isObjectEmpty} from "../../../utils/isObjectEmpty";
 import {getUser} from "../../../store/reducers/user/UserCreators";
 import UserTools from "../../tools/user-tools/UserTools";
+import {fetchCategories} from "../../../store/reducers/categories/CategoriesCreators";
 
 const Header = () => {
     const dispatch = useAppDispatch()
@@ -28,6 +29,10 @@ const Header = () => {
             dispatch(getUser())
         }
     }, [dispatch, user])
+
+    useEffect(() => {
+        dispatch(fetchCategories())
+    }, [dispatch])
 
     const openUserModal = () => dispatch(changeIsUserModal(true))
 
