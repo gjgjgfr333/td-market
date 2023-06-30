@@ -61,7 +61,7 @@ const ProductCard = ({card, isFavoriteCard = false}: IProductCardProps) => {
             <h4 className={'card-name'} title={card.information.name}>
                 {card.information.name}
             </h4>
-            <button className={'button button_dark'}>
+            <button className={'button button_dark card__button'}>
                 В корзину
             </button>
         </div>

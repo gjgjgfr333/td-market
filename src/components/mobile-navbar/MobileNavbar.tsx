@@ -1,13 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import './mobile-navbar.scss'
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import MenuMobile from "../menus/menu-mobile/MenuMobile";
 
 
 const MobileNavbar = () => {
+    const location = useLocation();
     const [activeLink, setActiveLink] = useState(localStorage.getItem('activeLink') || 'home');
     const [isPressed, setIsPressed] = useState(false)
 
+    useEffect(() => {
+        if (location.pathname === '/') {
+            setActiveLink('home')
+        } else setActiveLink('')
+    }, [location.pathname])
 
     useEffect(() => {
         console.log('hey', activeLink)
@@ -49,7 +55,7 @@ const MobileNavbar = () => {
                 </Link>
                 <Link
                     className={`navbar__link ${activeLink === 'favorites' ? 'active' : ''}`}
-                    to="/favorites"
+                    to="favorites"
                     onClick={() => handleLinkClick('favorites')}
                 >
                     <img src={`/images/svg/mobile-navbar/${getActiveImageSrc('favorites')}`} alt="Favorites" />

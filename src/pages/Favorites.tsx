@@ -7,6 +7,7 @@ import Footer from "../components/footers/footer-user/Footer";
 import {getAccessTokenUser} from "../utils/tokens";
 import HotCards from "../components/cards-modules/hot-cards/HotCards";
 import NewCards from "../components/cards-modules/new-cards/NewCards";
+import MobileNavbar from "../components/mobile-navbar/MobileNavbar";
 
 const Favorites = () => {
     const navigation = useNavigate()
@@ -17,6 +18,7 @@ const Favorites = () => {
 
     return (
         <div>
+            <MobileNavbar/>
             <Header/>
             <Container>
                 <BoxFavorites/>

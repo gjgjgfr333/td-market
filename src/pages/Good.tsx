@@ -9,6 +9,7 @@ import {IProductCard} from "../models/IProductCard";
 import {GoodsService} from "../services/GoodsService";
 import HotCards from "../components/cards-modules/hot-cards/HotCards";
 import NewCards from "../components/cards-modules/new-cards/NewCards";
+import MobileNavbar from "../components/mobile-navbar/MobileNavbar";
 
 const Good = () => {
     const location = useLocation();
@@ -30,6 +31,7 @@ const Good = () => {
 
     return (
         <div>
+            <MobileNavbar/>
             <Header/>
             <Container>
                 {card ?

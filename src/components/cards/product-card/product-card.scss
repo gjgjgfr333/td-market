@@ -5,6 +5,14 @@
   cursor: pointer;
   width: 192px;
 
+  @media screen and (max-width: 424px) {
+    width: 154px;
+  }
+
+  @media screen and (max-width: 336px) {
+    width: 145px;
+  }
+
   & .card-image {
     margin-bottom: 10px;
     width: 100%;
@@ -12,6 +20,10 @@
     border-radius: 20px;
     background: $plugColor;
     overflow: hidden;
+
+    @media screen and (max-width: 424px) {
+      height: 160px;
+    }
 
     & > img {
       width: 100%;
@@ -29,12 +41,20 @@
     & > .price {
       font-weight: 800;
       font-size: $littleMediumSize;
+
+      @media screen and (max-width: 424px) {
+        font-size: $littleSize;
+      }
     }
 
     & > .discount {
       text-decoration-line: line-through;
       color: $text4Color;
       font-size: $mediumLittleSize;
+    }
+
+    @media screen and (max-width: 424px) {
+      font-size: $veryLittleSize;
     }
   }
 
@@ -48,6 +68,16 @@
     -webkit-line-clamp: 2;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    @media screen and (max-width: 424px) {
+      font-size: $mediumMediumSize;
+    }
+  }
+
+  &__button {
+    @media screen and (max-width: 424px) {
+      display: none;
+    }
   }
 
   &__favorites {

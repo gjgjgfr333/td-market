@@ -4,6 +4,7 @@ import {getAccessTokenUser} from "../utils/tokens";
 import Header from "../components/headers/header/Header";
 import Container from "../components/container/Container";
 import BoxCart from "../components/boxes/box-cart/BoxCart";
+import MobileNavbar from "../components/mobile-navbar/MobileNavbar";
 
 const Cart = () => {
     const navigation = useNavigate()
@@ -14,6 +15,7 @@ const Cart = () => {
 
     return (
         <div>
+            <MobileNavbar/>
             <Header/>
             <Container>
                 <BoxCart/>
