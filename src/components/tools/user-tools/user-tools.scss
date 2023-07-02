@@ -39,17 +39,6 @@
     color: transparent;
     font-size: $mediumLittleSize;
   }
-
-  .user-icon {
-    @include flex(center, center);
-    font-size: $mediumTitleSize;
-    color: $titleColor;
-    background-color: $backgroundToolColor;
-    @include square(60px);
-    min-width: 60px;
-    border-radius: 50%;
-    cursor: pointer;
-  }
 }
 
 .user-tools.active-tools {

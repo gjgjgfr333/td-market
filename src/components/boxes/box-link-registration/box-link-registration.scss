@@ -1,0 +1,15 @@
+@import "src/styles/constants";
+@import "src/styles/mixins";
+
+.registration {
+  @include flex(space-between, center);
+  height: 36px;
+  padding: 0 20px;
+  background-color: #F5F5F5;
+  font-size: $littleMediumSize;
+  color: $linkColor;
+
+  @media screen and (min-width: 650px) {
+    display: none;
+  }
+}

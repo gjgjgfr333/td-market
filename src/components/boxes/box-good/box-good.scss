@@ -4,29 +4,140 @@
 .good {
   margin-top: 28px;
 
+  @media screen and (max-width: 520px) {
+    position: relative;
+    margin-top: 0;
+  }
+
   &__categories {
     margin-bottom: 43px;
     color: $text4Color;
     font-size: $mediumLittleSize;
+
+    @media screen and (max-width: 550px) {
+      display: none;
+    }
   }
 }
 
 .good-wrapper {
-  @include flex(space-between, center, 5px);
+  @include flex(space-between, center, 64px);
   margin-bottom: 176px;
   height: 100%;
+
+  @media screen and (max-width: 1080px){
+    gap: 20px
+  }
+
+  @media screen and (max-width: 880px){
+    flex-direction: column;
+  }
+
+  & .good-photos {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    @media screen and (max-width: 1080px){
+      gap: 10px
+    }
+    @media screen and (max-width: 520px){
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    @media screen and (max-width: 450px) {
+      align-items: flex-start;
+    }
+
+    &__aside {
+      overflow: hidden;
+
+
+      @media screen and (max-width: 450px) {
+        height: 369px;
+      }
+
+      @media screen and (max-width: 400px) {
+        height: 313px;
+      }
+
+      @media screen and (max-width: 375px) {
+        height: 302px;
+      }
+
+      @media screen and (max-width: 375px) {
+        height: 302px;
+      }
+
+      @media screen and (max-width: 360px) {
+        height: 279px;
+      }
+
+      @media screen and (max-width: 335px) {
+        height: 255px;
+      }
+    }
+
+    &__back {
+      margin: 5px;
+      background-color: #F5F5F5;
+      @include square(28px);
+      @include flex(center, center);
+      border-radius: 8px;
+
+      @media screen and (min-width: 550px) {
+        display: none;
+      }
+    }
+
+  }
 
   & .good-additional-photos {
     @include flex();
     gap: 20px;
     flex-direction: column;
 
+    @media screen and (max-width: 550px) {
+      gap: 10px;
+    }
+
+    @media screen and (max-width: 450px) {
+      width: 110px;
+    }
+
+    @media screen and (max-width: 420px) {
+      width: 100px;
+    }
+
+    @media screen and (max-width: 410px) {
+      width: 90px;
+    }
+
+    @media screen and (max-width: 340px) {
+      width: 80px;
+    }
+
     &__slider {
       max-height: 500px;
+
+
     }
 
     &__slider-item {
-      height: 150px;
+      height: 150px !important;
+
+      @media screen and (max-width: 900px){
+        height: 113px !important;
+      }
+
+      @media screen and (max-width: 880px){
+        height: 150px !important;
+      }
+
+      @media screen and (max-width: 700px) {
+        height: 113px !important;
+      }
     }
 
     &__item {
@@ -37,6 +148,21 @@
       cursor: pointer;
       background-color:  #BAB5B5;
 
+      @media screen and (max-width: 900px){
+        width: 91px;
+        height: 113px;
+      }
+
+      @media screen and (max-width: 880px){
+        height: 150px;
+        width: 100px;
+      }
+
+      @media screen and (max-width: 700px){
+        width: 91px;
+        height: 113px;
+      }
+
       & > img {
         @extend %card-image;
       }
@@ -46,11 +172,70 @@
   & .main-photo {
     width: 560px;
     height: 637px;
-    max-height: 637px;
-    max-width: 560px;
+
     position: relative;
     overflow: hidden;
     background-color:  #BAB5B5;
+
+    @media screen and (max-width: 1000px) {
+        width: 510px;
+        height: 582px;
+    }
+
+    @media screen and (max-width: 950px) {
+        width: 460px;
+        height: 525px;
+    }
+
+    @media screen and (max-width: 880px) {
+      width: 600px;
+      height: 682px;
+    }
+
+    @media screen and (max-width: 750px) {
+      width: 500px;
+      height: 568px;
+    }
+
+    @media screen and (max-width: 650px) {
+      width: 400px;
+      height: 455px;
+    }
+
+    @media screen and (max-width: 500px) {
+      width: 350px;
+      height: 398px;
+    }
+
+    @media screen and (max-width: 450px) {
+      width: 325px;
+      height: 369px;
+    }
+
+    @media screen and (max-width: 400px) {
+      width: 275px;
+      height: 313px;
+    }
+
+    @media screen and (max-width: 375px) {
+      width: 260px;
+      height: 302px;
+    }
+
+    @media screen and (max-width: 375px) {
+      width: 260px;
+      height: 302px;
+    }
+
+    @media screen and (max-width: 360px) {
+      width: 240px;
+      height: 279px;
+    }
+
+    @media screen and (max-width: 335px) {
+      width: 220px;
+      height: 255px;
+    }
 
     & > img {
       @extend %card-image;
@@ -65,9 +250,30 @@
     align-self: flex-end;
     justify-content: flex-end;
 
+    @media screen and (max-width: 1000px) {
+      height: 582px;
+    }
+
+    @media screen and (max-width: 950px) {
+      height: 525px;
+    }
+
+    @media screen and (max-width: 880px){
+      height: auto;
+      align-self: center;
+    }
+
+    @media screen and (max-width: 520px) {
+      margin: 12px 20px 20px;
+    }
+
     &__title {
       position: absolute;
       top: 0;
+
+      @media screen and (max-width: 880px){
+        position: static;
+      }
     }
 
     &__subtitle {
@@ -172,6 +378,7 @@
     &__buttons {
       display: flex;
       gap: 12px;
+      flex-wrap: wrap;
 
       & > .button {
         width: 255px;

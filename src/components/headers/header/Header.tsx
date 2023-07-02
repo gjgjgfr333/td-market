@@ -64,6 +64,9 @@ const Header = () => {
                             <UserTools/>
                         </div>
                     }
+                    <Link to={'/'} className={'header__faq'}>
+                        <img src="/images/svg/faq.svg" alt="Вопросы"/>
+                    </Link>
                     <Geolocation mobile={true}/>
                     {isUserModal && <ModalLogin/>}
                 </div>

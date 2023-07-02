@@ -33,7 +33,7 @@ const Good = () => {
         <div>
             <MobileNavbar/>
             <Header/>
-            <Container>
+            <Container isWideMobile={true}>
                 {card ?
                     <>
                         <BoxGood card={card}/>

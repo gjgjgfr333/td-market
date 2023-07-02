@@ -10,6 +10,7 @@ import HotCards from "../components/cards-modules/hot-cards/HotCards";
 import CategoryCards from "../components/cards-modules/category-cards/CategoryCards";
 import Search from "../components/search/Search";
 import MobileNavbar from "../components/mobile-navbar/MobileNavbar";
+import BoxLinkRegistration from "../components/boxes/box-link-registration/BoxLinkRegistration";
 
 const MainPage = () => {
     const accessToken = useAppSelector((state) => state.shelterReducer.accessToken);
@@ -28,6 +29,7 @@ const MainPage = () => {
         <div>
             <MobileNavbar/>
             <Header/>
+            <BoxLinkRegistration/>
             <Container>
                 <Search mobile={true}/>
                 <Slider/>

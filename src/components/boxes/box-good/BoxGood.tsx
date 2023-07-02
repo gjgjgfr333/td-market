@@ -1,7 +1,7 @@
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import './box-good.scss'
 import '../../../styles/elements/buttons.scss'
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {IProductCard, ISizes} from "../../../models/IProductCard";
 import {API_URL} from "../../../http";
 import {Swiper, SwiperSlide} from "swiper/react";
@@ -11,7 +11,7 @@ import "swiper/scss/navigation";
 import {UserService} from "../../../services/UserService";
 
 const BoxGood = ({card} : {card: IProductCard}) => {
-    // const swiper = useSwiper();
+    const navigate = useNavigate()
     const additionalPhotos = useMemo(() => {
         const newPhotos = [...card.additionalPhotos];
         const middleIndex = Math.floor(newPhotos.length / 2);
@@ -23,7 +23,22 @@ const BoxGood = ({card} : {card: IProductCard}) => {
     const [count, setCount] = useState(1)
     const [activeSize, setActiveSize] = useState(card.sizeQuantity[0])
     const [quantity, setQuantity] = useState(card.sizeQuantity[0]?.quantity || card.pricesAndQuantity.quantity)
+    const [isWindowWidth, setIsWindowWidth] = useState(() => {
+        return window.innerWidth >= 450 ? 20 : 4;
+    });
 
+    useEffect(() => {
+        const handleResize = () => {
+            setIsWindowWidth(window.innerWidth >= 450 ? 20 : 4);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+
+    })
     const handleAdditionalPhotoClick = (photo: string) => {
         setMainPhoto(photo);
     };
@@ -55,6 +70,10 @@ const BoxGood = ({card} : {card: IProductCard}) => {
         setQuantity(size.quantity)
     }
 
+    const onBack = () => {
+        navigate(-1)
+    }
+
     const addToCart = async () => {
         if (count >= quantity) return
         const response = await UserService.addToCart({
@@ -66,6 +85,7 @@ const BoxGood = ({card} : {card: IProductCard}) => {
         })
         // if (response) setIsFavorite(true)
     }
+    
 
     return (
         <div className={'good'}>
@@ -73,33 +93,41 @@ const BoxGood = ({card} : {card: IProductCard}) => {
                 <Link to={'/'}>Главная</Link> / <Link to={'/'}>Все категории</Link> / <Link to={'/'}>Женская одежда</Link> / <Link to={'/'}>Платья</Link>
             </div>
             <div className={'good-wrapper'}>
-                <div className={'good-additional-photos'}>
-                    {/*<div className="custom-navigation fdfgdfg">*/}
-                    {/*    <button className={'custom-navigation__up'} onClick={handleSlidePrev}>Previous</button>*/}
-                    {/*    <button className={'custom-navigation__down'} onClick={handleSlideNext}>Next</button>*/}
-                    {/*</div>*/}
-                    <Swiper
-                        direction={'vertical'}
-                        slidesPerView={3}
-                        spaceBetween={20}
-                        modules={[Navigation]}
-                        className={'good-additional-photos__slider'}
-                    >
-                        {additionalPhotos.map((photo, index) => (
-                            <SwiperSlide className={'good-additional-photos__slider-item'} key={index}>
-                                <div className={'good-additional-photos__item'} key={index}>
-                                    <img
-                                        src={`${API_URL}${photo}`}
-                                        alt="Дополнительная фотография"
-                                        onClick={() => handleAdditionalPhotoClick(photo)}
-                                    />
-                                </div>
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
-                </div>
-                <div className={'main-photo'}>
-                    <img src={`${API_URL}${mainPhoto}`} alt={card.information.name}/>
+                <div className={'good-photos'}>
+                    <div className={'good-photos__aside'}>
+                        <div className={'good-photos__back'} onClick={onBack}>
+                            <img src="/images/svg/arrow-left-bold-little.svg" alt="Вернуться назад"/>
+                        </div>
+                        <div className={'good-additional-photos'}>
+                            {/*<div className="custom-navigation fdfgdfg">*/}
+                            {/*    <button className={'custom-navigation__up'} onClick={handleSlidePrev}>Previous</button>*/}
+                            {/*    <button className={'custom-navigation__down'} onClick={handleSlideNext}>Next</button>*/}
+                            {/*</div>*/}
+                            <Swiper
+                                direction={'vertical'}
+                                slidesPerView={3}
+                                spaceBetween={isWindowWidth}
+                                modules={[Navigation]}
+                                className={'good-additional-photos__slider'}
+                            >
+                                {additionalPhotos.map((photo, index) => (
+                                    <SwiperSlide className={'good-additional-photos__slider-item'} key={index}>
+                                        <div className={'good-additional-photos__item'} key={index}>
+                                            <img
+                                                src={`${API_URL}${photo}`}
+                                                alt="Дополнительная фотография"
+                                                onClick={() => handleAdditionalPhotoClick(photo)}
+                                            />
+                                        </div>
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
+                        </div>
+                    </div>
+
+                    <div className={'main-photo'}>
+                        <img src={`${API_URL}${mainPhoto}`} alt={card.information.name}/>
+                    </div>
                 </div>
                 <div className={'good-information'}>
                     <h2 className={'good-information__title'}>

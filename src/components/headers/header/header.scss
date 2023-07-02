@@ -38,6 +38,14 @@
       display: none;
     }
   }
+
+  &__faq {
+    margin-left: auto;
+
+    @media screen and (min-width: 435px) {
+      display: none;
+    }
+  }
 }
 
 .logo {

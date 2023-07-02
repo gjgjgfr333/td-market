@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 import './container.scss'
-import {IChildren} from "../../models/IChildren";
 
-const Container = ({children}: IChildren) => {
+interface IProps {
+    children: ReactNode,
+    isWideMobile?: boolean
+}
+
+const Container = ({children, isWideMobile = false}: IProps) => {
     return (
-        <div className={'container'}>
+        <div className={`container ${isWideMobile && 'wide-mobile'}`}>
             {children}
         </div>
     )

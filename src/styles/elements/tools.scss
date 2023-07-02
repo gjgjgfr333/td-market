@@ -1,0 +1,49 @@
+@import "../constants";
+@import "../mixins";
+
+.user-icon {
+  @include flex(center, center);
+  font-size: $mediumTitleSize;
+  color: $titleColor;
+  background-color: $backgroundToolColor;
+  @include square(60px);
+  min-width: 60px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.user-tools-name {
+  & .name-user {
+    max-width: 145px;
+    font-weight: 800;
+    color: $text2Color;
+    font-size: $subTitleSize;
+    padding-top: 5px;
+
+    &_mobile {
+      max-width: 500px;
+    }
+  }
+
+  & .email-user {
+    color: $title3Color;
+    font-size: $mediumLittleSize;
+  }
+}
+
+.tools-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+
+  & > .tools-link {
+
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: $littleMediumSize;
+    cursor: default;
+  }
+}

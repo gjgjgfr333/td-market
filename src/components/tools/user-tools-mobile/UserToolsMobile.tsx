@@ -1,34 +1,23 @@
 import React from 'react';
-import './user-tools.scss'
-import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
-import {userSlice} from "../../../store/reducers/user/UserSlice";
-import {Link} from "react-router-dom";
+import './user-tools-mobile.scss'
 import '../../../styles/elements/tools.scss'
+import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
+import {Link} from "react-router-dom";
+import {userSlice} from "../../../store/reducers/user/UserSlice";
 
-const UserTools = () => {
+const UserToolsMobile = ({isPressed}: {isPressed: boolean}) => {
     const dispatch = useAppDispatch()
-    const {user, isHoverTools} = useAppSelector(state => state.userReducer)
-    const onMouseLeave = () => {
-        dispatch(userSlice.actions.setIsHoverTools(false))
-    }
+    const {user} = useAppSelector(state => state.userReducer)
 
     const onLogout = () => {
         dispatch(userSlice.actions.removeAccessToken())
     }
+
     return (
-        <div className={`user-tools ${isHoverTools && 'active-tools'}`} onMouseLeave={onMouseLeave}>
-            <div className={'user-tools__header'}>
-                <div className={'user-tools-name'}>
-                    <p className={'name-user'}>
-                        {user?.firstName} {user?.secondName}
-                    </p>
-                    <p className={'email-user'}>
-                        {user.email}
-                    </p>
-                </div>
+        <div className={`user-tools-mobile  ${isPressed && 'active'}`}>
+            <div className={'user-tools-mobile__header'}>
                 <div
                     className={'user-icon'}
-                    onMouseEnter={() => dispatch(userSlice.actions.setIsHoverTools(true))}
                 >
                     <span>
                         {`${user.firstName?.toUpperCase()[0]}`}
@@ -37,28 +26,36 @@ const UserTools = () => {
                         {`${user.secondName?.toUpperCase()[0]}`}
                     </span>
                 </div>
-
+                <div className={'user-tools-name'}>
+                    <p className={'name-user name-user_mobile'}>
+                        {user?.firstName} {user?.secondName}
+                    </p>
+                    <p className={'email-user'}>
+                        {user.email}
+                    </p>
+                </div>
             </div>
-            <div className={'shelter-tools__buttons'}>
-                <Link className={'shelter-link'} to={'/'}>
+            <div className={'tools-buttons user-tools-mobile__buttons'}>
+                <Link className={'tools-link'} to={'/'}>
                     <img src="/images/svg/my-orders.svg" alt="Личные данные"/>
                     <span>Мои заказы</span>
                 </Link>
-                <div className={'shelter-link'}>
+                <div className={'tools-link'}>
                     <img src="/images/svg/bell.svg" alt="Уведомления"/>
                     <span>Уведомления</span>
                 </div>
-                <Link className={'shelter-link'} to={'/'}>
+                <Link className={'tools-link'} to={'/'}>
                     <img src="/images/svg/key.svg" alt="Смена пароля"/>
                     <span>Смена пароля</span>
                 </Link>
-                <div className={'shelter-link'} onClick={onLogout}>
+                <div className={'tools-link'}  onClick={onLogout}>
                     <img src="/images/svg/logout.svg" alt="Выйти"/>
                     <span>Выйти</span>
                 </div>
             </div>
+
         </div>
     );
 };
 
-export default UserTools;
+export default UserToolsMobile;
