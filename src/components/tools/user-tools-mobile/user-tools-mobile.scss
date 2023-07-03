@@ -11,6 +11,10 @@
   transition: $slowTransition;
   z-index: 997;
 
+  @media screen and (min-width: 650px){
+    display: none;
+  }
+
   &.active {
     right: 0;
   }

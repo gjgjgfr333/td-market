@@ -3,10 +3,14 @@ import './mobile-navbar.scss'
 import {Link, useLocation} from "react-router-dom";
 import MenuMobile from "../menus/menu-mobile/MenuMobile";
 import UserToolsMobile from "../tools/user-tools-mobile/UserToolsMobile";
+import {getAccessTokenUser} from "../../utils/tokens";
+import {isObjectEmpty} from "../../utils/isObjectEmpty";
+import {useAppSelector} from "../../hooks/redux";
 
 
 const MobileNavbar = () => {
     const location = useLocation();
+    const {user} = useAppSelector(state => state.userReducer)
     const [activeLink, setActiveLink] = useState(localStorage.getItem('activeLink') || 'home');
     const [isPressedMenu, setIsPressedMenu] = useState(false)
     const [isPressedTools, setIsPressedTools] = useState(false)
@@ -44,7 +48,7 @@ const MobileNavbar = () => {
     return (
         <>
             <MenuMobile isPressed={isPressedMenu}/>
-            <UserToolsMobile isPressed={isPressedTools}/>
+            {getAccessTokenUser() && !isObjectEmpty(user) && <UserToolsMobile isPressed={isPressedTools}/>}
             <div className="navbar">
                 <Link
                     to={'/'}
