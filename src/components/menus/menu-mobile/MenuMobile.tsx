@@ -4,9 +4,14 @@ import Search from "../../search/Search";
 import {useAppSelector} from "../../../hooks/redux";
 import {API_URL} from "../../../http";
 import {ICategory, ISubcategory} from "../../../models/ICategories";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
-const MenuMobile = ({isPressed}: {isPressed: boolean}) => {
+interface IProps {
+    isPressed: boolean,
+    setIsPressed: (bool: boolean) => void
+}
+
+const MenuMobile = ({isPressed, setIsPressed}: IProps) => {
     const navigate = useNavigate()
     const {categories} = useAppSelector(state => state.categoriesReducer)
     const [activeCategory, setActiveCategory] = useState<ICategory | null>(null)
@@ -25,9 +30,14 @@ const MenuMobile = ({isPressed}: {isPressed: boolean}) => {
         }
     }
 
+    const onNavigation = (to: string) => {
+        navigate(to)
+        setIsPressed(false)
+    }
+
     const onSelectSubcategory = (subcategory: ISubcategory) => {
         if (subcategory.children.length === 0) {
-            navigate(`/category/${subcategory._id}`)
+            onNavigation(`/category/${subcategory._id}`)
         } else {
             setActiveSubCategory(subcategory)
         }
@@ -40,11 +50,11 @@ const MenuMobile = ({isPressed}: {isPressed: boolean}) => {
                     <Search mobile={true}/>
                 </div>
                 { !activeCategory && !activeSubCategory &&
-                    categories.map((categ) => (
+                    categories.map((categ, index) => (
                         <div
                             onMouseEnter={() => onSelectCategory(categ)}
                             className={`main-categories__item`}
-                            key={categ._id}
+                            key={categ._id + index}
                         >
                             <img className={'icon'} src={`${API_URL}${categ.icon}`} alt=""/>
                             <div>
@@ -64,13 +74,16 @@ const MenuMobile = ({isPressed}: {isPressed: boolean}) => {
                                 alt="Вернуться назад"
                                 onClick={() => onBack('category')}
                             />
-                            <Link to={`/category/${activeCategory._id}`} className={'mobile-menu__link'}>
-                                {activeCategory.name}
-                            </Link>
-                        </div>
-                        {activeCategory.children.map(subcat => (
                             <div
-                                key={subcat._id}
+                                onClick={() => onNavigation(`/category/${activeCategory._id}`)}
+                                className={'mobile-menu__link'}
+                            >
+                                {activeCategory.name}
+                            </div>
+                        </div>
+                        {activeCategory.children.map((subcat, index) => (
+                            <div
+                                key={subcat._id + index}
                                 className={'mobile-menu__subcategory'}
                                 onClick={() => onSelectSubcategory(subcat)}
                             >
@@ -94,20 +107,23 @@ const MenuMobile = ({isPressed}: {isPressed: boolean}) => {
                                 alt="Вернуться назад"
                                 onClick={() => onBack('subcategory')}
                             />
-                            <Link to={`/category/${activeSubCategory._id}`} className={'mobile-menu__link'}>
+                            <div
+                                onClick={() => onNavigation(`/category/${activeSubCategory._id}`)}
+                                className={'mobile-menu__link'}
+                            >
                                 {activeSubCategory.name}
-                            </Link>
+                            </div>
                         </div>
                         {activeSubCategory.children.map(section => (
-                            <Link
-                                to={`/category/${section._id}`}
+                            <div
+                                onClick={() => onNavigation(`/category/${section._id}`)}
                                 key={section._id}
                                 className={'mobile-menu__subcategory'}
                             >
                                 <div className={'mobile-menu__link_sub'}>
                                     {section.name}
                                 </div>
-                            </Link>
+                            </div>
                         ))}
                     </>
                 }

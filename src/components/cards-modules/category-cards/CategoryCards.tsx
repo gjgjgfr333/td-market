@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {IProductCard} from "../../../models/IProductCard";
 import {GoodsService} from "../../../services/GoodsService";
 import {useParams} from "react-router-dom";
@@ -10,20 +10,25 @@ import TitleCards from "../../title-cards/TitleCards";
 interface CategoryCardsProps {
     id?: string;
     title?: string;
+    limit: number
 }
 
-const CategoryCards = ({ id, title }: CategoryCardsProps) => {
+const CategoryCards = ({ id, title, limit }: CategoryCardsProps) => {
     const { id: paramsId } = useParams();
     const [categoryCards, setCategoryCards] = useState<IProductCard[]>([]);
     const [page, setPage] = useState(1);
-    const limit = 12
+    const [prevParamsId, setPrevParamsId] = useState<string | undefined>(paramsId);
 
     const fetchCategoryCards = async () => {
         try {
             const categoryId = id || paramsId;
             if (categoryId) {
                 const response = await GoodsService.getCategoryGoods(categoryId, page, limit);
-                setCategoryCards(prevCards => [...prevCards, ...response.data.productCards]);
+                if (prevParamsId !== paramsId) {
+                    setCategoryCards(response.data.productCards); // Заменяем categoryCards новыми данными
+                } else {
+                    setCategoryCards(prevCards => [...prevCards, ...response.data.productCards]); // Добавляем новые карточки
+                }
             }
         } catch (error) {
             console.log('Ошибка при получении карточек товаров:', error);
@@ -36,7 +41,12 @@ const CategoryCards = ({ id, title }: CategoryCardsProps) => {
         });
     };
 
+    useEffect(() => {
+        console.log('paramsId', paramsId)
+    }, [paramsId])
+
     useMemo(() => {
+        setPrevParamsId(paramsId);
         fetchCategoryCards();
     }, [id, paramsId, page]); // Используем useMemo для оптимизации вызова fetchCategoryCards
 

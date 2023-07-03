@@ -28,7 +28,7 @@ const BoxCategory = () => {
                     <button className={'button button_light category__button'}>Очистить всё</button>
                 </div>
                 <div className={'category__container'}>
-                    <CategoryCards/>
+                    <CategoryCards limit={32}/>
                 </div>
             </div>
 

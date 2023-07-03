@@ -37,7 +37,7 @@ const MainPage = () => {
                 <NewCards limit={12}/>
                 {/*<SpeciallyCards/>*/}
                 {categories.filter(category => category.productCards.length > 0).map(category => (
-                    <CategoryCards id={category._id} key={category._id} title={category.name}/>
+                    <CategoryCards id={category._id} key={category._id} title={category.name} limit={12}/>
                 ))}
             </Container>
             <Footer/>

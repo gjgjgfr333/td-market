@@ -47,7 +47,7 @@ const MobileNavbar = () => {
 
     return (
         <>
-            <MenuMobile isPressed={isPressedMenu}/>
+            <MenuMobile isPressed={isPressedMenu} setIsPressed={setIsPressedMenu}/>
             {getAccessTokenUser() && !isObjectEmpty(user) && <UserToolsMobile isPressed={isPressedTools}/>}
             <div className="navbar">
                 <Link

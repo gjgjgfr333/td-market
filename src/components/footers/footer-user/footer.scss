@@ -7,20 +7,96 @@
   background: $backgroundGradient;
   color: $headerColor;
 
+  @media screen and (max-width: 425px) {
+    padding-top: 16px;
+  }
 
   &__wrapper {
+    margin: auto;
     @include flex(space-between);
+    column-gap: 5px;
+    row-gap: 20px;
+    flex-wrap: wrap;
+
+    @media screen and (max-width: 1000px) {
+      max-width: 700px;
+    }
+
+    @media screen and (max-width: 935px) {
+      max-width: 500px;
+    }
+
+    @media screen and (max-width: 425px) {
+      row-gap: 0;
+    }
   }
 
   &__column {
     display: flex;
     flex-direction: column;
+
+    @media screen and (max-width: 1000px) {
+      width: 300px;
+    }
+
+    @media screen and (max-width: 935px) {
+      width: 200px;
+    }
+
+    @media screen and (max-width: 520px) {
+      margin: 0 5px;
+    }
+
+    @media screen and (max-width: 425px) {
+      margin: 0;
+      width: 100%;
+      padding: 13px 20px;
+      border-top: 1px solid $headerColor;
+      border-bottom: 1px solid $headerColor;
+    }
+
+    &.expanded > .footer__list {
+      opacity: 1;
+      max-height: 1000px;
+    }
+
+    &.expanded .footer__arrow {
+      transform: rotate(180deg);
+    }
   }
 
   &__title {
     color: $backgroundColor;
     font-size: $subTitleSize;
     margin-bottom: 13px;
+    @include flex(space-between, center);
+
+    @media screen and (max-width: 425px) {
+      margin-bottom: 0;
+    }
+
+    & > img {
+      @media screen and (min-width: 426px) {
+        display: none;
+        transition: all 0.3s ease;
+      }
+
+    }
+
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+
+
+    @media screen and (max-width: 425px) {
+      margin-top: 13px;
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, opacity 0.3s ease;
+    }
   }
 
   &__link {
@@ -32,10 +108,24 @@
     margin-bottom: 26px;
     @include flex();
     gap: 39px;
+
+    @media screen and (max-width: 425px) {
+      margin-bottom: 0;
+    }
   }
 
   &__text {
     font-size: $mediumLittleSize;
     max-width: 300px;
+
+    @media screen and (max-width: 425px) {
+      display: none;
+    }
+  }
+
+  &__text_mobile {
+    margin: 16px 20px;
+    font-size: $veryLittleSize;
+    max-width: 320px;
   }
 }
