@@ -31,6 +31,15 @@
 
   @media screen and (max-width: 880px){
     flex-direction: column;
+    margin-bottom: 100px;
+  }
+
+  @media screen and (max-width: 500px){
+    margin-bottom: 50px;
+  }
+
+  @media screen and (max-width: 375px){
+    margin-bottom: 20px;
   }
 
   & .good-photos {
@@ -264,7 +273,7 @@
     }
 
     @media screen and (max-width: 520px) {
-      margin: 12px 20px 20px;
+      margin: 0 20px 20px;
     }
 
     &__title {
@@ -272,6 +281,7 @@
       top: 0;
 
       @media screen and (max-width: 880px){
+        margin-bottom: 8px;
         position: static;
       }
     }
@@ -285,6 +295,8 @@
 
     &__sizes {
       margin-bottom: 20px;
+
+
     }
 
     & .sizes {
@@ -292,6 +304,8 @@
       display: flex;
       gap: 15px;
       flex-wrap: wrap;
+
+
     }
 
     & .size-item {
@@ -304,6 +318,11 @@
       font-size: $bigMediumSize;
       color: $text2Color;
       cursor: pointer;
+
+      @media screen and (max-width: 880px){
+        min-width: 40px;
+        height: 52px;
+      }
     }
 
     & .size-item.active {
@@ -380,8 +399,13 @@
       gap: 12px;
       flex-wrap: wrap;
 
+
       & > .button {
         width: 255px;
+
+        @media screen and (max-width: 550px){
+          width: 100%;
+        }
       }
     }
   }
