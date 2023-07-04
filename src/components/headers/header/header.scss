@@ -42,18 +42,24 @@
   &__faq {
     margin-left: auto;
 
-    @media screen and (min-width: 435px) {
+    @media screen and (min-width: 650px) {
       display: none;
     }
   }
 }
 
 .logo {
+  @include flex(center, center);
   margin-right: 20px;
   width: 235px;
   height: 48px;
-  background: #FFFFFF;
   border-radius: 15px;
+
+  & > div {
+    font-weight: 800;
+    font-size: 20px;
+    color: #FFFFFF;
+  }
 
   @media screen and (max-width: 1000px) {
     width: 170px;

@@ -15,6 +15,12 @@
 
     .good-tabs__item {
       cursor: pointer;
+
+      &.not-mobile {
+        @media screen and (max-width: 450px) {
+          display: none;
+        }
+      }
     }
 
     .good-tabs__item.active {

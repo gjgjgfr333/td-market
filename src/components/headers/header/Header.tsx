@@ -48,7 +48,9 @@ const Header = () => {
                 </div>
                 <div className={'header__row-2'}>
                     <Menu/>
-                    <Link to={'/'} className={'logo'}/>
+                    <Link to={'/'} className={'logo'}>
+                        <div>td-market</div>
+                    </Link>
                     <Search/>
                     <Link to={'/favorites'} className={'link-icon link-icon_favorite'}>
                         <FavoritesSvg/>
