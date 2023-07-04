@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import Header from "../components/headers/header/Header";
 import Container from "../components/container/Container";
 import BoxFavorites from "../components/boxes/box-favorites/BoxFavorites";
 import {useNavigate} from "react-router-dom";
@@ -19,7 +18,6 @@ const Favorites = () => {
     return (
         <div>
             <MobileNavbar/>
-            <Header/>
             <Container>
                 <BoxFavorites/>
                 <HotCards limit={6}/>

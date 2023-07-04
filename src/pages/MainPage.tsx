@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import Header from "../components/headers/header/Header";
 import Container from "../components/container/Container";
 import Slider from "../components/slider/Slider";
 import Footer from "../components/footers/footer-user/Footer";
@@ -28,7 +27,6 @@ const MainPage = () => {
     return (
         <div>
             <MobileNavbar/>
-            <Header/>
             <BoxLinkRegistration/>
             <Container>
                 <Search mobile={true}/>

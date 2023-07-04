@@ -24,6 +24,8 @@ import ShelterOrders from "./pages/ShelterOrders";
 import Favorites from "./pages/Favorites";
 import Category from "./pages/Category";
 import Cart from "./pages/Cart";
+import Header from "./components/headers/header/Header";
+import SearchPage from "./pages/SearchPage";
 
 
 function App() {
@@ -42,8 +44,8 @@ function App() {
     return (
         <div className="App">
             <BrowserRouter>
+                {/*<Header/>*/}
                 <Routes>
-
                     <Route path="/registration" element={<RegistrShelter />} />
                     <Route path="/login" element={<LoginShelter />} />
                     <Route
@@ -84,13 +86,51 @@ function App() {
                         <Route index path="goods" element={<ShelterGoods />} />
                         <Route index path="goods/create" element={<CreateGood />} />
                     </Route>
-                    <Route path="/card/:id" element={<Good />} />
+                    <Route
+                        path="/card/:id"
+                        element={
+                            <>
+                                <Header />
+                                <Good />
+                            </>
+                        }
+                    />
                     <Route path="/category/:id" element={<Category />} />
-                    <Route path="/favorites" element={<Favorites />} />
-                    <Route path="/cart" element={<Cart />} />
+                    <Route
+                        path="/favorites"
+                        element={
+                        <>
+                            <Header />
+                            <Favorites />
+                        </>
+                    }
+                    />
+                    <Route
+                        path="/cart"
+                        element={
+                            <>
+                                <Header />
+                                <Cart />
+                            </>
+                        }
+                    />
+                    <Route
+                        path="/search"
+                        element={
+                            <>
+                                <Header />
+                                <SearchPage />
+                            </>
+                        }
+                    />
                     <Route
                         path="/"
-                        element={<MainPage />}
+                        element={
+                            <>
+                                <Header />
+                                <MainPage />
+                            </>
+                        }
                         loader={() => {
                             console.log('accessToken 34', accessToken)
                             if (accessToken) {
