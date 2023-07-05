@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Container from "../components/container/Container";
 import Slider from "../components/slider/Slider";
 import Footer from "../components/footers/footer-user/Footer";
@@ -15,12 +15,7 @@ const MainPage = () => {
     const accessToken = useAppSelector((state) => state.shelterReducer.accessToken);
     const {categories} = useAppSelector(state => state.categoriesReducer)
 
-    useEffect(() => {
-        console.log('Проверка')
-    }, [])
-
     if (accessToken) {
-        console.log('isAuthenticated 14', accessToken)
         return <Navigate to="/shelter/main" />;
     }
 

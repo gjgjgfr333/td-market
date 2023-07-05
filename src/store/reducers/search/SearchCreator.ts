@@ -7,6 +7,7 @@ export const fetchSearch = (query: string, page: number, limit: number) => async
     try {
         dispatch(searchSlice.actions.searchFetching())
         const response = await GoodsService.getSearchGoods(query,page, limit);
+        console.log('hey hey', response)
         dispatch(searchSlice.actions.searchFetchingSuccess(response.data.productCards))
     } catch (e: any) {
         console.log('e', e)

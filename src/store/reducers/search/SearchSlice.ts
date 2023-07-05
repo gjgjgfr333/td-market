@@ -6,6 +6,7 @@ const initialState: ISearch = {
     cards: [],
     isLoading: false,
     error: '',
+    query: '',
 }
 
 export const searchSlice = createSlice({
@@ -23,6 +24,9 @@ export const searchSlice = createSlice({
         searchFetchingError(state, action: PayloadAction<string>) {
             state.isLoading = false
             state.error = action.payload
+        },
+        searchSetQuery(state, action: PayloadAction<string>) {
+            state.query = action.payload
         },
     }
 })
