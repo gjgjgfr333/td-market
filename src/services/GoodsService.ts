@@ -31,6 +31,16 @@ export class GoodsService {
         })
     }
 
+    static async getSearchGoods(query: string, page: number, limit: number): Promise<AxiosResponse<IPaginationCards>> {
+        return axios.get<IPaginationCards>(`${API_URL}product-cards/`, {
+            params: {
+                query,
+                page,
+                limit
+            }
+        })
+    }
+
     static async getGood(id: string): Promise<AxiosResponse<IProductCard>> {
         return axios.get<IProductCard>(`${API_URL}product-cards/${id}`, )
     }

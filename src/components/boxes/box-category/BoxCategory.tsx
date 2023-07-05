@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 import './box-category.scss'
 import {Link} from "react-router-dom";
 import Select from "react-select";
-import CategoryCards from "../../cards-modules/category-cards/CategoryCards";
 
-const BoxCategory = () => {
+interface IProps {
+    children: ReactNode,
+}
+
+const BoxCategory = ({children}: IProps) => {
     return (
         <div className={'category'}>
             <div className={'category__header'}>
@@ -28,7 +31,7 @@ const BoxCategory = () => {
                     <button className={'button button_light category__button'}>Очистить всё</button>
                 </div>
                 <div className={'category__container'}>
-                    <CategoryCards limit={32}/>
+                    {children}
                 </div>
             </div>
 

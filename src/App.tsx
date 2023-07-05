@@ -95,7 +95,15 @@ function App() {
                             </>
                         }
                     />
-                    <Route path="/category/:id" element={<Category />} />
+                    <Route
+                        path="/category/:id"
+                        element={
+                            <>
+                                <Header />
+                                <Category />
+                            </>
+                        }
+                    />
                     <Route
                         path="/favorites"
                         element={
