@@ -24,4 +24,8 @@ export class ShelterService {
     static getCardsOfShelter(): Promise<AxiosResponse<IProductCard[]>> {
         return $apiShelter.get(`shelters/cards`)
     }
+
+    static deleteCard(id: string): Promise<AxiosResponse<boolean>> {
+        return $apiShelter.delete(`shelters/delete-card/${id}`)
+    }
 }
