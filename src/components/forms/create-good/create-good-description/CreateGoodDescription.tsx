@@ -1,17 +1,19 @@
-import React, {useCallback, useMemo} from 'react';
+import React, {useCallback, useEffect, useMemo} from 'react';
 import './create-good-description.scss'
 import '../../../../styles/elements/inputs.scss'
 import {SimpleMdeReact} from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import {useFormContext} from "react-hook-form";
+import {IProductCard} from "../../../../models/IProductCard";
 
 
 interface IProps {
     description: string
     setDescription: (description: string) => void;
+    card: IProductCard | null
 }
 
-const CreateGoodDescription = React.memo(({description, setDescription}: IProps) => {
+const CreateGoodDescription = React.memo(({description, setDescription, card}: IProps) => {
     const { register } = useFormContext();
 
     // const name = watch('name');
@@ -33,9 +35,9 @@ const CreateGoodDescription = React.memo(({description, setDescription}: IProps)
     }, []) ;
 
 
-    // useEffect(() => {
-    //     setDescriptionGood(description || '');
-    // }, [setDescriptionGood, description]);
+    useEffect(() => {
+        setDescription(card ? card.information.description : '')
+    }, [card, setDescription]);
 
     const handleChangeDescription = useCallback((value: string) => {
         setDescription(value)
@@ -49,6 +51,7 @@ const CreateGoodDescription = React.memo(({description, setDescription}: IProps)
                     id="name"
                     placeholder="Введите название товара"
                     className="modalInput description__input"
+                    defaultValue={card ? card.information.name : ''}
                     {...register('name')}
                 />
             </div>
@@ -58,6 +61,7 @@ const CreateGoodDescription = React.memo(({description, setDescription}: IProps)
                     className="mde"
                     placeholder="Добавьте описание вашему товару"
                     options={mdeReactOptions}
+                    defaultValue={card ? card.information.description : ''}
                     value={description}
                     onChange={handleChangeDescription}
                 />

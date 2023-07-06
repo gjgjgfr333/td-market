@@ -84,7 +84,8 @@ function App() {
                         />
                         <Route index path="orders" element={<ShelterOrders />} />
                         <Route index path="goods" element={<ShelterGoods />} />
-                        <Route index path="goods/create" element={<CreateGood />} />
+                        <Route index path={`goods/create`} element={<CreateGood />} />
+                        <Route index path={`goods/create/:id`} element={<CreateGood />} />
                     </Route>
                     <Route
                         path="/card/:id"

@@ -4,6 +4,7 @@ import Select from "react-select";
 import {useAppDispatch, useAppSelector} from "../../../../hooks/redux";
 import {ICategory, ISection, ISubcategory} from "../../../../models/ICategories";
 import {fetchCategories} from "../../../../store/reducers/categories/CategoriesCreators";
+import {IProductCard} from "../../../../models/IProductCard";
 
 interface IProps {
     selectedCategory: ICategory | null;
@@ -12,6 +13,7 @@ interface IProps {
     setSelectedSubCategory: (subcategory: ISubcategory | null) => void;
     selectedType: ISection | null;
     setSelectedType: (type: ISection | null) => void;
+    card: IProductCard | null
 }
 
 
@@ -21,7 +23,8 @@ const CreateGoodSelects = ({
                                selectedSubCategory,
                                setSelectedSubCategory,
                                selectedType,
-                               setSelectedType
+                               setSelectedType,
+                               card
                            }: IProps) => {
     const dispatch = useAppDispatch();
     const {categories} = useAppSelector(state => state.categoriesReducer);
@@ -33,12 +36,17 @@ const CreateGoodSelects = ({
     useEffect(() => {
         if (categories.length < 1) {
             dispatch(fetchCategories());
-        }
-    }, [categories, dispatch]);
+             if (card) {
 
-    useEffect(() => {
-        console.log('selectedType', selectedType)
-    }, [selectedType])
+             }
+        }
+    }, [categories, dispatch, card]);
+
+    // useEffect(() => {
+    //     console.log('categories', categories)
+    //     console.log('card', card)
+    // }, [categories])
+
 
     // const loadCategories = (
     //     inputValue: string,
@@ -134,6 +142,7 @@ const CreateGoodSelects = ({
                     value={selectedCategory ? { value: selectedCategory.name, label: selectedCategory.name } : null}
                     onChange={onChangeCategory}
                     isDisabled={categories.length < 1}
+                    // defaultValue={card ? card.categories.category : ''}
                 />
             </div>
             <div className={'form-select'}>

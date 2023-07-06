@@ -11,10 +11,12 @@ const InitialModalLogin = ({setCurrentModal}: {setCurrentModal: Dispatch<SetStat
     const [isAgree, setIsAgree] = useState(false)
     const [email, setEmail] = useState('')
     const [isEmailError, setIsEmailError] = useState(false)
+    const [isEmailRegistryError, seIsEmailRegistryError] = useState(false)
     const [warningAgree, setWarningAgree] = useState(false)
 
     const changeEmail = (e: ChangeEvent<HTMLInputElement>) => {
         setIsEmailError(false)
+        seIsEmailRegistryError(false)
         setEmail(e.target.value);
     }
 
@@ -30,12 +32,17 @@ const InitialModalLogin = ({setCurrentModal}: {setCurrentModal: Dispatch<SetStat
         }
     }
 
-    const onRegistry = () => {
+    const onRegistry = async () => {
         if (!isAgree) setWarningAgree(true)
         if (!isAgree || !validator.isEmail(email)) return
-        dispatch(setEmailUser(email))
-        dispatch(sendCode(email))
-        setCurrentModal(1)
+        const isExistEmail = await dispatch(checkEmail(email))
+        if (!isExistEmail) {
+            dispatch(setEmailUser(email))
+            dispatch(sendCode(email))
+            setCurrentModal(1)
+        } else {
+            seIsEmailRegistryError(true)
+        }
     }
 
     const onAgreeRules = () => {
@@ -48,7 +55,9 @@ const InitialModalLogin = ({setCurrentModal}: {setCurrentModal: Dispatch<SetStat
             <h3 className={'userAuthModal__title'}>Войти или создать аккаунт</h3>
             <div className={'modalLogin__email'}>
                 {isEmailError &&
-                    <p className={'warning-input warning-input_bottom'}>Вы ввели несуществующий E-mail</p>}
+                <p className={'warning-input warning-input_bottom'}>Вы ввели несуществующий E-mail</p>}
+                {isEmailRegistryError &&
+                    <p className={'warning-input warning-input_bottom'}>Пользователь с таким e-mail уже существует</p>}
                 <input
                     value={email}
                     onChange={changeEmail}

@@ -4,9 +4,20 @@ import {IProductCard} from "../../../models/IProductCard";
 import {API_URL} from "../../../http";
 import ButtonBurger from "../../buttons/button-burger/ButtonBurger";
 import {ShelterService} from "../../../services/ShelterService";
+import {useNavigate} from "react-router-dom";
 
 const ShelterCard = ({card}: {card: IProductCard }) => {
+    const navigate = useNavigate()
     const [isPressed, setIsPressed] = useState(false)
+
+    const onChangeCard = () => {
+        navigate(`create/${card._id}`, {
+            state: {
+                ...card
+            }
+        })
+        // console.log('card', card._id)
+    }
 
     const onDelete = async (id: string) => {
         await ShelterService.deleteCard(id)
@@ -25,7 +36,7 @@ const ShelterCard = ({card}: {card: IProductCard }) => {
                             <ButtonBurger isPressed={isPressed} setIsPressed={setIsPressed} isLittle={true}/>
                         </div>
                         <div className={`card-tools ${isPressed && 'active'}`}>
-                            <div className={'card-tools__item'}>
+                            <div onClick={onChangeCard} className={'card-tools__item'}>
                                 <span>редактировать</span>
                             </div>
                             <div className={'card-tools__item'}>

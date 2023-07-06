@@ -1,9 +1,18 @@
 export interface IProductCard {
     _id: string;
     categories: {
-        category: string,
-        subcategory: string,
-        section: string,
+        category: {
+            id: string,
+            name: string
+        },
+        subcategory: {
+            id: string,
+            name: string
+        },
+        section: {
+            id: string,
+            name: string
+        },
     },
     information: {
         name: string,

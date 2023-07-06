@@ -19,7 +19,7 @@ import {SIZES_CLOTHES, SIZES_CLOTHES_ID, SIZES_ID, SIZES_SHOE} from "../../../co
 import CreateGoodSizes from "./create-good-sizes/CreateGoodSizes";
 import CreateGoodQuantity from "./create-good-quantity/CreateGoodQuantity";
 
-const FormCreateGood = () => {
+const FormCreateGood = ({card} : {card: IProductCard | null}) => {
     const navigation = useNavigate()
     const dispatch = useAppDispatch()
     const methods = useForm();
@@ -51,9 +51,18 @@ const FormCreateGood = () => {
 
             const good = {
                 categories: {
-                    category: parentSelectedCategory._id,
-                    subcategory: parentSelectedSubCategory._id,
-                    section: parentSelectedType._id
+                    category: {
+                        id: parentSelectedCategory._id,
+                        name: parentSelectedCategory.name
+                    },
+                    subcategory: {
+                        id: parentSelectedSubCategory._id,
+                        name: parentSelectedSubCategory.name
+                    },
+                    section: {
+                        id: parentSelectedType._id,
+                        name: parentSelectedType.name
+                    }
                 },
                 information: {
                     name: data.name,
@@ -105,9 +114,10 @@ const FormCreateGood = () => {
                     setSelectedSubCategory={setParentSelectedSubCategory}
                     selectedType={parentSelectedType}
                     setSelectedType={setParentSelectedType}
+                    card={card}
                 />
                 <hr className={'create__divider'}/>
-                <CreateGoodDescription description={description} setDescription={setDescription}/>
+                <CreateGoodDescription description={description} setDescription={setDescription} card={card}/>
                 {
                     parentSelectedCategory && isSizes && (
                         <>

@@ -42,7 +42,7 @@ const Header = () => {
                 <div className={'header__row-1'}>
                     <Geolocation/>
                     <div className={'header__links'}>
-                        <Link className={'header__registry'} to={'registration'}>Продавайте на td-market</Link>
+                        <Link className={'header__registry'} to={'/registration'}>Продавайте на td-market</Link>
                         <Link to="/">Часто задаваемые вопросы</Link>
                     </div>
                 </div>

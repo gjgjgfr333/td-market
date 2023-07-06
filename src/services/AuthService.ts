@@ -1,5 +1,5 @@
-import {AxiosResponse} from "axios";
-import $api from "../http";
+import axios, {AxiosResponse} from "axios";
+import $api, {API_URL} from "../http";
 import {IAuthResponse} from "../models/response/IAuthResponse";
 import {IUser} from "../models/response/IUser";
 
@@ -21,6 +21,6 @@ export class AuthService {
     }
 
     static async checkEmail(email: string): Promise<AxiosResponse<boolean>> {
-        return $api.post<boolean>('auth/check', {email})
+        return axios.post<boolean>(`${API_URL}auth/check`, {email})
     }
 }
