@@ -1,11 +1,14 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import './create-good-photos.scss'
+import {IProductCard} from "../../../../models/IProductCard";
+import {API_URL} from "../../../../http";
 
 interface CreateGoodPhotosProps {
     generalImage: File | null;
     setGeneralImage: React.Dispatch<React.SetStateAction<File | null>>;
-    additionalImages: File[];
-    setAdditionalImages: React.Dispatch<React.SetStateAction<File[]>>;
+    additionalImages: (File | string)[];
+    setAdditionalImages: React.Dispatch<React.SetStateAction<(File | string)[]>>;
+    card: IProductCard | null
 }
 
 
@@ -13,8 +16,11 @@ const CreateGoodPhotos = ({
                             generalImage,
                             setGeneralImage,
                             additionalImages,
-                            setAdditionalImages
+                            setAdditionalImages,
+                            card
                           }: CreateGoodPhotosProps) => {
+
+    const [generalImageUrl, setGeneralImageUrl] = useState(card ? card.mainPhoto : '')
 
     function onSubmitFile(e: ChangeEvent<HTMLInputElement>) {
         const { files } = e.target;
@@ -25,7 +31,16 @@ const CreateGoodPhotos = ({
         }
     }
 
+    useEffect(() => {
+        if (card) {
+            setGeneralImageUrl(card.mainPhoto)
+            setAdditionalImages(card.additionalPhotos)
+            console.log('card', card)
+        }
+    }, [card, setAdditionalImages])
+
     const onDeleteFile = () => {
+        setGeneralImageUrl('')
         setGeneralImage(null)
     }
 
@@ -61,15 +76,23 @@ const CreateGoodPhotos = ({
 
                     </p>
                     <div className={`image-good`}>
-                        {!generalImage &&
+                        {!generalImage && !generalImageUrl &&
                             <label className={''} htmlFor={'good-photo'}>
                                 <img src="/images/svg/plus.svg" alt={''}/>
                                 <span>Добавить фото</span>
                             </label>
                         }
-                        {generalImage &&
+                        {generalImage && !generalImageUrl &&
                             <div className={'loadPhoto'}>
                                 <img src={URL.createObjectURL(generalImage)} alt="Фото"/>
+                                <div onClick={onDeleteFile} className={'loadPhoto__close'}>
+                                    <img src="/images/svg/close.svg" alt={''}/>
+                                </div>
+                            </div>
+                        }
+                        {generalImageUrl &&
+                            <div className={'loadPhoto'}>
+                                <img src={`${API_URL}${generalImageUrl}`} alt="Фото"/>
                                 <div onClick={onDeleteFile} className={'loadPhoto__close'}>
                                     <img src="/images/svg/close.svg" alt={''}/>
                                 </div>
@@ -108,7 +131,11 @@ const CreateGoodPhotos = ({
                         {
                             additionalImages.map((image, index) => (
                                 <div className={'loadPhoto'} key={index}>
-                                    <img src={URL.createObjectURL(image)} alt="Фото"/>
+                                    {(typeof image == 'string') ?
+                                        <img src={`${API_URL}${image}`} alt="Фото"/>
+                                        : <img src={URL.createObjectURL(image)} alt="Фото"/>
+                                    }
+
                                     <div onClick={() => onDeleteAdditionalFile(index)} className={'loadPhoto__close'}>
                                         <img src="/images/svg/close.svg" alt={''}/>
                                     </div>

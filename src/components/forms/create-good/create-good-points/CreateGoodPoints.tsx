@@ -13,8 +13,7 @@ interface DeliveryPoint {
     _id: string
 }
 
-const CreateGoodPoints = () => {
-    // const { handleSubmit } = useFormContext();
+const CreateGoodPoints = ({cardPoints} : {cardPoints: string[]}) => {
     const { deliveryPoints } = useAppSelector((state) => state.shelterReducer.shelter);
     const dispatch = useAppDispatch();
     const [checkedBoxes, setCheckedBoxes] = useState<boolean[]>([]);
@@ -23,11 +22,13 @@ const CreateGoodPoints = () => {
         dispatch(getPointIssues());
     }, [dispatch]);
 
+
     useEffect(() => {
         if (deliveryPoints && deliveryPoints.length > 0) {
-            setCheckedBoxes(new Array(deliveryPoints.length).fill(false))
+            const newCheckedBoxes = deliveryPoints.map(point => cardPoints.includes(point._id));
+            setCheckedBoxes(newCheckedBoxes);
         }
-    }, [deliveryPoints])
+    }, [deliveryPoints, cardPoints]);
 
     const handleCheckboxChange = (index: number) => (checked: boolean) => {
         const newCheckedBoxes = [...checkedBoxes];
@@ -57,7 +58,7 @@ const CreateGoodPoints = () => {
                                     field.onChange(e.target.checked);
                                     handleCheckboxChange(index)(e.target.checked);
                                 }}
-                                checked={field.value}
+                                checked={checkedBoxes[index]}
                             />
                         )}
                     />

@@ -42,32 +42,27 @@ const CreateGoodSelects = ({
         }
     }, [categories, dispatch, card]);
 
-    // useEffect(() => {
-    //     console.log('categories', categories)
-    //     console.log('card', card)
-    // }, [categories])
-
-
-    // const loadCategories = (
-    //     inputValue: string,
-    //     callback: (options: any[]) => void,
-    //     selectedCategory: {name: string, children: Array<any>} | null
-    // ) => {
-    //     const filteredCategories = categories.filter(category =>
-    //         category.name.toLowerCase().includes(inputValue.toLowerCase())
-    //     );
-    //     const options = filteredCategories.map(category => ({
-    //         value: category.name,
-    //         label: category.name
-    //     }));
-    //
-    //     callback(options);
-    //
-    //     if (selectedCategory && !filteredCategories.find(c => c.name === selectedCategory.name)) {
-    //         // Если выбранная категория больше не проходит фильтр, сбросьте ее.
-    //         setSelectedCategory(null);
-    //     }
-    // };
+    useEffect(() => {
+        if (card && categories) {
+            if (typeof card.categories.category === 'object') {
+                const currentCategory = categories.find(category => category._id === card.categories.category.id)
+                if (currentCategory) {
+                    setSelectedCategory(currentCategory)
+                    const currentSubCategory = currentCategory.children.find(category => category._id === card.categories.subcategory.id)
+                    if (currentSubCategory) {
+                        setSelectedSubCategory(currentSubCategory)
+                        if (card.categories.section !== 'missing') {
+                            // @ts-ignore
+                            const currentType = currentSubCategory.children.find(category => category._id === card.categories.section?.id)
+                            if (currentType) {
+                                setSelectedType(currentType)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }, [card, categories])
 
     const subcategory = useMemo(() => {
         return (subcategories && subcategories.length > 0) ?

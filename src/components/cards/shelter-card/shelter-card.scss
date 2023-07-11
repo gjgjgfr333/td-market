@@ -32,8 +32,7 @@
       padding: 0;
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      //padding: 11px 34px 13px 10px;
+      gap: 10px;
 
       border-radius: 15px;
       background-color: $backgroundColor;
@@ -46,6 +45,24 @@
       &__item {
         min-width: 118px;
         font-size: $littleMediumSize;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: $text2Color;
+        transition: $fastTransition;
+
+        .shelter-tools__svg {
+          stroke: $text2Color
+        }
+      }
+
+
+      &__item:hover {
+        color: $text4Color;
+
+        .shelter-tools__svg {
+          stroke: $text4Color
+        }
       }
     }
 

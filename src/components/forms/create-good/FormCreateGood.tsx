@@ -30,12 +30,13 @@ const FormCreateGood = ({card} : {card: IProductCard | null}) => {
     const [parentSelectedType, setParentSelectedType] = useState<ISection | null>(null);
     const [description, setDescription] = useState('')
     const [generalImage, setGeneralImage] = useState<File | null>(null)
-    const [additionalImages, setAdditionalImages] = useState<File[]>([])
+    const [additionalImages, setAdditionalImages] = useState<(File | string)[]>([])
     const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
     const [quantitySizes, setQuantitySizes] = useState<ISizes[]>([]);
     const [submitButton, setSubmitButton] = useState('');
 
     const onSubmit = async (data: any) => {
+        if (additionalImages.some(img => typeof img === 'string')) return
         if (!generalImage
             || additionalImages.length === 0
             || !parentSelectedCategory
@@ -86,6 +87,7 @@ const FormCreateGood = ({card} : {card: IProductCard | null}) => {
                 deliveryPoints: points,
                 sizeQuantity: quantitySizes
             } as IProductCard
+            // @ts-ignore
             dispatch(createProductCard(good, generalImage, additionalImages))
             if (isCreateGoodCard) {
                 if (submitButton === 'saveButton') {
@@ -106,7 +108,7 @@ const FormCreateGood = ({card} : {card: IProductCard | null}) => {
     return (
         <FormProvider {...methods}>
             <form className={'create'} onSubmit={methods.handleSubmit(onSubmit)}>
-                <h3 className={'create__title'}>Создание карточки товара</h3>
+                <h3 className={'create__title'}>{card ? 'Изменение' : 'Создание'} карточки товара</h3>
                 <CreateGoodSelects
                     selectedCategory={parentSelectedCategory}
                     setSelectedCategory={setParentSelectedCategory}
@@ -140,11 +142,12 @@ const FormCreateGood = ({card} : {card: IProductCard | null}) => {
                     setGeneralImage={setGeneralImage}
                     additionalImages={additionalImages}
                     setAdditionalImages={setAdditionalImages}
+                    card={card}
                 />
                 <hr className={'create__divider'}/>
-                <CreateGoodAdditional/>
+                <CreateGoodAdditional card={card}/>
                 <hr className={'create__divider'}/>
-                <CreateGoodPrice isClothes={isSizes}/>
+                <CreateGoodPrice isClothes={isSizes} card={card}/>
                 {parentSelectedCategory && isSizes && (
                     <>
                         <hr className={'create__divider'}/>
@@ -152,10 +155,10 @@ const FormCreateGood = ({card} : {card: IProductCard | null}) => {
                     </>
                 )}
                 <hr className={'create__divider'}/>
-                <CreateGoodDimensions/>
+                <CreateGoodDimensions card={card}/>
                 <hr className={'create__divider'}/>
-                <CreateGoodPoints/>
-                <div className={'create__buttons'}>
+                <CreateGoodPoints cardPoints={card ? card?.deliveryPoints : []}/>
+                {!card && <div className={'create__buttons'}>
                     <button
                         type="submit"
                         name="saveButton"
@@ -172,7 +175,25 @@ const FormCreateGood = ({card} : {card: IProductCard | null}) => {
                     >
                         Добавить ещё карточку товара
                     </button>
-                </div>
+                </div>}
+                {card && <div className={'create__buttons'}>
+                    <button
+                        type="submit"
+                        name="saveButton"
+                        className={'button button_dark create__save'}
+                        onClick={() => setSubmitButton('saveButton')}
+                    >
+                        Изменить
+                    </button>
+                    <button
+                        type="submit"
+                        name="addGoodButton"
+                        className={'button button_light create__add-good'}
+                        onClick={() => navigation(-1)}
+                    >
+                        Выйти
+                    </button>
+                </div>}
             </form>
         </FormProvider>
     );

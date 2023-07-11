@@ -61,6 +61,17 @@ const BoxShelterGoods = () => {
         navigate('create')
     }
 
+    const onDelete = async (id: string) => {
+        const answer = await ShelterService.deleteCard(id);
+
+        // Обновляем список товаров
+        if (answer.data) {
+            setCardsShelter(prevList => prevList.filter(item => item._id !== id));
+        }
+        return answer.status === 200
+    };
+
+
     // useEffect(() => {
     //     console.log('cardsShelter', cardsShelter)
     // }, [cardsShelter])
@@ -109,7 +120,7 @@ const BoxShelterGoods = () => {
             </div>
             <div className={'goods-wrapper'}>
                 {cardsShelter.map((card) => (
-                    <ShelterCard card={card} key={card._id}/>
+                    <ShelterCard card={card} key={card._id} onDelete={onDelete}/>
                 ))}
             </div>
         </div>

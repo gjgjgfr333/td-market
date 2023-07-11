@@ -1,0 +1,38 @@
+@import "src/styles/constants";
+
+.delete-card {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  top: calc(50vh - 130px);
+  left: calc(50vw - 206px);
+  width: 412px;
+  height: 260px;
+  padding: 32px 50px 36px;
+  border-radius: 24px;
+  background-color: $backgroundColor;
+  z-index: 9999;
+
+  &__title {
+    color: $title2Color;
+    font-size: $subTitleSize;
+    line-height: 26.82px;
+    text-align: center;
+  }
+
+  &__subtitle {
+    margin-top: auto;
+    color: $text2Color;
+    font-size: $littleMediumSize;
+    line-height: 20.15px;
+    text-align: center;
+  }
+
+  &__buttons {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+  }
+}

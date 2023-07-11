@@ -4,7 +4,7 @@ import '../../../styles/elements/inputs.scss'
 interface IInputFile {
     image: File | null,
     setImage: Dispatch<SetStateAction<File | null>>,
-    position: 'right' | 'bottom'
+    position: 'right' | 'bottom',
 }
 
 const InputFile = ({image, setImage, position}: IInputFile) => {

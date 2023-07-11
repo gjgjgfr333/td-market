@@ -3,12 +3,21 @@ import './shelter-card.scss'
 import {IProductCard} from "../../../models/IProductCard";
 import {API_URL} from "../../../http";
 import ButtonBurger from "../../buttons/button-burger/ButtonBurger";
-import {ShelterService} from "../../../services/ShelterService";
 import {useNavigate} from "react-router-dom";
+import Cover from "../../cover/Cover";
+import DeletionConfirmation from "../../modals/deletion-confirmation/DeletionConfirmation";
+import ChangeCardSvg from "../../svg/ChangeCardSvg";
+import DeleteSvg from "../../svg/DeleteSvg";
 
-const ShelterCard = ({card}: {card: IProductCard }) => {
+interface IProps {
+    card: IProductCard,
+    onDelete: (id: string) => Promise<boolean>
+}
+
+const ShelterCard = ({card, onDelete}: IProps) => {
     const navigate = useNavigate()
     const [isPressed, setIsPressed] = useState(false)
+    const [isDeleteModal, setIsDeleteModal]= useState(false)
 
     const onChangeCard = () => {
         navigate(`create/${card._id}`, {
@@ -16,11 +25,11 @@ const ShelterCard = ({card}: {card: IProductCard }) => {
                 ...card
             }
         })
-        // console.log('card', card._id)
     }
 
-    const onDelete = async (id: string) => {
-        const answer = await ShelterService.deleteCard(id)
+    const onDeleteCard = async (id: string) => {
+        const answer = await onDelete(id);
+        if (answer) setIsDeleteModal(false)
         console.log('answer onDelete', answer)
     }
 
@@ -37,10 +46,12 @@ const ShelterCard = ({card}: {card: IProductCard }) => {
                             <ButtonBurger isPressed={isPressed} setIsPressed={setIsPressed} isLittle={true}/>
                         </div>
                         <div className={`card-tools ${isPressed && 'active'}`}>
-                            <div onClick={onChangeCard} className={'card-tools__item'}>
+                            <div className={'card-tools__item'} onClick={onChangeCard}>
+                                <ChangeCardSvg/>
                                 <span>редактировать</span>
                             </div>
-                            <div className={'card-tools__item'} onClick={() => onDelete(card._id)}>
+                            <div className={'card-tools__item'} onClick={() => setIsDeleteModal(true)}>
+                                <DeleteSvg/>
                                 <span>удалить</span>
                             </div>
                         </div>
@@ -51,6 +62,12 @@ const ShelterCard = ({card}: {card: IProductCard }) => {
             <h4 className={'card-name'}>
                 {card.information.name}
             </h4>
+            {isDeleteModal && <Cover callback={() => setIsDeleteModal(false)} zIndex={9998}/>}
+            {isDeleteModal && <DeletionConfirmation
+                name={card.information.name}
+                closeModal={() => setIsDeleteModal(false)}
+                onDelete={() => onDeleteCard(card._id)}
+            />}
             {/*<p>*/}
             {/*    {card.categories.category}*/}
             {/*</p>*/}

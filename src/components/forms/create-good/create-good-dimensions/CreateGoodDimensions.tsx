@@ -1,10 +1,10 @@
 import React from 'react';
 import './create-good-dimensions.scss'
 import { useFormContext } from 'react-hook-form';
+import {IProductCard} from "../../../../models/IProductCard";
 
-const CreateGoodDimensions = () => {
+const CreateGoodDimensions = ({card} : {card: IProductCard | null}) => {
     const { register } = useFormContext();
-    // const [length, width, height, weight] = watch(['length', 'width', 'height', 'weight']);
 
     return (
         <div className={'dimensions'}>
@@ -18,6 +18,7 @@ const CreateGoodDimensions = () => {
                     <input
                         id="length"
                         className="modalInput description__input good-dimensions__input"
+                        defaultValue={card ? card.dimensions.length : ''}
                         {...register('length')}
                     />
                 </div>
@@ -28,6 +29,7 @@ const CreateGoodDimensions = () => {
                     <input
                         id="width"
                         className="modalInput description__input good-dimensions__input"
+                        defaultValue={card ? card.dimensions.width : ''}
                         {...register('width')}
                     />
                 </div>
@@ -38,6 +40,7 @@ const CreateGoodDimensions = () => {
                     <input
                         id="height"
                         className="modalInput description__input good-dimensions__input"
+                        defaultValue={card ? card.dimensions.height : ''}
                         {...register('height')}
                     />
                 </div>
@@ -48,6 +51,7 @@ const CreateGoodDimensions = () => {
                     <input
                         id="weight"
                         className="modalInput description__input good-dimensions__input"
+                        defaultValue={card ? card.dimensions.weight : ''}
                         {...register('weight')}
                     />
                 </div>

@@ -1,8 +1,14 @@
 import { useEffect } from 'react';
 import './create-good-price.scss'
 import { useFormContext } from 'react-hook-form';
+import {IProductCard} from "../../../../models/IProductCard";
 
-const CreateGoodPrice = ({isClothes}: {isClothes: boolean | null}) => {
+interface IProps {
+    isClothes: boolean | null
+    card: IProductCard | null
+}
+
+const CreateGoodPrice = ({isClothes, card}: IProps) => {
     const { register, watch } = useFormContext();
 
     const price = watch('price');
@@ -24,6 +30,7 @@ const CreateGoodPrice = ({isClothes}: {isClothes: boolean | null}) => {
                     <input
                         id="price"
                         className="modalInput description__input good-price__input"
+                        defaultValue={card ? card.pricesAndQuantity.price : ''}
                         {...register('price')}
                     />
                 </div>
@@ -34,6 +41,7 @@ const CreateGoodPrice = ({isClothes}: {isClothes: boolean | null}) => {
                     <input
                         id="priceDiscount"
                         className="modalInput description__input good-price__input"
+                        defaultValue={card ? card.pricesAndQuantity.priceBeforeDiscount : ''}
                         {...register('priceDiscount')}
                     />
                 </div>
@@ -44,6 +52,7 @@ const CreateGoodPrice = ({isClothes}: {isClothes: boolean | null}) => {
                     <input
                         id="quantityInStock"
                         className="modalInput description__input good-price__input"
+                        defaultValue={card ? card.pricesAndQuantity.price : ''}
                         {...register('quantityInStock')}
                     />
                 </div>}
