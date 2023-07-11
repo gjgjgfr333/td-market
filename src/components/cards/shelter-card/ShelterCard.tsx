@@ -20,7 +20,8 @@ const ShelterCard = ({card}: {card: IProductCard }) => {
     }
 
     const onDelete = async (id: string) => {
-        await ShelterService.deleteCard(id)
+        const answer = await ShelterService.deleteCard(id)
+        console.log('answer onDelete', answer)
     }
 
     return (
@@ -38,9 +39,6 @@ const ShelterCard = ({card}: {card: IProductCard }) => {
                         <div className={`card-tools ${isPressed && 'active'}`}>
                             <div onClick={onChangeCard} className={'card-tools__item'}>
                                 <span>редактировать</span>
-                            </div>
-                            <div className={'card-tools__item'}>
-                                <span>количество на складе</span>
                             </div>
                             <div className={'card-tools__item'} onClick={() => onDelete(card._id)}>
                                 <span>удалить</span>
