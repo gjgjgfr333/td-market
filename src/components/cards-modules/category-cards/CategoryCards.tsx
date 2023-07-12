@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {IProductCard} from "../../../models/IProductCard";
 import {GoodsService} from "../../../services/GoodsService";
 import {useParams} from "react-router-dom";
@@ -23,10 +23,15 @@ const CategoryCards = ({ id, title, limit }: CategoryCardsProps) => {
         try {
             const categoryId = id || paramsId;
             if (categoryId) {
+                console.log('categoryId', categoryId)
                 const response = await GoodsService.getCategoryGoods(categoryId, page, limit);
                 if (prevParamsId !== paramsId) {
+                    console.log('response 28', response.data.productCards)
+
                     setCategoryCards(response.data.productCards); // Заменяем categoryCards новыми данными
                 } else {
+                    console.log('response 32', response.data.productCards)
+
                     setCategoryCards(prevCards => [...prevCards, ...response.data.productCards]); // Добавляем новые карточки
                 }
             }
@@ -41,9 +46,9 @@ const CategoryCards = ({ id, title, limit }: CategoryCardsProps) => {
         });
     };
 
-    useEffect(() => {
-        console.log('paramsId', paramsId)
-    }, [paramsId])
+    // useEffect(() => {
+    //     console.log('categoryCards', categoryCards)
+    // }, [categoryCards])
 
     useMemo(() => {
         setPrevParamsId(paramsId);

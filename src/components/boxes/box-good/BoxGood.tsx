@@ -8,7 +8,6 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import { Navigation } from "swiper";
 import 'swiper/scss';
 import "swiper/scss/navigation";
-import {UserService} from "../../../services/UserService";
 
 const BoxGood = ({card} : {card: IProductCard}) => {
     const navigate = useNavigate()
@@ -21,8 +20,8 @@ const BoxGood = ({card} : {card: IProductCard}) => {
 
     const [mainPhoto, setMainPhoto] = useState(card.mainPhoto);
     const [count, setCount] = useState(1)
-    const [activeSize, setActiveSize] = useState(card.sizeQuantity[0])
-    const [quantity, setQuantity] = useState(card.sizeQuantity[0]?.quantity || card.pricesAndQuantity.quantity)
+    const [activeSize, setActiveSize] = useState<ISizes | null>(card?.sizeQuantity ? card?.sizeQuantity[0] : null)
+    const [quantity, setQuantity] = useState(card?.sizeQuantity?.[0].quantity || card.pricesAndQuantity.quantity)
     const [isWindowWidth, setIsWindowWidth] = useState(() => {
         return window.innerWidth >= 450 ? 20 : 4;
     });
@@ -76,22 +75,27 @@ const BoxGood = ({card} : {card: IProductCard}) => {
 
     const addToCart = async () => {
         if (count >= quantity) return
-        const response = await UserService.addToCart({
-            productId: card._id,
-            quantity: count,
-            totalPrice: card.pricesAndQuantity.price ? card.pricesAndQuantity.price : card.pricesAndQuantity.priceBeforeDiscount,
-            isFavorite: false,
-            size: activeSize.size
-        })
+        // const response = await UserService.addToCart({
+        //     productId: card._id,
+        //     quantity: count,
+        //     totalPrice: card.pricesAndQuantity.price ? card.pricesAndQuantity.price : card.pricesAndQuantity.priceBeforeDiscount,
+        //     isFavorite: false,
+        //     size: activeSize.size
+        // })
         // if (response) setIsFavorite(true)
     }
-    
+
 
     return (
         <div className={'good'}>
-            <div className={'good__categories'}>
-                <Link to={'/'}>Главная</Link> / <Link to={'/'}>Все категории</Link> / <Link to={'/'}>Женская одежда</Link> / <Link to={'/'}>Платья</Link>
-            </div>
+            {card.categories.category?.name && <div className={'good__categories'}>
+                <Link to={'/'}>Главная </Link>
+                 / <Link to={`/category/${card.categories.category.id}`}>{card.categories.category.name} </Link>
+                / <Link to={`/category/${card.categories.subcategory.id}`}>{card.categories.subcategory.name} </Link>
+                {card.categories.section.name && <>
+                    / <Link to={`/category/${card.categories.section.id}`}>{card.categories.section.name} </Link>
+                </>}
+            </div>}
             <div className={'good-wrapper'}>
                 <div className={'good-photos'}>
                     <div className={'good-photos__aside'}>
@@ -131,9 +135,9 @@ const BoxGood = ({card} : {card: IProductCard}) => {
                 </div>
                 <div className={'good-information'}>
                     <h2 className={'good-information__title'}>
-                        {card.information.name}
+                        {card?.information?.name}
                     </h2>
-                    {card.sizeQuantity.length > 0 && <div className={'good-information__sizes'}>
+                    {activeSize && card.sizeQuantity.length > 0 && <div className={'good-information__sizes'}>
                         <p className={'good-information__subtitle'}>Размер:</p>
                         <div className={'sizes'}>
                             {card.sizeQuantity.map((size, index) => (

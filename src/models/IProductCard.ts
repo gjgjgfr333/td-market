@@ -12,7 +12,7 @@ export interface IProductCard {
         section: {
             id: string,
             name: string
-        } | 'missing',
+        },
     },
     information: {
         name: string,

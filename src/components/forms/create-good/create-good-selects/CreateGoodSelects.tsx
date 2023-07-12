@@ -51,7 +51,7 @@ const CreateGoodSelects = ({
                     const currentSubCategory = currentCategory.children.find(category => category._id === card.categories.subcategory.id)
                     if (currentSubCategory) {
                         setSelectedSubCategory(currentSubCategory)
-                        if (card.categories.section !== 'missing') {
+                        if (card.categories.section.name) {
                             // @ts-ignore
                             const currentType = currentSubCategory.children.find(category => category._id === card.categories.section?.id)
                             if (currentType) {
