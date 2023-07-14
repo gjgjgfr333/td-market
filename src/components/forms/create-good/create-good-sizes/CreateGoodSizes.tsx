@@ -1,13 +1,16 @@
 import React, {ChangeEvent, useEffect} from 'react';
 import './create-good-sizes.scss'
+import {IType} from "../../../../models/IProductCard";
 
 interface IProps {
     options: string[];
     selectedOptions: string[]
     setSelectedOptions: (selectedOptions: string[]) => void;
+    cardQuantity: IType[] | null
+
 }
 
-const CreateGoodSizes = ({ options, selectedOptions, setSelectedOptions }: IProps) => {
+const CreateGoodSizes = ({ options, selectedOptions, setSelectedOptions, cardQuantity }: IProps) => {
 
     const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
@@ -21,8 +24,10 @@ const CreateGoodSizes = ({ options, selectedOptions, setSelectedOptions }: IProp
     };
 
     useEffect(() => {
-        console.log('selectedOptions', selectedOptions)
-    }, [selectedOptions])
+        if (cardQuantity) {
+            setSelectedOptions(cardQuantity.map(type => type.size))
+        }
+    }, [cardQuantity])
 
     return (
         <div>

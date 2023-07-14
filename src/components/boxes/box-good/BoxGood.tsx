@@ -2,7 +2,7 @@ import React, {useEffect, useMemo, useState} from 'react';
 import './box-good.scss'
 import '../../../styles/elements/buttons.scss'
 import {Link, useNavigate} from "react-router-dom";
-import {IProductCard, ISizes} from "../../../models/IProductCard";
+import {IProductCard, IType} from "../../../models/IProductCard";
 import {API_URL} from "../../../http";
 import {Swiper, SwiperSlide} from "swiper/react";
 import { Navigation } from "swiper";
@@ -20,8 +20,8 @@ const BoxGood = ({card} : {card: IProductCard}) => {
 
     const [mainPhoto, setMainPhoto] = useState(card.mainPhoto);
     const [count, setCount] = useState(1)
-    const [activeSize, setActiveSize] = useState<ISizes | null>(card?.sizeQuantity ? card?.sizeQuantity[0] : null)
-    const [quantity, setQuantity] = useState(card?.sizeQuantity?.[0].quantity || card.pricesAndQuantity.quantity)
+    const [activeSize, setActiveSize] = useState<IType | null>(card?.typeQuantity ? card?.typeQuantity[0] : null)
+    const [quantity, setQuantity] = useState(card?.typeQuantity?.[0].quantity || card.pricesAndQuantity.quantity)
     const [isWindowWidth, setIsWindowWidth] = useState(() => {
         return window.innerWidth >= 450 ? 20 : 4;
     });
@@ -64,7 +64,7 @@ const BoxGood = ({card} : {card: IProductCard}) => {
     //     }
     // };
 
-    const onSetSize = (size: ISizes) => {
+    const onSetSize = (size: IType) => {
         setActiveSize(size)
         setQuantity(size.quantity)
     }
@@ -137,10 +137,10 @@ const BoxGood = ({card} : {card: IProductCard}) => {
                     <h2 className={'good-information__title'}>
                         {card?.information?.name}
                     </h2>
-                    {activeSize && card.sizeQuantity.length > 0 && <div className={'good-information__sizes'}>
+                    {activeSize && card.typeQuantity && <div className={'good-information__sizes'}>
                         <p className={'good-information__subtitle'}>Размер:</p>
                         <div className={'sizes'}>
-                            {card.sizeQuantity.map((size, index) => (
+                            {card.typeQuantity.map((size, index) => (
                                 <div
                                     className={`size-item ${size.size === activeSize.size && 'active'}`}
                                     key={index} onClick={() => onSetSize(size)}

@@ -123,6 +123,31 @@ export const createProductCard = (good: IProductCard, mainPhoto: File, additiona
     }
 }
 
+export const updateProductCard = (good: IProductCard, mainPhoto: File, additionalPhotos: File[]) => async (dispatch: AppDispatch) => {
+    try {
+        const formData = new FormData();
+        formData.append('mainPhoto', mainPhoto);
+        additionalPhotos.forEach((photo) => {
+            formData.append(`additionalPhotos`, photo);
+        });
+        Object.entries(good).forEach(([key, value]) => {
+            if (typeof value !== 'string') {
+                formData.append(key, JSON.stringify(value));
+            } else {
+                formData.append(key, value);
+            }
+        });
+        const response = await ShelterService.updateGoodCard(formData)
+        if (response.data?._id) {
+            dispatch(shelterSlice.actions.setCreateGoodCard(true))
+        } else dispatch(shelterSlice.actions.setCreateGoodCard(false))
+    } catch (e: any) {
+        console.log('e', e)
+        dispatch(shelterSlice.actions.setCreateGoodCard(false))
+    }
+}
+
+
 export const getShelter = () => async (dispatch: AppDispatch) => {
     try {
         const response = await ShelterService.getShelter()

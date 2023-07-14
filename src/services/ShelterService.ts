@@ -17,6 +17,14 @@ export class ShelterService {
         })
     }
 
+    static async updateGoodCard(good: FormData): Promise<AxiosResponse<IProductCard>> {
+        return $apiShelter.put('/product-cards', good, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            }
+        })
+    }
+
     static async getShelter(): Promise<AxiosResponse<IShelterRes>> {
         return $apiShelter.get<IShelterRes>(`shelters/`)
     }

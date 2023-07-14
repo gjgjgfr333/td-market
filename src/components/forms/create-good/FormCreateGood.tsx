@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import './form-create-good.scss'
 import '../../../styles/elements/selects.scss'
 import '../../../styles/elements/buttons.scss'
@@ -12,8 +12,8 @@ import CreateGoodPoints from "./create-good-points/CreateGoodPoints";
 import {ICategory, ISection, ISubcategory} from "../../../models/ICategories";
 import {useForm, FormProvider} from "react-hook-form";
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
-import {IProductCard, ISizes} from "../../../models/IProductCard";
-import {createProductCard} from "../../../store/reducers/shelter/ShelterCreator";
+import {IProductCard, IType} from "../../../models/IProductCard";
+import {updateProductCard} from "../../../store/reducers/shelter/ShelterCreator";
 import {useNavigate} from "react-router-dom";
 import {SIZES_CLOTHES, SIZES_CLOTHES_ID, SIZES_ID, SIZES_SHOE} from "../../../constants";
 import CreateGoodSizes from "./create-good-sizes/CreateGoodSizes";
@@ -32,11 +32,14 @@ const FormCreateGood = ({card} : {card: IProductCard | null}) => {
     const [generalImage, setGeneralImage] = useState<File | null>(null)
     const [additionalImages, setAdditionalImages] = useState<(File | string)[]>([])
     const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
-    const [quantitySizes, setQuantitySizes] = useState<ISizes[]>([]);
+    const [quantitySizes, setQuantitySizes] = useState<IType[]>([]);
     const [submitButton, setSubmitButton] = useState('');
 
+    useEffect(() => {
+        console.log('card', card)
+    }, [card])
+
     const onSubmit = async (data: any) => {
-        if (additionalImages.some(img => typeof img === 'string')) return
         if (!generalImage
             || additionalImages.length === 0
             || !parentSelectedCategory
@@ -85,10 +88,16 @@ const FormCreateGood = ({card} : {card: IProductCard | null}) => {
                     weight: Number(data.weight)
                 },
                 deliveryPoints: points,
-                sizeQuantity: quantitySizes
+                typeQuantity: quantitySizes
             } as IProductCard
+
+            if (card) {
+
+                return
+            }
+
             // @ts-ignore
-            dispatch(createProductCard(good, generalImage, additionalImages))
+            dispatch(updateProductCard(good, generalImage, additionalImages))
             if (isCreateGoodCard) {
                 if (submitButton === 'saveButton') {
                     navigation('/shelter/goods');
@@ -132,6 +141,7 @@ const FormCreateGood = ({card} : {card: IProductCard | null}) => {
                                 }
                                 selectedOptions={selectedSizes}
                                 setSelectedOptions={setSelectedSizes}
+                                cardQuantity={card?.typeQuantity ? card.typeQuantity : null}
                             />
                         </>
                     )
@@ -151,7 +161,11 @@ const FormCreateGood = ({card} : {card: IProductCard | null}) => {
                 {parentSelectedCategory && isSizes && (
                     <>
                         <hr className={'create__divider'}/>
-                        <CreateGoodQuantity sizes={selectedSizes} inputValues={quantitySizes} setInputValues={setQuantitySizes}/>
+                        <CreateGoodQuantity
+                            sizes={selectedSizes}
+                            setInputValues={setQuantitySizes}
+                            cardQuantity={card?.typeQuantity ? card.typeQuantity : null}
+                        />
                     </>
                 )}
                 <hr className={'create__divider'}/>

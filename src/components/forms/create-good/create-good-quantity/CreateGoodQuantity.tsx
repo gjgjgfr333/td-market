@@ -1,14 +1,14 @@
 import React, {ChangeEvent, Dispatch, SetStateAction, useEffect} from 'react';
 import './create-good-quantity.scss'
-import {ISizes} from "../../../../models/IProductCard";
+import {IType} from "../../../../models/IProductCard";
 
 interface Props {
     sizes: string[],
-    inputValues: ISizes[],
-    setInputValues: Dispatch<SetStateAction<ISizes[]>>;
+    setInputValues: Dispatch<SetStateAction<IType[]>>;
+    cardQuantity: IType[] | null
 }
 
-const CreateGoodQuantity = ({sizes, inputValues, setInputValues}: Props) => {
+const CreateGoodQuantity = ({sizes, setInputValues, cardQuantity}: Props) => {
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>, index: number) => {
         const newValue = event.target.value;
@@ -27,8 +27,8 @@ const CreateGoodQuantity = ({sizes, inputValues, setInputValues}: Props) => {
     }
 
     useEffect(() => {
-        console.log('inputValues', inputValues)
-    }, [inputValues])
+        console.log('sizes', sizes)
+    }, [sizes])
 
     return (
         <div>
@@ -48,7 +48,7 @@ const CreateGoodQuantity = ({sizes, inputValues, setInputValues}: Props) => {
                                 className={'modalInput'}
                                 id={`input-${index}`}
                                 type="text"
-                                defaultValue={''}
+                                defaultValue={cardQuantity ? cardQuantity[index].quantity : ''}
                                 onChange={(event) => handleChange(event, index)}
                                 onKeyPress={handleKeyPress}
                             />
