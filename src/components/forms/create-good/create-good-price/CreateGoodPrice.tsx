@@ -52,7 +52,7 @@ const CreateGoodPrice = ({isClothes, card}: IProps) => {
                     <input
                         id="quantityInStock"
                         className="modalInput description__input good-price__input"
-                        defaultValue={card ? card.pricesAndQuantity.price : ''}
+                        defaultValue={card ? card.pricesAndQuantity.quantity : ''}
                         {...register('quantityInStock')}
                     />
                 </div>}

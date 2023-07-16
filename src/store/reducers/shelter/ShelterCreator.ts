@@ -174,6 +174,7 @@ export const updateProductCard = (good: IProductCard, id: string, mainPhoto: Fil
         // Удаление значений undefined из additionalPhotosBase64
         additionalPhotosBase64 = additionalPhotosBase64.filter(item => item !== undefined);
 
+        console.log('good', good)
         // Выполнение запроса с использованием mainPhotoBase64 и additionalPhotosBase64
         const response = await ShelterService.updateGoodCard(good, id, mainPhotoBase64, additionalPhotosBase64);
         if (response.data) {

@@ -34,6 +34,9 @@ const CreateGoodDescription = React.memo(({description, setDescription, card}: I
         }
     }, []) ;
 
+    useEffect(() => {
+        console.log('card', card)
+    }, [card])
 
     useEffect(() => {
         setDescription(card ? card.information.description : '')
@@ -51,7 +54,6 @@ const CreateGoodDescription = React.memo(({description, setDescription, card}: I
                     id="name"
                     placeholder="Введите название товара"
                     className="modalInput description__input"
-                    defaultValue={card ? card.information.name : ''}
                     {...register('name')}
                 />
             </div>

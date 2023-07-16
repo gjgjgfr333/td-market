@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import './form-create-good.scss'
 import '../../../styles/elements/selects.scss'
 import '../../../styles/elements/buttons.scss'
@@ -14,7 +14,7 @@ import {useForm, FormProvider} from "react-hook-form";
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
 import {IProductCard, IType} from "../../../models/IProductCard";
 import {createProductCard, updateProductCard} from "../../../store/reducers/shelter/ShelterCreator";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {SIZES_CLOTHES, SIZES_CLOTHES_ID, SIZES_ID, SIZES_SHOE} from "../../../constants";
 import CreateGoodSizes from "./create-good-sizes/CreateGoodSizes";
 import CreateGoodQuantity from "./create-good-quantity/CreateGoodQuantity";
@@ -37,6 +37,39 @@ const FormCreateGood = ({card} : {card: IProductCard | null}) => {
     const [quantitySizes, setQuantitySizes] = useState<IType[]>([]);
     const [submitButton, setSubmitButton] = useState('');
 
+    useEffect(() => {
+        if (card) {
+
+            const points: { [key: string]: boolean } = {};
+            card.deliveryPoints.forEach((point) => {
+                const checkboxField = `checkbox-${point}`;
+                points[checkboxField] = true;
+            });
+
+            console.log(points);
+            methods.reset({
+                name: card.information.name,
+                material: card.additionalInformation.material,
+                recommendations: card.additionalInformation.recommendations,
+                price: card.pricesAndQuantity.price,
+                priceDiscount: card.pricesAndQuantity.priceBeforeDiscount,
+                length: card.dimensions.length,
+                width: card.dimensions.width,
+                height: card.dimensions.height,
+                weight: card.dimensions.weight,
+                quantityInStock: card.pricesAndQuantity.quantity,
+                ...points
+            })
+        }
+    }, [card, methods])
+
+    useEffect(() => {
+        if (isUpdateCard) {
+            navigation('/shelter/goods');
+            dispatch(updateCardFalse())
+        }
+    },  [dispatch, isUpdateCard, navigation, updateCardFalse])
+
     const onSubmit = async (data: any) => {
         if ((!generalImage && !card?.mainPhoto)
             || additionalImages.length === 0
@@ -49,7 +82,6 @@ const FormCreateGood = ({card} : {card: IProductCard | null}) => {
             const points = Object.keys(data)
                 .filter(key => key.startsWith("checkbox-") && data[key])
                 .map(key => key.substring("checkbox-".length));
-
             const good = {
                 categories: {
                     category: {
@@ -87,13 +119,8 @@ const FormCreateGood = ({card} : {card: IProductCard | null}) => {
                 deliveryPoints: points,
                 typeQuantity: quantitySizes
             } as IProductCard
-
             if (card) {
                 dispatch(updateProductCard(good, card._id, generalImage || card.mainPhoto, additionalImages))
-                if (isUpdateCard) {
-                    navigation('/shelter/goods');
-                    dispatch(updateCardFalse())
-                }
                 return
             }
             // @ts-ignore
@@ -155,7 +182,7 @@ const FormCreateGood = ({card} : {card: IProductCard | null}) => {
                     card={card}
                 />
                 <hr className={'create__divider'}/>
-                <CreateGoodAdditional card={card}/>
+                <CreateGoodAdditional/>
                 <hr className={'create__divider'}/>
                 <CreateGoodPrice isClothes={isSizes} card={card}/>
                 {parentSelectedCategory && isSizes && (
@@ -169,7 +196,7 @@ const FormCreateGood = ({card} : {card: IProductCard | null}) => {
                     </>
                 )}
                 <hr className={'create__divider'}/>
-                <CreateGoodDimensions card={card}/>
+                <CreateGoodDimensions/>
                 <hr className={'create__divider'}/>
                 <CreateGoodPoints cardPoints={card ? card?.deliveryPoints : []}/>
                 {!card && <div className={'create__buttons'}>
@@ -199,14 +226,12 @@ const FormCreateGood = ({card} : {card: IProductCard | null}) => {
                     >
                         Изменить
                     </button>
-                    <button
-                        type="submit"
-                        name="addGoodButton"
+                    <Link
+                        to={'/shelter/goods'}
                         className={'button button_light create__add-good'}
-                        onClick={() => navigation(-1)}
                     >
                         Выйти
-                    </button>
+                    </Link>
                 </div>}
             </form>
         </FormProvider>

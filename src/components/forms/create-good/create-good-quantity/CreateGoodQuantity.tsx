@@ -30,7 +30,7 @@ const CreateGoodQuantity = ({sizes, setInputValues, cardQuantity}: Props) => {
         if (cardQuantity && cardQuantity?.length > 0) {
             setInputValues(cardQuantity)
         }
-    }, [cardQuantity])
+    }, [cardQuantity, setInputValues])
 
     return (
         <div>
@@ -50,7 +50,7 @@ const CreateGoodQuantity = ({sizes, setInputValues, cardQuantity}: Props) => {
                                 className={'modalInput'}
                                 id={`input-${index}`}
                                 type="text"
-                                defaultValue={cardQuantity ? cardQuantity[index].quantity : ''}
+                                defaultValue={cardQuantity ? cardQuantity[index]?.quantity : ''}
                                 onChange={(event) => handleChange(event, index)}
                                 onKeyPress={handleKeyPress}
                             />

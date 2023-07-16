@@ -35,7 +35,6 @@ const CreateGoodPhotos = ({
         if (card) {
             setGeneralImageUrl(card.mainPhoto)
             setAdditionalImages(card.additionalPhotos)
-            console.log('card', card)
         }
     }, [card, setAdditionalImages])
 
