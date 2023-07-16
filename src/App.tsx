@@ -63,7 +63,6 @@ function App() {
                         path="/shelter/"
                         element={<Shelter />}
                         loader={() => {
-                            console.log('!accessToken', !accessToken)
                             if (!accessToken) {
                                 return <Navigate to="/login" />;
                             }
@@ -75,7 +74,6 @@ function App() {
                             path="main"
                             element={<ShelterMain />}
                             loader={() => {
-                                console.log('!accessToken', !accessToken)
                                 if (!accessToken) {
                                     return <Navigate to="/login" />;
                                 }

@@ -35,8 +35,8 @@ const CreateGoodSizes = ({ options, selectedOptions, setSelectedOptions, cardQua
                 Размер
             </h3>
             <div className={'checkboxes-size'}>
-                {options.map((option) => (
-                    <span className={'checkbox-wrapper'}>
+                {options.map((option, index) => (
+                    <span className={'checkbox-wrapper'} key={index}>
                         <input
                             type="checkbox"
                             className={'create-good__checkbox'}

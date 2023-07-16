@@ -123,29 +123,70 @@ export const createProductCard = (good: IProductCard, mainPhoto: File, additiona
     }
 }
 
-export const updateProductCard = (good: IProductCard, mainPhoto: File, additionalPhotos: File[]) => async (dispatch: AppDispatch) => {
+export const updateProductCard = (good: IProductCard, id: string, mainPhoto: File | string, additionalPhotos: (File | string)[]) => async (dispatch: AppDispatch) => {
     try {
-        const formData = new FormData();
-        formData.append('mainPhoto', mainPhoto);
-        additionalPhotos.forEach((photo) => {
-            formData.append(`additionalPhotos`, photo);
-        });
-        Object.entries(good).forEach(([key, value]) => {
-            if (typeof value !== 'string') {
-                formData.append(key, JSON.stringify(value));
+        let mainPhotoBase64: string | undefined;
+        let additionalPhotosBase64: string[] = [];
+
+        // Преобразование mainPhoto в base64
+        if (mainPhoto instanceof File) {
+            const mainPhotoBase64Promise = new Promise<string>((resolve, reject) => {
+                const reader = new FileReader();
+
+                reader.onloadend = () => {
+                    const base64String = reader.result as string;
+                    resolve(base64String);
+                };
+
+                reader.onerror = reject;
+
+                reader.readAsDataURL(mainPhoto);
+            });
+
+            mainPhotoBase64 = await mainPhotoBase64Promise;
+        } else {
+            mainPhotoBase64 = mainPhoto as string;
+        }
+
+        // Преобразование additionalPhotos в base64
+        for (const item of additionalPhotos) {
+            if (item instanceof File) {
+                const additionalPhotoBase64Promise = new Promise<string>((resolve, reject) => {
+                    const reader = new FileReader();
+
+                    reader.onloadend = () => {
+                        const base64String = reader.result as string;
+                        resolve(base64String);
+                    };
+
+                    reader.onerror = reject;
+
+                    reader.readAsDataURL(item);
+                });
+
+                const additionalPhotoBase64 = await additionalPhotoBase64Promise;
+                additionalPhotosBase64.push(additionalPhotoBase64);
             } else {
-                formData.append(key, value);
+                additionalPhotosBase64.push(item as string);
             }
-        });
-        const response = await ShelterService.updateGoodCard(formData)
-        if (response.data?._id) {
-            dispatch(shelterSlice.actions.setCreateGoodCard(true))
-        } else dispatch(shelterSlice.actions.setCreateGoodCard(false))
+        }
+
+        // Удаление значений undefined из additionalPhotosBase64
+        additionalPhotosBase64 = additionalPhotosBase64.filter(item => item !== undefined);
+
+        // Выполнение запроса с использованием mainPhotoBase64 и additionalPhotosBase64
+        const response = await ShelterService.updateGoodCard(good, id, mainPhotoBase64, additionalPhotosBase64);
+        if (response.data) {
+            dispatch(shelterSlice.actions.updateCardSuccess())
+        }
     } catch (e: any) {
-        console.log('e', e)
-        dispatch(shelterSlice.actions.setCreateGoodCard(false))
+        console.log('e', e);
+        dispatch(shelterSlice.actions.setCreateGoodCard(false));
     }
-}
+};
+
+
+
 
 
 export const getShelter = () => async (dispatch: AppDispatch) => {

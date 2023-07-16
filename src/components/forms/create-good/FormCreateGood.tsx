@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import './form-create-good.scss'
 import '../../../styles/elements/selects.scss'
 import '../../../styles/elements/buttons.scss'
@@ -13,17 +13,19 @@ import {ICategory, ISection, ISubcategory} from "../../../models/ICategories";
 import {useForm, FormProvider} from "react-hook-form";
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
 import {IProductCard, IType} from "../../../models/IProductCard";
-import {updateProductCard} from "../../../store/reducers/shelter/ShelterCreator";
+import {createProductCard, updateProductCard} from "../../../store/reducers/shelter/ShelterCreator";
 import {useNavigate} from "react-router-dom";
 import {SIZES_CLOTHES, SIZES_CLOTHES_ID, SIZES_ID, SIZES_SHOE} from "../../../constants";
 import CreateGoodSizes from "./create-good-sizes/CreateGoodSizes";
 import CreateGoodQuantity from "./create-good-quantity/CreateGoodQuantity";
+import {shelterSlice} from "../../../store/reducers/shelter/ShelterSlice";
 
 const FormCreateGood = ({card} : {card: IProductCard | null}) => {
     const navigation = useNavigate()
     const dispatch = useAppDispatch()
     const methods = useForm();
-    const {isCreateGoodCard} = useAppSelector(state => state.shelterReducer)
+    const {isCreateGoodCard, isUpdateCard} = useAppSelector(state => state.shelterReducer)
+    const {updateCardFalse} = shelterSlice.actions
 
     const [parentSelectedCategory, setParentSelectedCategory] = useState<ICategory | null>(null);
     const [parentSelectedSubCategory, setParentSelectedSubCategory] = useState<ISubcategory | null>(null);
@@ -35,19 +37,14 @@ const FormCreateGood = ({card} : {card: IProductCard | null}) => {
     const [quantitySizes, setQuantitySizes] = useState<IType[]>([]);
     const [submitButton, setSubmitButton] = useState('');
 
-    useEffect(() => {
-        console.log('card', card)
-    }, [card])
-
     const onSubmit = async (data: any) => {
-        if (!generalImage
+        if ((!generalImage && !card?.mainPhoto)
             || additionalImages.length === 0
             || !parentSelectedCategory
             || !parentSelectedSubCategory
             || !parentSelectedType
             || quantitySizes.length === 0
         ) return;
-
         try {
             const points = Object.keys(data)
                 .filter(key => key.startsWith("checkbox-") && data[key])
@@ -92,12 +89,15 @@ const FormCreateGood = ({card} : {card: IProductCard | null}) => {
             } as IProductCard
 
             if (card) {
-
+                dispatch(updateProductCard(good, card._id, generalImage || card.mainPhoto, additionalImages))
+                if (isUpdateCard) {
+                    navigation('/shelter/goods');
+                    dispatch(updateCardFalse())
+                }
                 return
             }
-
             // @ts-ignore
-            dispatch(updateProductCard(good, generalImage, additionalImages))
+            dispatch(createProductCard(good, generalImage, additionalImages))
             if (isCreateGoodCard) {
                 if (submitButton === 'saveButton') {
                     navigation('/shelter/goods');

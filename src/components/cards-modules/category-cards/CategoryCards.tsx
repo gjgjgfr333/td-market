@@ -23,15 +23,11 @@ const CategoryCards = ({ id, title, limit }: CategoryCardsProps) => {
         try {
             const categoryId = id || paramsId;
             if (categoryId) {
-                console.log('categoryId', categoryId)
                 const response = await GoodsService.getCategoryGoods(categoryId, page, limit);
                 if (prevParamsId !== paramsId) {
-                    console.log('response 28', response.data.productCards)
 
                     setCategoryCards(response.data.productCards); // Заменяем categoryCards новыми данными
                 } else {
-                    console.log('response 32', response.data.productCards)
-
                     setCategoryCards(prevCards => [...prevCards, ...response.data.productCards]); // Добавляем новые карточки
                 }
             }

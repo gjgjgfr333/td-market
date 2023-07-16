@@ -27,8 +27,10 @@ const CreateGoodQuantity = ({sizes, setInputValues, cardQuantity}: Props) => {
     }
 
     useEffect(() => {
-        console.log('sizes', sizes)
-    }, [sizes])
+        if (cardQuantity && cardQuantity?.length > 0) {
+            setInputValues(cardQuantity)
+        }
+    }, [cardQuantity])
 
     return (
         <div>
