@@ -39,7 +39,13 @@ export interface IProductCard {
     typeQuantity?: IType[]
 }
 
+export interface IProductCardRes extends IProductCard {
+    published: boolean
+    viewsCount: number
+
+}
+
 export interface IType {
     size: string,
-    quantity: string
+    quantity: number,
 }

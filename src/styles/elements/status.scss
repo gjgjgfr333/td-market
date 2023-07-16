@@ -1,0 +1,27 @@
+@import '../constants';
+
+.status {
+  display: inline-block;
+  font-size: $littleSize;
+  padding: 10px 14px;
+  text-transform: uppercase;
+  border-radius: 15px;
+  border-width: 1.5px;
+  border-style: solid;
+  font-weight: 800;
+
+  &_green {
+    color: $successColor;
+    border-color: $successColor;
+  }
+
+  &_yellow {
+    color: $warningColor;
+    border-color: $warningColor;
+  }
+
+  &_red {
+    color: $errorColor;
+    border-color: $errorColor;
+  }
+}

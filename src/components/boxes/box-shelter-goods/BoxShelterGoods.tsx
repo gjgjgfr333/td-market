@@ -4,7 +4,7 @@ import '../../../styles/elements/buttons.scss'
 import '../../../styles/elements/selects.scss'
 import Select from "react-select";
 import {useNavigate} from "react-router-dom";
-import {IProductCard} from "../../../models/IProductCard";
+import {IProductCardRes} from "../../../models/IProductCard";
 import {ShelterService} from "../../../services/ShelterService";
 import {useAppSelector} from "../../../hooks/redux";
 import ShelterCard from "../../cards/shelter-card/ShelterCard";
@@ -54,7 +54,7 @@ const filterOptions = [
 const BoxShelterGoods = () => {
     const navigate = useNavigate()
     const {isHoverTools} = useAppSelector(state => state.shelterReducer)
-    const [cardsShelter, setCardsShelter] = useState<IProductCard[]>([]);
+    const [cardsShelter, setCardsShelter] = useState<IProductCardRes[]>([]);
 
     const onCreateGood = (e: any) => {
         e.preventDefault()

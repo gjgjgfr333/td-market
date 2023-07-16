@@ -14,7 +14,7 @@ const CreateGoodQuantity = ({sizes, setInputValues, cardQuantity}: Props) => {
         const newValue = event.target.value;
         setInputValues((prevInputValues) => {
             const updatedValues = [...prevInputValues];
-            updatedValues[index] = { size: sizes[index], quantity: newValue };
+            updatedValues[index] = { size: sizes[index], quantity: +newValue };
             return updatedValues;
         });
     };

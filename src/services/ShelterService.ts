@@ -1,7 +1,7 @@
 import {AxiosResponse} from "axios";
 import {$apiShelter} from "../http";
 import {IDeliveryPoint2} from "../models/IDeliveryPoint";
-import {IProductCard} from "../models/IProductCard";
+import {IProductCard, IProductCardRes} from "../models/IProductCard";
 import {IShelterRes} from "../models/response/IShelter";
 
 export class ShelterService {
@@ -33,7 +33,7 @@ export class ShelterService {
         return $apiShelter.get<IShelterRes>(`shelters/`)
     }
 
-    static getCardsOfShelter(): Promise<AxiosResponse<IProductCard[]>> {
+    static getCardsOfShelter(): Promise<AxiosResponse<IProductCardRes[]>> {
         return $apiShelter.get(`shelters/cards`)
     }
 
