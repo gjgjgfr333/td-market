@@ -44,7 +44,6 @@ function App() {
     return (
         <div className="App">
             <BrowserRouter>
-                {/*<Header/>*/}
                 <Routes>
                     <Route path="/registration" element={<RegistrShelter />} />
                     <Route path="/login" element={<LoginShelter />} />

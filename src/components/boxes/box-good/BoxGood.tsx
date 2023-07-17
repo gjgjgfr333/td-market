@@ -21,7 +21,7 @@ const BoxGood = ({card} : {card: IProductCard}) => {
     const [mainPhoto, setMainPhoto] = useState(card.mainPhoto);
     const [count, setCount] = useState(1)
     const [activeSize, setActiveSize] = useState<IType | null>(card?.typeQuantity ? card?.typeQuantity[0] : null)
-    const [quantity, setQuantity] = useState(card?.typeQuantity?.[0].quantity || card.pricesAndQuantity.quantity)
+    const [quantity, setQuantity] = useState(card?.typeQuantity?.[0]?.quantity || card.pricesAndQuantity.quantity)
     const [isWindowWidth, setIsWindowWidth] = useState(() => {
         return window.innerWidth >= 450 ? 20 : 4;
     });

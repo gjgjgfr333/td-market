@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Container from "../components/container/Container";
 import Footer from "../components/footers/footer-user/Footer";
 import BoxGood from "../components/boxes/box-good/BoxGood";
@@ -10,6 +10,10 @@ import useFetchCard from "../hooks/fetch-card";
 
 const Good = () => {
     const card = useFetchCard();
+
+    useEffect(() => {
+        console.log('card useFetchCard')
+    }, [])
 
     return (
         <div>
