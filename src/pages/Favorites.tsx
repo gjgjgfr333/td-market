@@ -17,13 +17,12 @@ const Favorites = () => {
 
     return (
         <div>
-            <MobileNavbar/>
+
             <Container>
                 <BoxFavorites/>
                 <HotCards limit={6}/>
                 <NewCards limit={6}/>
             </Container>
-            <Footer/>
         </div>
     );
 };

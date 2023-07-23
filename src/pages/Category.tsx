@@ -14,7 +14,6 @@ const Category = () => {
                     <CategoryCards limit={32}/>
                 </BoxCategory>
             </Container>
-            <Footer/>
         </div>
     );
 };

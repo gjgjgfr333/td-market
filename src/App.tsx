@@ -26,6 +26,9 @@ import Category from "./pages/Category";
 import Cart from "./pages/Cart";
 import Header from "./components/headers/header/Header";
 import SearchPage from "./pages/SearchPage";
+import Faq from "./pages/Faq";
+import Footer from "./components/footers/footer-user/Footer";
+import MobileNavbar from "./components/mobile-navbar/MobileNavbar";
 
 
 function App() {
@@ -90,6 +93,8 @@ function App() {
                             <>
                                 <Header />
                                 <Good />
+                                <Footer/>
+
                             </>
                         }
                     />
@@ -99,6 +104,7 @@ function App() {
                             <>
                                 <Header />
                                 <Category />
+                                <Footer/>
                             </>
                         }
                     />
@@ -107,7 +113,9 @@ function App() {
                         element={
                         <>
                             <Header />
+                            <MobileNavbar/>
                             <Favorites />
+                            <Footer/>
                         </>
                     }
                     />
@@ -117,6 +125,7 @@ function App() {
                             <>
                                 <Header />
                                 <Cart />
+                                <Footer/>
                             </>
                         }
                     />
@@ -130,11 +139,24 @@ function App() {
                         }
                     />
                     <Route
+                        path="/faq"
+                        element={
+                            <>
+                                <Header />
+                                <MobileNavbar/>
+                                <Faq/>
+                                <Footer/>
+                            </>
+                        }
+                    />
+                    <Route
                         path="/"
                         element={
                             <>
                                 <Header />
                                 <MainPage />
+                                <Footer/>
+
                             </>
                         }
                         loader={() => {
