@@ -96,6 +96,7 @@ export const shelterSlice = createSlice({
         setLogoutSuccess: (state) => {
             state.isAuthenticated = false;
             state.accessToken = null
+            console.log('state.isAuthenticated ', state.isAuthenticated )
         },
 
         setDeliveryPoints: (state, action: PayloadAction<IDeliveryPoint2[]>) => {

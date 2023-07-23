@@ -11,21 +11,19 @@ import DeleteSvg from "../../svg/DeleteSvg";
 import {useAppSelector} from "../../../hooks/redux";
 import '../../../styles/elements/status.scss'
 import classNames from "classnames";
+import {StatusEnum} from "../../../models/enums";
+
+
 
 interface IProps {
     card: IProductCardRes,
-    onDelete: (id: string) => Promise<boolean>
+    onDelete: (id: string) => Promise<boolean>,
+    selectedStatus: StatusEnum | null
 }
 
-enum StatusEnum {
-    DEFAULT = '',
-    PENDING_MODERATION = 'В ожидании модерации',
-    MODERATION = 'В модерации',
-    APPROVED = 'Одобрено',
-    OVER = 'Закончился'
-}
 
-const ShelterCard = ({card, onDelete}: IProps) => {
+
+const ShelterCard = ({card, onDelete, selectedStatus}: IProps) => {
     const {shelter} = useAppSelector(state => state.shelterReducer)
     const navigate = useNavigate()
     const [isPressed, setIsPressed] = useState(false)
@@ -67,7 +65,13 @@ const ShelterCard = ({card, onDelete}: IProps) => {
         console.log('answer onDelete', answer)
     }
 
-    return (
+
+    const isMatchingStatus = (status: StatusEnum): boolean => {
+        return selectedStatus === StatusEnum.DEFAULT || status === selectedStatus;
+    };
+
+
+    return isMatchingStatus(status) ?  (
         <div className={'shelter-card'}>
             <div className={'shelter-card__header'}>
                 <div className={'shelter-card__image'}>
@@ -142,7 +146,7 @@ const ShelterCard = ({card, onDelete}: IProps) => {
                 onDelete={() => onDeleteCard(card._id)}
             />}
         </div>
-    );
+    ) : null;
 };
 
 export default ShelterCard;

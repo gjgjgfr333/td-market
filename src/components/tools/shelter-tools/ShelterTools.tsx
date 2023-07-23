@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './shelter-tools.scss'
 import {Link, useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
@@ -12,7 +12,8 @@ import {API_URL} from "../../../http";
 const ShelterTools = () => {
     const navigation = useNavigate()
     const dispatch = useAppDispatch()
-    const {shelter, isHoverTools} = useAppSelector(state => state.shelterReducer)
+    const {shelter, isHoverTools, isAuth} = useAppSelector(state => state.shelterReducer)
+    const {setLogoutSuccess} = shelterSlice.actions
     const [isCover, setIsCover] = useState(false)
     const [activeNotification, setActiveNotification] = useState(0)
 
@@ -31,8 +32,13 @@ const ShelterTools = () => {
 
     const onLogout = () => {
         dispatch(shelterSlice.actions.removeAccessToken())
+        dispatch(setLogoutSuccess())
         navigation('/')
     }
+
+    useEffect(() => {
+        console.log('isAuth', isAuth)
+    }, [isAuth])
 
     return (
         <>
