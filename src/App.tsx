@@ -29,6 +29,7 @@ import SearchPage from "./pages/SearchPage";
 import Faq from "./pages/Faq";
 import Footer from "./components/footers/footer-user/Footer";
 import MobileNavbar from "./components/mobile-navbar/MobileNavbar";
+import Admin from "./pages/Admin";
 
 
 function App() {
@@ -146,6 +147,14 @@ function App() {
                                 <MobileNavbar/>
                                 <Faq/>
                                 <Footer/>
+                            </>
+                        }
+                    />
+                    <Route
+                        path="/administrator"
+                        element={
+                            <>
+                                <Admin/>
                             </>
                         }
                     />
