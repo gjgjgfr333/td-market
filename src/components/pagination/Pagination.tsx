@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './pagination.scss'
 
 interface IProps {
@@ -10,6 +10,10 @@ interface IProps {
 
 const Pagination = ({ currentPage, totalItems, itemsPerPage, onPageChange }: IProps) => {
     const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+    useEffect(() => {
+        if (currentPage > totalPages) onPageChange(totalPages)
+    }, [totalPages, currentPage, onPageChange])
 
     const handlePageClick = (page: number) => {
         if (page !== currentPage) {

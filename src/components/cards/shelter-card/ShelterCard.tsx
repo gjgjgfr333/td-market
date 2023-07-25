@@ -39,7 +39,6 @@ const ShelterCard = ({card, onDelete, selectedStatus}: IProps) => {
     }, [card])
 
     useEffect(() => {
-        console.log('card', card)
         if (!shelter.isVerified) {
             setStatus(StatusEnum.PENDING_MODERATION)
         } else if (countGood < 1) {
@@ -62,7 +61,6 @@ const ShelterCard = ({card, onDelete, selectedStatus}: IProps) => {
     const onDeleteCard = async (id: string) => {
         const answer = await onDelete(id);
         if (answer) setIsDeleteModal(false)
-        console.log('answer onDelete', answer)
     }
 
 

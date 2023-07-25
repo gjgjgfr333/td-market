@@ -4,7 +4,7 @@ import '../../../styles/elements/buttons.scss'
 import '../../../styles/elements/selects.scss'
 import Select from "react-select";
 import {useNavigate} from "react-router-dom";
-import {IProductCardRes} from "../../../models/IProductCard";
+import {IProductCardShelter} from "../../../models/IProductCard";
 import {ShelterService} from "../../../services/ShelterService";
 import {useAppSelector} from "../../../hooks/redux";
 import ShelterCard from "../../cards/shelter-card/ShelterCard";
@@ -53,7 +53,9 @@ const filterOptions = [
 const BoxShelterGoods = () => {
     const navigate = useNavigate()
     const {isHoverTools} = useAppSelector(state => state.shelterReducer)
-    const [cardsShelter, setCardsShelter] = useState<IProductCardRes[]>([]);
+    const {shelter} = useAppSelector(state => state.shelterReducer)
+    const [cardsShelter, setCardsShelter] = useState<IProductCardShelter[]>([]);
+    const [filteredCards, setFilteredCards] = useState<IProductCardShelter[]>([]);
     const [selectedStatus, setSelectedStatus] = useState({
         value: StatusEnum.DEFAULT,
         label: 'все'
@@ -61,6 +63,14 @@ const BoxShelterGoods = () => {
     const [option, setOption] = useState(2);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const cardsPerPage = 9;
+
+    useEffect(() => {
+        if (selectedStatus.value !== StatusEnum.DEFAULT) {
+            setFilteredCards(cardsShelter.filter(card => card.status === selectedStatus.value))
+        } else {
+            setFilteredCards(cardsShelter)
+        }
+    }, [cardsShelter, selectedStatus])
 
     const onCreateGood = (e: any) => {
         e.preventDefault()
@@ -81,7 +91,24 @@ const BoxShelterGoods = () => {
         const fetchShelterCards = async () => {
             try {
                 const response = await ShelterService.getCardsOfShelter();
-                setCardsShelter(response.data);
+                setCardsShelter(response.data.map(card => {
+                    const countGood = card.typeQuantity
+                        ? card.typeQuantity.reduce((acc, item) => acc + Number(item.quantity), 0)
+                        : card.pricesAndQuantity.quantity;
+
+                    let status;
+                    if (!shelter.isVerified) {
+                        status = StatusEnum.PENDING_MODERATION;
+                    } else if (countGood < 1) {
+                        status = StatusEnum.OVER;
+                    } else if (!card.published) {
+                        status = StatusEnum.MODERATION;
+                    } else {
+                        status = StatusEnum.APPROVED;
+                    }
+
+                    return { ...card, countGood, status }; // Возвращаем объект с добавленными полями countGood и status
+                }));
             } catch (error) {
                 console.log('Ошибка при получении карточек товаров:', error);
             }
@@ -112,8 +139,8 @@ const BoxShelterGoods = () => {
     const currentCards = useMemo(() => {
         const indexOfLastCard = currentPage * cardsPerPage;
         const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-        return cardsShelter.slice(indexOfFirstCard, indexOfLastCard);
-    }, [currentPage, cardsShelter]);
+        return filteredCards.slice(indexOfFirstCard, indexOfLastCard);
+    }, [currentPage, filteredCards]);
 
     const handlePageChange = (page: number) => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -158,10 +185,10 @@ const BoxShelterGoods = () => {
                     <ShelterCard card={card} key={card._id} onDelete={onDelete} selectedStatus={selectedStatus.value} />
                 ))}
             </div>
-            {cardsPerPage < cardsShelter.length && <div className={'goods__pagination'}>
+            {cardsPerPage < filteredCards.length && <div className={'goods__pagination'}>
                 <Pagination
                     currentPage={currentPage}
-                    totalItems={cardsShelter.length}
+                    totalItems={filteredCards.length}
                     itemsPerPage={cardsPerPage}
                     onPageChange={handlePageChange}
                 />
