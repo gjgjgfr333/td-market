@@ -5,8 +5,14 @@ import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
 import {IPersonalData, IShelterData, } from "../../../models/response/IShelter";
 import {shelterSlice} from "../../../store/reducers/shelter/ShelterSlice";
 import {useNavigate} from "react-router-dom";
+import {ShelterService} from "../../../services/ShelterService";
 
-const FormRegistrationData = ({shelterData}: { shelterData: IShelterData }) => {
+interface IProps {
+    shelterData: IShelterData | null,
+    id: string | null
+}
+
+const FormRegistrationData = ({shelterData, id}: IProps) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch()
     const {isRegistry} = useAppSelector(state => state.shelterReducer)
@@ -60,56 +66,83 @@ const FormRegistrationData = ({shelterData}: { shelterData: IShelterData }) => {
     },[shelterData])
 
     useEffect(() => {
+        const updateShelterData = async () => {
+            if (isRegistry) {
+                let isCompletedFields = true;
 
-        if (isRegistry) {
-            let isCompletedFields = true
-
-            for (let field of Object.values(closePerson)) {
-                if (!field) {
-                    isCompletedFields = false
+                for (let field of Object.values(closePerson)) {
+                    if (!field) {
+                        isCompletedFields = false;
+                    }
                 }
-            }
 
-            for (let field of Object.values(personalData)) {
-                if (!field) {
-                    isCompletedFields = false
+                for (let field of Object.values(personalData)) {
+                    if (!field) {
+                        isCompletedFields = false;
+                    }
                 }
-            }
 
-            for (let field of Object.values(entityData)) {
-                if (!(typeof field === 'boolean') && !field) {
-                    isCompletedFields = false
+                for (let field of Object.values(entityData)) {
+                    if (!(typeof field === 'boolean') && !field) {
+                        isCompletedFields = false;
+                    }
                 }
-            }
 
-            // if (!image) {
-            //     isCompletedFields = false
-            // }
+                // if (!image) {
+                //     isCompletedFields = false
+                // }
 
-            if (!isCompletedFields) {
-                setIsCompletedInputs(true)
-                return
-            }
-            localStorage.setItem('shelter-data', JSON.stringify({
-                    closePerson,
-                    personalData,
-                    entity: entityData
-            }))
-            const reader = new FileReader();
-
-            // reader.readAsDataURL(image)
-            reader.onload = () => {
-                if (reader.result !== null) {
-                    const base64String = reader.result.toString();
-                    localStorage.setItem('image-shelter-data', base64String);
-                } else {
-                    console.error('Не удалось прочитать файл');
+                if (!isCompletedFields) {
+                    setIsCompletedInputs(true);
+                    return;
                 }
+
+                if (id) {
+                    try {
+                        const response = await ShelterService.updateDataShelter(id, {
+                            closePerson,
+                            personalData,
+                            entity: entityData,
+                        });
+                        dispatch(setIsRegistry(false))
+                        if (response.data) {
+                            dispatch(shelterSlice.actions.setShelter(response.data))
+                            navigate('/shelter/main')
+                        }
+                        return
+                    } catch (error) {
+                        console.error('Ошибка при обновлении данных приюта:', error);
+                        return
+                    }
+                }
+
+                localStorage.setItem(
+                    'shelter-data',
+                    JSON.stringify({
+                        closePerson,
+                        personalData,
+                        entity: entityData,
+                    })
+                );
+                const reader = new FileReader();
+
+                // reader.readAsDataURL(image)
+                reader.onload = () => {
+                    if (reader.result !== null) {
+                        const base64String = reader.result.toString();
+                        localStorage.setItem('image-shelter-data', base64String);
+                    } else {
+                        console.error('Не удалось прочитать файл');
+                    }
+                };
+                setIsRegistry(false);
+                navigate('/shop-data');
             }
-            setIsRegistry(false)
-            navigate('/registration-shop')
-        }
-    }, [isRegistry, isCompletedInputs, shelter, dispatch, closePerson, personalData, entityData, setIsRegistry, navigate])
+        };
+
+        updateShelterData();
+    }, [isRegistry, isCompletedInputs, shelter, dispatch, closePerson, personalData, entityData, setIsRegistry, navigate, id]);
+
 
     const onSetName = (e: ChangeEvent<HTMLInputElement>) => {
         setPersonalData({...personalData, name: e.target.value})
@@ -156,10 +189,6 @@ const FormRegistrationData = ({shelterData}: { shelterData: IShelterData }) => {
     const onSetCheck = (e: ChangeEvent<HTMLInputElement>) => {
         setEntityData({...entityData, check: e.target.value})
     }
-
-    useEffect(() => {
-        console.log('shelter', shelter)
-    }, [shelter])
 
     return (
         <div className={'form-data'}>

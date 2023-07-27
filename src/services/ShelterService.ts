@@ -41,7 +41,7 @@ export class ShelterService {
         return $apiShelter.delete(`product-cards/${id}`)
     }
 
-    static updateDataShelter(id: string, shelterData: IShelterData): Promise<AxiosResponse<IProductCard>> {
-        return $apiShelter.delete(`product-cards/${id}`)
+    static updateDataShelter(id: string, shelterData: IShelterData): Promise<AxiosResponse<IShelterRes>> {
+        return $apiShelter.put(`shelters/update-data/${id}`, shelterData)
     }
 }

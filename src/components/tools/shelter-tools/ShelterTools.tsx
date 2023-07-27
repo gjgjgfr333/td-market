@@ -38,6 +38,14 @@ const ShelterTools = () => {
         })
     }
 
+    const onShopData = () => {
+        navigation(`/shop-data/${shelter._id}`, {
+            state: {
+                ...shelter
+            }
+        })
+    }
+
     const onLogout = () => {
         dispatch(shelterSlice.actions.removeAccessToken())
         dispatch(setLogoutSuccess())
@@ -82,10 +90,10 @@ const ShelterTools = () => {
                         <img src="/images/svg/personal-data.svg" alt="Личные данные"/>
                         <span>Личные данные</span>
                     </div>
-                    <Link className={'shelter-link'} to={'/'}>
+                    <div className={'shelter-link'} onClick={onShopData}>
                         <img src="/images/svg/shop-data.svg" alt="Данные магазина"/>
                         <span>Данные магазина</span>
-                    </Link>
+                    </div>
                     <Link className={'shelter-link'} to={'/'}>
                         <img src="/images/svg/key.svg" alt="Смена пароля"/>
                         <span>Смена пароля</span>

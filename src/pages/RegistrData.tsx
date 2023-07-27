@@ -9,9 +9,9 @@ const RegistrData = () => {
 
     return (
         <div>
-            <HeaderRegData id={location.state._id}/>
+            <HeaderRegData/>
             <BoxShelter isImage={false}>
-                <FormRegistrationData shelterData={location.state.shelterData}/>
+                <FormRegistrationData shelterData={location.state.shelterData} id={location.state._id}/>
             </BoxShelter>
         </div>
     );

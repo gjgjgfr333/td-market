@@ -71,7 +71,8 @@ function App() {
                             return null;
                         }}
                     />
-                    <Route path="/registration-shop" element={<RegistrShop />} />
+                    <Route path="/shop-data/:id" element={<RegistrShop />} />
+                    <Route path="/shop-data" element={<RegistrShop />} />
                     <Route
                         path="/shelter/"
                         element={<Shelter />}

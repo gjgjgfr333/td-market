@@ -5,7 +5,6 @@ import './header-reg-data.scss'
 import {useAppDispatch} from "../../../hooks/redux";
 import {shelterSlice} from "../../../store/reducers/shelter/ShelterSlice";
 import ButtonBack from "../../buttons/button-back/ButtonBack";
-import {useNavigate} from "react-router-dom";
 
 // interface IProps {
 //     isData: boolean,
@@ -13,17 +12,12 @@ import {useNavigate} from "react-router-dom";
 //     id?: string | null
 // }
 
-const HeaderRegData = ({isData = true, isShop = false, id = null}) => {
-    const navigate = useNavigate();
+const HeaderRegData = ({isData = true, isShop = false}) => {
     const dispatch = useAppDispatch()
     const {setIsRegistry} = shelterSlice.actions
 
     const onSaveShelter = async () => {
-        if (id) {
-            // const response = await ShelterService.updateDataShelter(id, );
-            navigate('/shelter/main')
-            return
-        }
+
         dispatch(setIsRegistry(true))
     }
 
