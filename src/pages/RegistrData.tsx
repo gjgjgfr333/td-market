@@ -9,7 +9,7 @@ const RegistrData = () => {
 
     useEffect(() => {
         console.log('location.state', location.state)
-    }, location.state)
+    }, [location.state])
 
     return (
         <div>

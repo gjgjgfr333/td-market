@@ -3,7 +3,6 @@ import './box-shelter.scss'
 import '../../../styles/elements/inputs.scss'
 import Container from "../../container/Container";
 import ButtonBack from "../../buttons/button-back/ButtonBack";
-import {IProductCard} from "../../../models/IProductCard";
 
 interface IBoxRegistrationShelter {
     children: ReactNode,

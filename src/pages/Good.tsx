@@ -1,6 +1,5 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Container from "../components/container/Container";
-import Footer from "../components/footers/footer-user/Footer";
 import BoxGood from "../components/boxes/box-good/BoxGood";
 import BoxGoodInformation from "../components/boxes/box-good-information/BoxGoodInformation";
 import HotCards from "../components/cards-modules/hot-cards/HotCards";
