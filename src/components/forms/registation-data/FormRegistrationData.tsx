@@ -2,12 +2,12 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 import './forn-registration-data.scss'
 import '../../../styles/elements/inputs.scss'
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
-import {IPersonalData} from "../../../models/response/IShelter";
+import {IPersonalData, IShelterRes} from "../../../models/response/IShelter";
 import {shelterSlice} from "../../../store/reducers/shelter/ShelterSlice";
 import {useNavigate} from "react-router-dom";
 import InputFile from "../../inputs/input-file/InputFile";
 
-const FormRegistrationData = () => {
+const FormRegistrationData = ({shelterReq}: { shelterReq: IShelterRes }) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch()
     const {isRegistry} = useAppSelector(state => state.shelterReducer)
@@ -35,9 +35,11 @@ const FormRegistrationData = () => {
         check: ''
     })
 
+    useEffect(() => {
+        console.log('shelterReq', shelterReq)
+    },[shelterReq])
 
     useEffect(() => {
-        console.log('isRegistry', isRegistry)
 
         if (isRegistry) {
             let isCompletedFields = true
@@ -76,7 +78,6 @@ const FormRegistrationData = () => {
             const reader = new FileReader();
 
             reader.readAsDataURL(image)
-            console.log('image', image)
             reader.onload = () => {
                 if (reader.result !== null) {
                     const base64String = reader.result.toString();
@@ -135,6 +136,10 @@ const FormRegistrationData = () => {
     const onSetCheck = (e: ChangeEvent<HTMLInputElement>) => {
         setEntityData({...entityData, check: e.target.value})
     }
+
+    useEffect(() => {
+        console.log('shelter', shelter)
+    }, [shelter])
 
     return (
         <div className={'form-data'}>

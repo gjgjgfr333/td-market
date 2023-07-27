@@ -52,7 +52,17 @@ function App() {
                     <Route path="/registration" element={<RegistrShelter />} />
                     <Route path="/login" element={<LoginShelter />} />
                     <Route
-                        path="/registration-next"
+                        path="/personal-data/:id"
+                        element={<RegistrData />}
+                        loader={() => {
+                            if (!accessToken) {
+                                return <Navigate to="/login" />;
+                            }
+                            return null;
+                        }}
+                    />
+                    <Route
+                        path="/personal-data"
                         element={<RegistrData />}
                         loader={() => {
                             if (!accessToken) {

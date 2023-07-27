@@ -17,7 +17,7 @@ export interface IShelter {
 }
 
 export interface IShelterRes {
-    id?: string,
+    _id: string,
     password?: string,
     email: string,
     name: string,

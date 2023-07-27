@@ -30,15 +30,19 @@ const ShelterTools = () => {
         setIsCover(true)
     }
 
+    const onPersonalData = () => {
+        navigation(`/personal-data/${shelter._id}`, {
+            state: {
+                ...shelter
+            }
+        })
+    }
+
     const onLogout = () => {
         dispatch(shelterSlice.actions.removeAccessToken())
         dispatch(setLogoutSuccess())
         navigation('/')
     }
-
-    useEffect(() => {
-        console.log('isAuth', isAuth)
-    }, [isAuth])
 
     return (
         <>
@@ -74,10 +78,10 @@ const ShelterTools = () => {
                         <img src="/images/svg/bell.svg" alt="Уведомления"/>
                         <span>Уведомления</span>
                     </div>
-                    <Link className={'shelter-link'} to={'/'}>
+                    <div className={'shelter-link'} onClick={onPersonalData}>
                         <img src="/images/svg/personal-data.svg" alt="Личные данные"/>
                         <span>Личные данные</span>
-                    </Link>
+                    </div>
                     <Link className={'shelter-link'} to={'/'}>
                         <img src="/images/svg/shop-data.svg" alt="Данные магазина"/>
                         <span>Данные магазина</span>

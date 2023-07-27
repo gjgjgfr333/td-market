@@ -11,10 +11,6 @@ import useFetchCard from "../hooks/fetch-card";
 const Good = () => {
     const card = useFetchCard();
 
-    useEffect(() => {
-        console.log('card useFetchCard')
-    }, [])
-
     return (
         <div>
             <MobileNavbar/>
