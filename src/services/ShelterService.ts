@@ -2,7 +2,7 @@ import {AxiosResponse} from "axios";
 import {$apiShelter} from "../http";
 import {IDeliveryPoint2} from "../models/IDeliveryPoint";
 import {IProductCard, IProductCardRes} from "../models/IProductCard";
-import {IShelterRes} from "../models/response/IShelter";
+import {IShelterData, IShelterRes} from "../models/response/IShelter";
 
 export class ShelterService {
     static async getPointsIssue(): Promise<AxiosResponse<IDeliveryPoint2[]>> {
@@ -38,6 +38,10 @@ export class ShelterService {
     }
 
     static deleteCard(id: string): Promise<AxiosResponse<IProductCard>> {
+        return $apiShelter.delete(`product-cards/${id}`)
+    }
+
+    static updateDataShelter(id: string, shelterData: IShelterData): Promise<AxiosResponse<IProductCard>> {
         return $apiShelter.delete(`product-cards/${id}`)
     }
 }

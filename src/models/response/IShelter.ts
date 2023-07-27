@@ -22,15 +22,17 @@ export interface IShelterRes {
     email: string,
     name: string,
     phone: string,
-    shelterData: {
-        personalData: IPersonalData,
-        closePerson: IClosePerson,
-        entity: IEntity
-    },
+    shelterData: IShelterData,
     imageShop: string,
     shop: IShelterShop,
     deliveryPoints: IDeliveryPoint2[],
     isVerified: boolean
+}
+
+export interface IShelterData {
+    personalData: IPersonalData,
+    closePerson: IClosePerson,
+    entity: IEntity
 }
 
 export interface IMainShelter {

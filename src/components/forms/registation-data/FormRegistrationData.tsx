@@ -2,18 +2,17 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 import './forn-registration-data.scss'
 import '../../../styles/elements/inputs.scss'
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
-import {IPersonalData, IShelterRes} from "../../../models/response/IShelter";
+import {IPersonalData, IShelterData, } from "../../../models/response/IShelter";
 import {shelterSlice} from "../../../store/reducers/shelter/ShelterSlice";
 import {useNavigate} from "react-router-dom";
-import InputFile from "../../inputs/input-file/InputFile";
 
-const FormRegistrationData = ({shelterReq}: { shelterReq: IShelterRes }) => {
+const FormRegistrationData = ({shelterData}: { shelterData: IShelterData }) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch()
     const {isRegistry} = useAppSelector(state => state.shelterReducer)
     const {shelter} = useAppSelector(state => state.shelterReducer)
     const {setIsRegistry} = shelterSlice.actions
-    const [image, setImage] = useState<File | null>(null)
+    // const [image, setImage] = useState<File | null>(null)
     const [isCompletedInputs, setIsCompletedInputs] = useState(false)
     const [closePerson, setClosePerson] = useState({
         name: '',
@@ -36,8 +35,29 @@ const FormRegistrationData = ({shelterReq}: { shelterReq: IShelterRes }) => {
     })
 
     useEffect(() => {
-        console.log('shelterReq', shelterReq)
-    },[shelterReq])
+        if (shelterData) {
+            const {personalData, closePerson, entity} = shelterData
+            setPersonalData({
+                name: personalData.name,
+                birthday: personalData.birthday,
+                family: personalData.family,
+                patronymic: personalData.patronymic
+            })
+            setClosePerson({
+                family: closePerson.family,
+                name: closePerson.name,
+                patronymic: closePerson.patronymic,
+                phoneClose: closePerson.phoneClose
+            })
+            setEntityData({
+                bic: entity.bic,
+                check: entity.check,
+                code: entity.code,
+                isIndividual: entity.isIndividual
+            })
+        }
+        console.log('shelterReq', shelterData)
+    },[shelterData])
 
     useEffect(() => {
 
@@ -62,11 +82,11 @@ const FormRegistrationData = ({shelterReq}: { shelterReq: IShelterRes }) => {
                 }
             }
 
-            if (!image) {
-                isCompletedFields = false
-            }
+            // if (!image) {
+            //     isCompletedFields = false
+            // }
 
-            if (!isCompletedFields || !image) {
+            if (!isCompletedFields) {
                 setIsCompletedInputs(true)
                 return
             }
@@ -77,7 +97,7 @@ const FormRegistrationData = ({shelterReq}: { shelterReq: IShelterRes }) => {
             }))
             const reader = new FileReader();
 
-            reader.readAsDataURL(image)
+            // reader.readAsDataURL(image)
             reader.onload = () => {
                 if (reader.result !== null) {
                     const base64String = reader.result.toString();
@@ -89,7 +109,7 @@ const FormRegistrationData = ({shelterReq}: { shelterReq: IShelterRes }) => {
             setIsRegistry(false)
             navigate('/registration-shop')
         }
-    }, [isRegistry, isCompletedInputs, image, shelter, dispatch, closePerson, personalData, entityData, setIsRegistry, navigate])
+    }, [isRegistry, isCompletedInputs, shelter, dispatch, closePerson, personalData, entityData, setIsRegistry, navigate])
 
     const onSetName = (e: ChangeEvent<HTMLInputElement>) => {
         setPersonalData({...personalData, name: e.target.value})
@@ -278,7 +298,7 @@ const FormRegistrationData = ({shelterReq}: { shelterReq: IShelterRes }) => {
                             </span>
                             </div>
                         </div>
-                        <InputFile image={image} setImage={setImage} position={'right'}/>
+                        {/*<InputFile image={image} setImage={setImage} position={'right'}/>*/}
                     </div>
 
                     <div className={'reg-field'}>
