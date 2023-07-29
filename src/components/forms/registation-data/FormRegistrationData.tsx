@@ -62,7 +62,6 @@ const FormRegistrationData = ({shelterData, id}: IProps) => {
                 isIndividual: entity.isIndividual
             })
         }
-        console.log('shelterReq', shelterData)
     },[shelterData])
 
     useEffect(() => {

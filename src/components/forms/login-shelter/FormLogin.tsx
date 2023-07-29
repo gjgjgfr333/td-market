@@ -19,7 +19,6 @@ const FormLogin = () => {
     const [email, setEmail] = useState('')
     const [isErrorMail, setIsErrorMail] = useState(false)
     const [errorEmail, setErrorEmail] = useState(false)
-    const [isCover, setIsCover] = useState(false)
     const {changeIsUserModal} = userSlice.actions
 
     useEffect(() => {
@@ -51,7 +50,7 @@ const FormLogin = () => {
         }
         dispatch(changeIsUserModal(true))
         dispatch(setEmailShelter(email))
-        dispatch(sendCodeShelter(email))
+        dispatch(sendCodeShelter(email, true))
     }
 
     return (

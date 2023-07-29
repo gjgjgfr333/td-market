@@ -1,6 +1,6 @@
 import React, { useState} from 'react';
 import './shelter-tools.scss'
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
 import Cover from "../../cover/Cover";
 import NotificationSvg from "../../svg/NotificationSvg";
@@ -8,12 +8,17 @@ import TechnicalSupportSvg from "../../svg/TechnicalSupportSvg";
 import CommunicationSvg from "../../svg/CommunicationSvg";
 import {shelterSlice} from "../../../store/reducers/shelter/ShelterSlice";
 import {API_URL} from "../../../http";
+import ModalLogin from "../../modals/modal-login/ModalLogin";
+import {userSlice} from "../../../store/reducers/user/UserSlice";
+import {sendCodeShelter} from "../../../store/reducers/shelter/ShelterCreator";
 
 const ShelterTools = () => {
     const navigation = useNavigate()
     const dispatch = useAppDispatch()
+    const {isUserModal} = useAppSelector(state => state.userReducer)
     const {shelter, isHoverTools} = useAppSelector(state => state.shelterReducer)
     const {setLogoutSuccess} = shelterSlice.actions
+    const {changeIsUserModal} = userSlice.actions
     const [isCover, setIsCover] = useState(false)
     const [activeNotification, setActiveNotification] = useState(0)
 
@@ -50,6 +55,11 @@ const ShelterTools = () => {
         dispatch(shelterSlice.actions.removeAccessToken())
         dispatch(setLogoutSuccess())
         navigation('/')
+    }
+
+    const createNewPassword = () => {
+        dispatch(changeIsUserModal(true))
+        dispatch(sendCodeShelter(shelter.email, true))
     }
 
     return (
@@ -94,10 +104,10 @@ const ShelterTools = () => {
                         <img src="/images/svg/shop-data.svg" alt="Данные магазина"/>
                         <span>Данные магазина</span>
                     </div>
-                    <Link className={'shelter-link'} to={'/'}>
+                    <div className={'shelter-link'} onClick={createNewPassword}>
                         <img src="/images/svg/key.svg" alt="Смена пароля"/>
                         <span>Смена пароля</span>
-                    </Link>
+                    </div>
                     <div className={'shelter-link'} onClick={onLogout}>
                         <img src="/images/svg/logout.svg" alt="Выйти"/>
                         <span>Выйти</span>
@@ -141,6 +151,7 @@ const ShelterTools = () => {
                     </div>
                 }
             </div>
+            {isUserModal && <ModalLogin observableModal={1} isShelter={true} forgotPassword={true}/>}
             {isCover && <Cover callback={onClose}/>}
 
         </>

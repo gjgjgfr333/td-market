@@ -3,6 +3,7 @@ export interface IDeliveryPoint {
     address: string;
     shopName?: string;
     notes?: string;
+    _id?: string
 }
 
 export interface IDeliveryPoint2 {

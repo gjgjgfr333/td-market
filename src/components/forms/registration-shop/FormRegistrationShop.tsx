@@ -7,7 +7,7 @@ import InputFile from "../../inputs/input-file/InputFile";
 import DeliveryPointsForm from "./DeliveryPointsForm";
 import {IDeliveryPoint} from "../../../models/IDeliveryPoint";
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
-import {registrationShelter} from "../../../store/reducers/shelter/ShelterCreator";
+import {registrationShelter, updateShopShelter} from "../../../store/reducers/shelter/ShelterCreator";
 import {IShelterRes, IShelterShop} from "../../../models/response/IShelter";
 import {useNavigate} from "react-router-dom";
 import {shelterSlice} from "../../../store/reducers/shelter/ShelterSlice";
@@ -15,7 +15,7 @@ import {shelterSlice} from "../../../store/reducers/shelter/ShelterSlice";
 const FormRegistrationShop = ({shelter}: {shelter: IShelterRes | null}) => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate();
-    const isRegistered = useAppSelector(state => state.shelterReducer.isRegistered)
+    const {isRegistered, isUpdateShopShelter} = useAppSelector(state => state.shelterReducer)
     const {
         register,
         handleSubmit,
@@ -38,16 +38,37 @@ const FormRegistrationShop = ({shelter}: {shelter: IShelterRes | null}) => {
                 nameMarket: shelter.shop.nameMarket,
                 description: shelter.shop.description
             })
+            setDeliveryPoints(shelter.deliveryPoints)
         }
-        console.log('shelter', shelter)
     }, [reset, shelter])
 
     useEffect(() => {
         if (isRegistered) {
-            navigate('/shelter')
             dispatch(shelterSlice.actions.setIsRegistered(false))
+            navigate('/shelter')
         }
     }, [dispatch, isRegistered, navigate])
+
+    useEffect(() => {
+        if (isUpdateShopShelter) {
+            dispatch(shelterSlice.actions.updateShopShelter(false))
+            navigate('/shelter')
+        }
+    }, [dispatch, isUpdateShopShelter, navigate])
+    
+    const onUpdate: SubmitHandler<IShelterShop> = async (data) => {
+        if (shelter) {
+            dispatch(
+                updateShopShelter(
+                    shelter._id,
+                    data,
+                    deliveryPoints,
+                    imageShop || shelter?.imageShop
+                )
+            )
+        }
+
+    }
 
     const onSubmit: SubmitHandler<IShelterShop> = (data) => {
         const shelter = localStorage.getItem('shelter');
@@ -83,7 +104,6 @@ const FormRegistrationShop = ({shelter}: {shelter: IShelterRes | null}) => {
 
                                 const fileScan = new File([blob], 'filename.png', { type: 'image/png' });
                                 if (shelter && shelterData && imageShop && deliveryPoints.length) {
-                                    console.log('deliveryPoints onSubmit', deliveryPoints)
                                     dispatch(
                                         registrationShelter(
                                             {
@@ -147,7 +167,10 @@ const FormRegistrationShop = ({shelter}: {shelter: IShelterRes | null}) => {
                     shopImage={shelter?.imageShop ? shelter.imageShop : null}/>
             </fieldset>
             <DeliveryPointsForm deliveryPoints={deliveryPoints} setDeliveryPoints={setDeliveryPoints}/>
-            <button className={'button button_dark form-shop__save'} type={'submit'} onClick={handleSubmit(onSubmit)}>
+            <button
+                className={'button button_dark form-shop__save'}
+                type={'submit'}
+                onClick={handleSubmit(shelter ? onUpdate : onSubmit)}>
                 Сохранить и приступить к работе
             </button>
         </div>

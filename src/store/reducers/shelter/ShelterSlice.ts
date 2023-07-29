@@ -18,7 +18,8 @@ const initialState = {
     accessToken: getAccessTokenShelter(),
     isHoverTools: false,
     isUpdateCard: false,
-    deliveryPoints: [] as IDeliveryPoint2[]
+    deliveryPoints: [] as IDeliveryPoint2[],
+    isUpdateShopShelter: false
 }
 
 export const shelterSlice = createSlice({
@@ -120,6 +121,9 @@ export const shelterSlice = createSlice({
         },
         updateCardFalse:  (state) => {
             state.isUpdateCard = false
+        },
+        updateShopShelter: (state, action: PayloadAction<boolean>) => {
+            state.isUpdateShopShelter = action.payload
         },
     }
 })
