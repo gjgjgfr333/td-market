@@ -124,8 +124,8 @@ const ShelterCard = ({card, onDelete, selectedStatus}: IProps) => {
                 {card.information.name}
             </h4>
             <div className={'shelter-card__category'}>
-                {card.categories.category.name}/ {card.categories.subcategory.name}/ {
-                card.categories.section.id && card.categories.section.name
+                {card.categories.category?.name}/ {card.categories.subcategory?.name}/ {
+                card.categories.section?.id && card.categories.section?.name
             }
             </div>
             <div className={'shelter-card__price'}>

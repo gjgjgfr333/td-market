@@ -26,7 +26,8 @@ export interface IShelterRes {
     imageShop: string,
     shop: IShelterShop,
     deliveryPoints: IDeliveryPoint2[],
-    isVerified: boolean
+    isVerified: boolean,
+    createdAt: Date
 }
 
 export interface IShelterData {
