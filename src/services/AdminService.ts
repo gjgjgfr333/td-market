@@ -10,4 +10,8 @@ export class AdminService {
     static async agreementShelter(id: string): Promise<AxiosResponse<boolean>> {
         return $api.get<boolean>(`/admin/agreement-shelter/${id}`)
     }
+
+    static async createNotification(id: string, text: string): Promise<AxiosResponse<boolean>> {
+        return $api.get<boolean>(`/admin/create-notification/${id}/?text=${text}`);
+    }
 }

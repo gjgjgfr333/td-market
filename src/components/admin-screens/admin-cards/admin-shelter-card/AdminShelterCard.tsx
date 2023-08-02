@@ -1,16 +1,38 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './admin-shelter-card.scss'
 import {IShelterRes} from "../../../../models/response/IShelter";
 import {API_URL} from "../../../../http";
 import {AdminService} from "../../../../services/AdminService";
+import AdminModal from "../../modal/AdminModal";
+import Cover from "../../../cover/Cover";
 
 const AdminShelterCard = ({shelter, onDelete}: {shelter: IShelterRes, onDelete: (id: string) => void}) => {
+    const [isOpenModal, setIsOpenModal] = useState(false)
+    const [rejectText, setRejectText] = useState('')
+
     const onAgreement = async (id: string) => {
         const response = await AdminService.agreementShelter(id)
-        if (response.data) {
+        const responseNotification = await AdminService.createNotification(
+            id,
+            'Ваш аккаунт был проверен'
+        )
+        if (response.data && responseNotification.data) {
             onDelete(id)
         }
-        console.log('response', response)
+    }
+
+    const onReject = async () => {
+        setIsOpenModal(true)
+        if (!rejectText) return
+
+        const response = await AdminService.agreementShelter(shelter._id)
+        const responseNotification = await AdminService.createNotification(
+            shelter._id,
+            rejectText
+        )
+        if (response.data && responseNotification.data) {
+            onDelete(shelter._id)
+        }
     }
 
     return (
@@ -72,7 +94,7 @@ const AdminShelterCard = ({shelter, onDelete}: {shelter: IShelterRes, onDelete: 
             <p>Описание магазина: {shelter.shop.description}</p>
             {shelter.deliveryPoints.length > 0 && <p>Пункты выдачи</p>}
             {shelter.deliveryPoints.map(point => (
-                <div className={'admin-shelter-card__flex'}>
+                <div className={'admin-shelter-card__flex'} key={point._id}>
                     <p>Город, населенный пункт: {point?.city}</p>
                     <p>Адрес: {point?.address}</p>
                     {point?.shopName && point?.shopName?.length > 0 && <p>Название магазина, торгового центра, рынка: {point?.shopName}</p>}
@@ -86,9 +108,15 @@ const AdminShelterCard = ({shelter, onDelete}: {shelter: IShelterRes, onDelete: 
                 </div>
                 <div className={'admin-shelter-card__buttons'}>
                     <img src="/images/svg/admin/agreement.svg" alt="Принять" onClick={() => onAgreement(shelter._id)}/>
-                    <img src="/images/svg/admin/refusal.svg" alt="Отклонить"/>
+                    <img src="/images/svg/admin/refusal.svg" alt="Отклонить" onClick={onReject}/>
                 </div>
             </div>
+            {isOpenModal && <Cover callback={() => setIsOpenModal(false)}/>}
+            {isOpenModal && <AdminModal
+                rejectText={rejectText}
+                setRejectText={setRejectText}
+                onReject={onReject}
+            />}
         </div>
     );
 };
