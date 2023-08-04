@@ -1,0 +1,14 @@
+@import "src/styles/constants";
+
+.notification {
+  border: 1px solid $text3CColor;
+  border-radius: 16px;
+  padding: 20px 8px 20px 16px;
+  color: $title2Color;
+
+  &__message {
+    font-size: $littleMediumSize;
+    leading-trim: both;
+    text-edge: cap;
+  }
+}

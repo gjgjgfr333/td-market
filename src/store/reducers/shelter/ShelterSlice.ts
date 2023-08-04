@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IMainShelter, IShelterRes} from "../../../models/response/IShelter";
+import {IMainShelter, IShelterALL, IShelterRes} from "../../../models/response/IShelter";
 import {getAccessTokenShelter, removeAccessTokenShelter} from "../../../utils/tokens";
 import {IDeliveryPoint2} from "../../../models/IDeliveryPoint";
 
@@ -7,6 +7,7 @@ const initialState = {
     shelter: {
 
     } as IShelterRes,
+    unreadCount: 0,
     isAuth: false,
     isLoading: false,
     activationCode: '',
@@ -71,6 +72,12 @@ export const shelterSlice = createSlice({
         setShelter: (state, action: PayloadAction<IShelterRes>) => {
             state.shelter = action.payload
         },
+
+        setShelterAll: (state, action: PayloadAction<IShelterALL>) => {
+            state.shelter = action.payload.shelter
+            state.unreadCount = action.payload.unreadCount
+        },
+
 
         setEmailShelter: (state, action: PayloadAction<string>) => {
             state.shelter.email = action.payload

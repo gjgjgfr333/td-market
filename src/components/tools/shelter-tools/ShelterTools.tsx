@@ -11,16 +11,20 @@ import {API_URL} from "../../../http";
 import ModalLogin from "../../modals/modal-login/ModalLogin";
 import {userSlice} from "../../../store/reducers/user/UserSlice";
 import {sendCodeShelter} from "../../../store/reducers/shelter/ShelterCreator";
+import {ShelterService} from "../../../services/ShelterService";
+import {INotification} from "../../../models/INotification";
+import NotificationCard from "../../notifications/NotificationCard";
 
 const ShelterTools = () => {
     const navigation = useNavigate()
     const dispatch = useAppDispatch()
     const {isUserModal} = useAppSelector(state => state.userReducer)
-    const {shelter, isHoverTools} = useAppSelector(state => state.shelterReducer)
+    const {shelter, isHoverTools, unreadCount} = useAppSelector(state => state.shelterReducer)
     const {setLogoutSuccess} = shelterSlice.actions
     const {changeIsUserModal} = userSlice.actions
     const [isCover, setIsCover] = useState(false)
     const [activeNotification, setActiveNotification] = useState(0)
+    const [notifications, setNotifications] = useState<INotification[]>([])
 
     const onMouseLeave = () => {
         if (!isCover) dispatch(shelterSlice.actions.setIsHoverTools(false))
@@ -31,8 +35,11 @@ const ShelterTools = () => {
         setIsCover(false)
     }
 
-    const onClickNotifications = () => {
+    const onClickNotifications = async () => {
         setIsCover(true)
+        const response = await ShelterService.getNotificationsOfShelter()
+        console.log('response', response.data)
+        setNotifications(response.data)
     }
 
     const onPersonalData = () => {
@@ -73,6 +80,7 @@ const ShelterTools = () => {
                             <div className={'shelter-link'} onClick={onClickNotifications}>
                                 <img src="/images/svg/bell.svg" alt="Уведомления"/>
                                 <span>Уведомления</span>
+                                {unreadCount && <div className={'unread'}/>}
                             </div>
                         </div>
                     }
@@ -95,6 +103,7 @@ const ShelterTools = () => {
                     <div className={'shelter-link'} onClick={onClickNotifications}>
                         <img src="/images/svg/bell.svg" alt="Уведомления"/>
                         <span>Уведомления</span>
+                        {unreadCount && <div className={'unread'}/>}
                     </div>
                     <div className={'shelter-link'} onClick={onPersonalData}>
                         <img src="/images/svg/personal-data.svg" alt="Личные данные"/>
@@ -114,41 +123,50 @@ const ShelterTools = () => {
                     </div>
                 </div>}
                 {isCover &&
-                    <div className={'notifications__tabs'}>
-                        <div
-                            className={`notifications-item ${activeNotification === 0 && 'active'}`}
-                            onClick={() => setActiveNotification(0)}
-                        >
-                            <div>
-                                <NotificationSvg/>
-                            </div>
-                            <span className={'notifications-item__text'}>
+                    <>
+                        <div className={'notifications__tabs'}>
+                            <div
+                                className={`notifications-item ${activeNotification === 0 && 'active'}`}
+                                onClick={() => setActiveNotification(0)}
+                            >
+                                <div>
+                                    <NotificationSvg/>
+                                </div>
+                                <span className={'notifications-item__text'}>
                                 Уведомления<br/>от td-market
                             </span>
-                        </div>
-                        <div
-                            className={`notifications-item ${activeNotification === 1 && 'active'}`}
-                            onClick={() => setActiveNotification(1)}
-                        >
-                            <div>
-                                <TechnicalSupportSvg/>
+                                {unreadCount && <div className={'unread'}/>}
                             </div>
-                            <span className={'notifications-item__text'}>
+                            <div
+                                className={`notifications-item ${activeNotification === 1 && 'active'}`}
+                                onClick={() => setActiveNotification(1)}
+                            >
+                                <div>
+                                    <TechnicalSupportSvg/>
+                                </div>
+                                <span className={'notifications-item__text'}>
                                 Общение<br/>с покупателем
                             </span>
-                        </div>
-                        <div
-                            className={`notifications-item ${activeNotification === 2 && 'active'}`}
-                            onClick={() => setActiveNotification(2)}
-                        >
-                            <div>
-                                <CommunicationSvg/>
                             </div>
-                            <span className={'notifications-item__text'}>
+                            <div
+                                className={`notifications-item ${activeNotification === 2 && 'active'}`}
+                                onClick={() => setActiveNotification(2)}
+                            >
+                                <div>
+                                    <CommunicationSvg/>
+                                </div>
+                                <span className={'notifications-item__text'}>
                                 Общение<br/>с тех.поддержкой
                             </span>
+                            </div>
                         </div>
-                    </div>
+                        <div className={'notifications-wrapper'}>
+                            {notifications.map(notification => (
+                                <NotificationCard notification={notification} key={notification._id}/>
+                            ))}
+                        </div>
+                    </>
+
                 }
             </div>
             {isUserModal && <ModalLogin observableModal={1} isShelter={true} forgotPassword={true}/>}

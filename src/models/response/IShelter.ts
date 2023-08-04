@@ -30,6 +30,11 @@ export interface IShelterRes {
     createdAt: Date
 }
 
+export interface IShelterALL {
+    shelter: IShelterRes,
+    unreadCount: number
+}
+
 export interface IShelterData {
     personalData: IPersonalData,
     closePerson: IClosePerson,

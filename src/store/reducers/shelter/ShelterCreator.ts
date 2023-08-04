@@ -238,7 +238,8 @@ export const getShelter = () => async (dispatch: AppDispatch) => {
     try {
         const response = await ShelterService.getShelter()
         // console.log('response.data', response.data)
-        dispatch(shelterSlice.actions.setShelter(response.data))
+        console.log('response', response.data)
+        dispatch(shelterSlice.actions.setShelterAll(response.data))
     } catch (e) {
         console.log('e', e)
     }
