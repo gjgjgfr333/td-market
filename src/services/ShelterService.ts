@@ -42,6 +42,16 @@ export class ShelterService {
         return $apiShelter.get(`shelters/notifications`)
     }
 
+    static readNotificationsOfShelter(): Promise<AxiosResponse<boolean>> {
+        return $apiShelter.get(`shelters/read-notifications`)
+    }
+
+    static deleteNotificationsOfShelter(deleteNotifications: string[]): Promise<AxiosResponse<boolean>> {
+        return $apiShelter.delete(`shelters/notifications`, {
+            data: deleteNotifications
+        })
+    }
+
     static deleteCard(id: string): Promise<AxiosResponse<IProductCard>> {
         return $apiShelter.delete(`product-cards/${id}`)
     }

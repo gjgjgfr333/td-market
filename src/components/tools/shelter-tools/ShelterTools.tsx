@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './shelter-tools.scss'
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
@@ -20,15 +20,32 @@ const ShelterTools = () => {
     const dispatch = useAppDispatch()
     const {isUserModal} = useAppSelector(state => state.userReducer)
     const {shelter, isHoverTools, unreadCount} = useAppSelector(state => state.shelterReducer)
-    const {setLogoutSuccess} = shelterSlice.actions
+    const {setLogoutSuccess, setReadNotifications} = shelterSlice.actions
     const {changeIsUserModal} = userSlice.actions
     const [isCover, setIsCover] = useState(false)
     const [activeNotification, setActiveNotification] = useState(0)
     const [notifications, setNotifications] = useState<INotification[]>([])
+    const [removeNotifications, setRemoveNotifications] = useState<string[]>([])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                if (!isCover && removeNotifications.length > 0) {
+                    const response = await ShelterService.deleteNotificationsOfShelter(removeNotifications)
+                    if (response.data) setRemoveNotifications([])
+                }
+            } catch (error) {
+                console.error('Ошибка при удалении уведомлений:', error);
+            }
+        };
+
+        fetchData();
+    }, [removeNotifications, isCover]);
 
     const onMouseLeave = () => {
         if (!isCover) dispatch(shelterSlice.actions.setIsHoverTools(false))
     }
+
 
     const onClose = () => {
         dispatch(shelterSlice.actions.setIsHoverTools(false))
@@ -38,8 +55,11 @@ const ShelterTools = () => {
     const onClickNotifications = async () => {
         setIsCover(true)
         const response = await ShelterService.getNotificationsOfShelter()
-        console.log('response', response.data)
         setNotifications(response.data)
+        const readNotifications = await ShelterService.readNotificationsOfShelter()
+        if (readNotifications.data) {
+            dispatch(setReadNotifications)
+        }
     }
 
     const onPersonalData = () => {
@@ -80,7 +100,7 @@ const ShelterTools = () => {
                             <div className={'shelter-link'} onClick={onClickNotifications}>
                                 <img src="/images/svg/bell.svg" alt="Уведомления"/>
                                 <span>Уведомления</span>
-                                {unreadCount && <div className={'unread'}/>}
+                                {unreadCount > 0 && <div className={'unread'}/>}
                             </div>
                         </div>
                     }
@@ -103,7 +123,7 @@ const ShelterTools = () => {
                     <div className={'shelter-link'} onClick={onClickNotifications}>
                         <img src="/images/svg/bell.svg" alt="Уведомления"/>
                         <span>Уведомления</span>
-                        {unreadCount && <div className={'unread'}/>}
+                        {unreadCount > 0 && <div className={'unread'}/>}
                     </div>
                     <div className={'shelter-link'} onClick={onPersonalData}>
                         <img src="/images/svg/personal-data.svg" alt="Личные данные"/>
@@ -135,7 +155,7 @@ const ShelterTools = () => {
                                 <span className={'notifications-item__text'}>
                                 Уведомления<br/>от td-market
                             </span>
-                                {unreadCount && <div className={'unread'}/>}
+                                {unreadCount > 0 && <div className={'unread'}/>}
                             </div>
                             <div
                                 className={`notifications-item ${activeNotification === 1 && 'active'}`}
@@ -162,7 +182,10 @@ const ShelterTools = () => {
                         </div>
                         <div className={'notifications-wrapper'}>
                             {notifications.map(notification => (
-                                <NotificationCard notification={notification} key={notification._id}/>
+                                <NotificationCard
+                                    notification={notification}
+                                    key={notification._id}
+                                    setRemoveNotifications={setRemoveNotifications}/>
                             ))}
                         </div>
                     </>

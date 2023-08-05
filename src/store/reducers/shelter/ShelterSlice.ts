@@ -78,6 +78,9 @@ export const shelterSlice = createSlice({
             state.unreadCount = action.payload.unreadCount
         },
 
+        setReadNotifications: (state) => {
+            state.unreadCount = 0
+        },
 
         setEmailShelter: (state, action: PayloadAction<string>) => {
             state.shelter.email = action.payload
